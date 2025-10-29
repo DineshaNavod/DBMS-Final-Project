@@ -89,3 +89,17 @@ INSERT INTO timetable (session_id, session_date, type, duration, lec_hall, c_cod
 ('S09', 'Thursday', 'PRACTICAL', '14:00:00', 'ICT Lab 11', ICT1222),
 ('S10', 'Friday', 'THEORY', '08:00:00', 'ILT', TCS1212),
 ('S11', 'Friday', 'THEORY', '13:00:00', 'ICT Hardwa', ENG1222);
+
+create table Assesment_marks(
+    m_id varchar(8) not null primary key,
+    is_CA ENUM('YES', 'NO') NOT NULL DEFAULT 'YES',
+    Assesment_marks decimal(5,2) not null,
+    foreign key(m_id) references marks(m_id),
+    CHECK (Assesment_marks >= 0 AND Assesment_marks <= 100)
+);
+
+ALTER TABLE assesment_marks
+ADD COLUMN c_code VARCHAR(8);
+
+ALTER TABLE assesment_marks
+ADD COLUMN reg_no VARCHAR(8);
