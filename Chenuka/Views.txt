@@ -24,3 +24,20 @@ JOIN course_unit c ON fg.c_code = c.c_code
 WHERE fg.status IN ('proper','both repeat','suspended')
   AND c.c_code <> 'ENG1222' -- exclude ENG1222
 GROUP BY fg.reg_no;
+CREATE OR REPLACE VIEW proper_end_marks_view AS
+SELECT
+    reg_no,
+    c_code,
+    CASE
+        WHEN c_code = 'ENG1222' AND theory > 35 THEN 'PASS'
+        WHEN c_code = 'ICT1212' AND theory > 35 THEN 'PASS'
+        WHEN c_code = 'ICT1222' AND practical > 35 THEN 'PASS'
+        WHEN c_code = 'ICT1233' AND ((theory + practical)/2) > 35 THEN 'PASS'
+        WHEN c_code = 'ICT1242' AND theory > 35 THEN 'PASS'
+        WHEN c_code = 'ICT1253' AND ((theory + practical)/2) > 35 THEN 'PASS'
+        WHEN c_code = 'TCS1212' AND theory > 35 THEN 'PASS'
+        WHEN c_code = 'TMS1233' AND theory > 35 THEN 'PASS'
+        ELSE 'FAIL'
+    END AS end_result
+FROM end_marks
+WHERE status='proper';
