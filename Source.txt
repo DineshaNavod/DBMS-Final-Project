@@ -543,3 +543,37 @@ ADD COLUMN c_code VARCHAR(8);
 
 ALTER TABLE quiz_marks
 ADD COLUMN reg_no VARCHAR(8);
+
+-- Commit: Insert end-exam mark records (two dates) into marks table
+
+-- 2025-12-08
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status) VALUES
+('M112', '2025-12-08', 'TCH/1003', 'NO', 'proper'),
+('M120', '2025-12-08', 'TCH/1001', 'NO', 'proper'),
+('M128', '2025-12-08', 'TCH/1005', 'NO', 'proper'),
+('M136', '2025-12-08', 'TCH/1008', 'NO', 'proper'),
+('M144', '2025-12-08', 'TCH/1013', 'NO', 'End Repeat'),
+('M152', '2025-12-08', 'TCH/1007', 'NO', 'proper'),
+('M160', '2025-12-08', 'TCH/1002', 'NO', 'proper'),
+('M168', '2025-12-08', 'TCH/1004', 'NO', 'proper'),
+('M176', '2025-12-08', 'TCH/1010', 'NO', 'proper'),
+('M184', '2025-12-08', 'TCH/1006', 'NO', 'proper'),
+('M192', '2025-12-08', 'TCH/1015', 'NO', 'End Repeat'),
+('M200', '2025-12-08', 'TCH/1009', 'NO', 'proper'),
+('M416', '2025-12-08', 'TCH/1011', 'NO', 'Both repeat');
+
+-- 2025-12-05
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status) VALUES
+('M111', '2025-12-05', 'TCH/1003', 'NO', 'proper'),
+('M119', '2025-12-05', 'TCH/1001', 'NO', 'proper'),
+('M127', '2025-12-05', 'TCH/1005', 'NO', 'proper'),
+('M135', '2025-12-05', 'TCH/1008', 'NO', 'proper'),
+('M143', '2025-12-05', 'TCH/1013', 'NO', 'End Repeat'),
+('M151', '2025-12-05', 'TCH/1007', 'NO', 'proper'),
+('M159', '2025-12-05', 'TCH/1002', 'NO', 'proper'),
+('M167', '2025-12-05', 'TCH/1004', 'NO', 'proper'),
+('M175', '2025-12-05', 'TCH/1010', 'NO', 'proper'),
+('M183', '2025-12-05', 'TCH/1006', 'NO', 'proper'),
+('M191', '2025-12-05', 'TCH/1015', 'NO', 'End Repeat'),
+('M199', '2025-12-05', 'TCH/1009', 'NO', 'proper'),
+('M415', '2025-12-05', 'TCH/1011', 'NO', 'Both repeat');
