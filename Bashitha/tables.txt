@@ -549,3 +549,13 @@ INSERT INTO end_marks (m_id, theory, practical, status, reg_no, c_code) VALUES
 ('M198', 69.78, 54.12, 'proper', 'TCH/1009', 'ICT1253'),
 ('M199', 82.34, 0.00, 'proper', 'TCH/1009', 'TCS1212'),
 ('M200', 60.56, 0.00, 'proper', 'TCH/1009', 'TMS1233');
+
+INSERT INTO end_marks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M409', 58.23, 0.00, 'repeat', 'TCH/1011', 'ENG1222'),
+('M410', 74.45, 0.00, 'repeat', 'TCH/1011', 'ICT1212'),
+('M411', 0.00, 80.67, 'repeat', 'TCH/1011', 'ICT1222'),
+('M412', 61.89, 56.78, 'repeat', 'TCH/1011', 'ICT1233'),
+('M413', 69.34, 0.00, 'repeat', 'TCH/1011', 'ICT1242'),
+('M414', 81.23, 70.12, 'repeat', 'TCH/1011', 'ICT1253'),
+('M415', 84.56, 0.00, 'repeat', 'TCH/1011', 'TCS1212'),
+('M416', 53.78, 0.00, 'repeat', 'TCH/1011', 'TMS1233');
