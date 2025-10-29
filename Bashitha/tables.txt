@@ -1,1 +1,12 @@
-jhnjjkjk
+create table student(
+    Reg_no char(8) not null primary key,
+    status ENUM('PROPER', 'REPEAT', 'SUSPENDED') NOT NULL DEFAULT 'PROPER',
+    session_id varchar(8),
+    b_id varchar(8),
+    m_id varchar(8),
+    foreign key(Reg_no) references user(user_id),
+    foreign key(session_id) references timetable(session_id),
+    foreign key(b_id) references batch(b_id),
+    foreign key(m_id) references marks(m_id)
+
+);
