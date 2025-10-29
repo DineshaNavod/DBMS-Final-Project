@@ -2429,3 +2429,7 @@ update attendence
 set session_no="ENG1222(01)-W01"
 where session_no like("ENG1222");
 
+update attendence
+set status='present',change_status='present'
+where att_id='A781';
+
