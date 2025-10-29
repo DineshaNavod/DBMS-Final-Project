@@ -529,3 +529,10 @@ ADD COLUMN c_code VARCHAR(8);
 
 ALTER TABLE end_marks
 ADD COLUMN reg_no VARCHAR(8);
+
+-- Commit: Add c_code and reg_no columns to assesment_marks
+ALTER TABLE assesment_marks
+ADD COLUMN c_code VARCHAR(8);
+
+ALTER TABLE assesment_marks
+ADD COLUMN reg_no VARCHAR(8);
