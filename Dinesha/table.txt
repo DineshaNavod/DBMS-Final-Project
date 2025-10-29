@@ -217,5 +217,18 @@ create table attendence(
     foreign key(session_id) references timetable(session_id)
 );
 
+//alter change attendence
+
+alter table attendence
+add column change_status enum('absent','Present') not null Default 'present' after status;
+
+update attendence
+set change_status=status;
+
+alter table attendence
+add column Is_medical_affect ENUM("yes","no") not null Default "no" after change_status;
+
+alter table attendence
+drop column Is_medical_affect;
 
 
