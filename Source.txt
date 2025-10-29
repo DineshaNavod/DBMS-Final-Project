@@ -948,3 +948,13 @@ CREATE TABLE q2_marks (
     reg_no VARCHAR(8),
     PRIMARY KEY (m_id)
 );
+
+-- Creating table q3_marks
+CREATE TABLE q3_marks (
+    m_id VARCHAR(8) NOT NULL,
+    Q3 DECIMAL(5,2) NOT NULL,
+    status ENUM('proper', 'repeat') NOT NULL DEFAULT 'proper',
+    c_code VARCHAR(8),
+    reg_no VARCHAR(8),
+    PRIMARY KEY (m_id)
+);
