@@ -536,3 +536,10 @@ ADD COLUMN c_code VARCHAR(8);
 
 ALTER TABLE assesment_marks
 ADD COLUMN reg_no VARCHAR(8);
+
+-- Commit: Add c_code and reg_no columns to quiz_marks
+ALTER TABLE quiz_marks
+ADD COLUMN c_code VARCHAR(8);
+
+ALTER TABLE quiz_marks
+ADD COLUMN reg_no VARCHAR(8);
