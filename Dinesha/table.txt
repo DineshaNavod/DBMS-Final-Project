@@ -2102,3 +2102,24 @@ create table medical(
     foreign key(session_id) references timetable(session_id)
 
 );
+
+INSERT INTO medical (medical_id, c_code, reg_no, submission_date, description, affectted_date, session_id, status) VALUES
+("med01","ICT1233","TCH/1001","2025-11-20","Fever and mild headache; advised rest for a few days. Patient reported fatigue and body aches.","2025-10-20","S02","approved"),
+("med02","ICT1233","TCH/1001","2025-11-20","Fever and mild headache; advised rest for a few days. Patient reported fatigue and body aches.","2025-11-17","S02","approved"),
+
+("med03","TMS1233","TCH/1003","2025-11-10","High fever and sore throat; prescribed medication for recovery. Doctor recommended staying home to avoid infection.","2025-09-17","S06","approved"),
+("med04","TMS1233","TCH/1003","2025-11-10","High fever and sore throat; prescribed medication for recovery. Doctor recommended staying home to avoid infection.","2025-11-05","S06","approved"),
+
+("med05","ICT1233","TCH/1001","2025-10-13","Mild cold and fever; patient was advised to hydrate and rest. Slight cough observed.","2025-11-17","S02","not approved"),
+("med06","ICT1233","TCH/1001","2025-10-13","Mild cold and fever; patient was advised to hydrate and rest. Slight cough observed.","2025-10-20","S02","not approved"),
+
+("med07","ICT1253","TCH/1004","2025-10-13","Stomach upset with fever; instructed on dietary restrictions. Symptoms expected to resolve in a few days.","2025-09-23","S03","approved"),
+("med08","ICT1253","TCH/1004","2025-10-13","Stomach upset with fever; instructed on dietary restrictions. Symptoms expected to resolve in a few days.","2025-10-07","S03","approved"),
+
+("med09","TCS1212","TCH/1005","2025-11-13","Fever with mild body pain; patient requested rest for recovery. Advised to avoid strenuous activities.","2025-10-10","S10","approved"),
+("med10","TCS1212","TCH/1005","2025-11-13","Fever with mild body pain; patient requested rest for recovery. Advised to avoid strenuous activities.","2025-11-07","S10","approved"),
+
+("med11","ICT1242","TCH/1007","2025-12-03","Severe fever and fatigue; doctor suggested a short leave from classes. Patient monitored for dehydration.","2025-12-02","S05","approved"),
+("med12","ICT1242","TCH/1007","2025-12-03","Severe fever and fatigue; doctor suggested a short leave from classes. Patient monitored for dehydration.","2025-11-18","S05","approved"),
+
+("med13","ICT1242","TCH/1007","2025-12-03","Mild fever and headache; recommended rest and over-the-counter medication. Symptoms not severe.","2025-11-04","S05","not approved");
