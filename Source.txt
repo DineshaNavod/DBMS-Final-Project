@@ -2329,3 +2329,13 @@ VALUES
 ("M35",'2025-10-01','TCH/1003','YES','proper')
 ;
 
+create table medical_for_exam(
+  medical_id varchar(5) not null primary key,
+  c_code varchar(20) not null,
+  reg_no varchar(20) not null,
+  submission_date date not null,
+  description text,
+  marks_type enum("q1_marks",'q2_marks','q3_marks','assesment_marks','mid_masks','end_marks') not null,
+  status enum("pending",'approved','not approved') not null Default 'pending'
+);
+
