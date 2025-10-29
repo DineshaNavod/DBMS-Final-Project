@@ -369,3 +369,39 @@ INSERT INTO assesment_marks (m_id, Assesment_marks, status) VALUES
 
 -- CAdd c_code column to mid_masks table
 ALTER TABLE mid_masks ADD COLUMN c_code VARCHAR(8);
+
+-- Commit: Insert mid-term marks for repeat students (TCH/1014, TCH/1012, TCH/1011)
+
+-- TCH/1014 (M01 → M08)
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M01', 78.50, NULL, 'repeat', 'TCH/1014', 'ENG1222'),
+('M02', 82.00, NULL, 'repeat', 'TCH/1014', 'ICT1212'),
+('M03', NULL, 75.50, 'repeat', 'TCH/1014', 'ICT1222'),
+('M04', 80.25, 72.00, 'repeat', 'TCH/1014', 'ICT1233'),
+('M05', 77.00, NULL, 'repeat', 'TCH/1014', 'ICT1242'),
+('M06', 79.50, 70.00, 'repeat', 'TCH/1014', 'ICT1253'),
+('M07', 81.00, NULL, 'repeat', 'TCH/1014', 'TCS1212'),
+('M08', 75.25, NULL, 'repeat', 'TCH/1014', 'TMS1233');
+
+-- TCH/1012 (M09 → M16)
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M09', 65.50, NULL, 'repeat', 'TCH/1012', 'ENG1222'),
+('M10', 70.00, NULL, 'repeat', 'TCH/1012', 'ICT1212'),
+('M11', NULL, 68.25, 'repeat', 'TCH/1012', 'ICT1222'),
+('M12', 72.00, 75.50, 'repeat', 'TCH/1012', 'ICT1233'),
+('M13', 68.75, NULL, 'repeat', 'TCH/1012', 'ICT1242'),
+('M14', 71.50, 70.25, 'repeat', 'TCH/1012', 'ICT1253'),
+('M15', 69.00, NULL, 'repeat', 'TCH/1012', 'TCS1212'),
+('M16', 66.25, NULL, 'repeat', 'TCH/1012', 'TMS1233');
+
+-- TCH/1011 (M17 → M24)
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M17', 55.75, NULL, 'repeat', 'TCH/1011', 'ENG1222'),
+('M18', 60.00, NULL, 'repeat', 'TCH/1011', 'ICT1212'),
+('M19', NULL, 58.50, 'repeat', 'TCH/1011', 'ICT1222'),
+('M20', 62.25, 65.00, 'repeat', 'TCH/1011', 'ICT1233'),
+('M21', 59.50, NULL, 'repeat', 'TCH/1011', 'ICT1242'),
+('M22', 61.75, 63.25, 'repeat', 'TCH/1011', 'ICT1253'),
+('M23', 58.25, NULL, 'repeat', 'TCH/1011', 'TCS1212'),
+('M24', 57.50, NULL, 'repeat', 'TCH/1011', 'TMS1233');
+
