@@ -47,3 +47,13 @@ INSERT INTO student (Reg_no, status, b_id) VALUES
 ('TCH/1018', 'SUSPENDED', 'B08'),
 ('TCH/1019', 'SUSPENDED', 'B08'),
 ('TCH/1020', 'SUSPENDED', 'B08');
+
+create  table timetable(
+    session_id varchar(8) not null primary key,
+    session_no int not null,
+    session_date date not null,
+    type ENUM('PRACTICAL', 'THEORY') NOT NULL DEFAULT 'THEORY',
+    duration time not null,
+    lec_hall varchar(10) not null,
+    c_code varchar(8)
+);
