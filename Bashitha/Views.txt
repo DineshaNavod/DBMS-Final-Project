@@ -1,1 +1,146 @@
+CREATE OR REPLACE VIEW final_grades AS
+SELECT 
+    sub.*,
 
+    CASE 
+        WHEN sub.q1 = 'WH' OR sub.q2 = 'WH' OR sub.q3 = 'WH' 
+             OR sub.mid_theory = 'WH' OR sub.mid_practical = 'WH' 
+             OR sub.assessment = 'WH' THEN 'WH'
+             
+        WHEN sub.q1 = 'MC' OR sub.q2 = 'MC' OR sub.q3 = 'MC' 
+             OR sub.mid_theory = 'MC' OR sub.mid_practical = 'MC' 
+             OR sub.assessment = 'MC' OR sub.end_theory = 'MC' OR sub.end_practical = 'MC' THEN 'MC'
+             
+        WHEN LOWER(sub.status) = 'both repeat' THEN
+            CASE
+                WHEN sub.final_marks >= 45 THEN 'C'
+                WHEN sub.final_marks < 45 AND sub.final_marks >= 40 THEN 'C-'
+                WHEN sub.final_marks < 40 AND sub.final_marks >= 35 THEN 'D'
+                ELSE 'E'
+            END
+            
+        ELSE -- proper students or suspended
+            CASE
+                WHEN sub.final_marks >= 85 THEN 'A+'
+                WHEN sub.final_marks >= 75 THEN 'A'
+                WHEN sub.final_marks >= 70 THEN 'A-'
+                WHEN sub.final_marks >= 65 THEN 'B+'
+                WHEN sub.final_marks >= 60 THEN 'B'
+                WHEN sub.final_marks >= 55 THEN 'B-'
+                WHEN sub.final_marks >= 50 THEN 'C+'
+                WHEN sub.final_marks >= 45 THEN 'C'
+                WHEN sub.final_marks >= 40 THEN 'C-'
+                WHEN sub.final_marks >= 35 THEN 'D'
+                ELSE 'E'
+            END
+    END AS grade
+
+FROM
+(
+    SELECT 
+        q1.reg_no,
+        q1.c_code,
+
+        CASE 
+            WHEN q1.q1 = 'WH' OR q2.q2 = 'WH' OR q3.q3 = 'WH' 
+                 OR m.theory = 'WH' OR m.practical = 'WH' 
+                 OR a.Assesment_marks = 'WH' THEN 'suspended'
+            ELSE mk.st_status
+        END AS status,
+
+        q1.q1,
+        q2.q2,
+        q3.q3,
+        a.Assesment_marks AS assessment,
+        m.theory AS mid_theory,
+        m.practical AS mid_practical,
+        e.theory AS end_theory,
+        e.practical AS end_practical,
+
+        ROUND(
+        CASE 
+            WHEN q1.c_code IN ('ICT1242','TCS1212','ICT1212','ENG1222',
+                               'TMS1233','ICT1222','ICT1233','ICT1253') THEN 
+                (((q1.q1 + q2.q2 + q3.q3) - LEAST(q1.q1, q2.q2, q3.q3)) / 2) * 0.1
+            ELSE 0
+        END, 2) AS quiz_component,
+
+        ROUND(
+        CASE 
+            WHEN q1.c_code IN ('ICT1242','TCS1212','ICT1212','ENG1222') THEN m.theory * 0.15
+            WHEN q1.c_code = 'TMS1233' THEN m.theory * 0.25
+            WHEN q1.c_code = 'ICT1222' THEN m.practical * 0.25
+            WHEN q1.c_code IN ('ICT1233','ICT1253') THEN (m.theory + m.practical) * 0.25 / 2
+            ELSE 0
+        END, 2) AS mid_component,
+
+        ROUND(a.Assesment_marks * 0.05, 2) AS assessment_component,
+
+        ROUND(
+        CASE 
+            WHEN q1.c_code IN ('ICT1242','TCS1212','ICT1212','ENG1222') THEN e.theory * 0.7
+            WHEN q1.c_code = 'TMS1233' THEN e.theory * 0.6
+            WHEN q1.c_code = 'ICT1222' THEN e.practical * 0.6
+            WHEN q1.c_code IN ('ICT1233','ICT1253') THEN e.theory * 0.4 + e.practical * 0.2
+            ELSE 0
+        END, 2) AS end_component,
+
+        ROUND(
+            (((q1.q1 + q2.q2 + q3.q3) - LEAST(q1.q1, q2.q2, q3.q3)) / 2) * 0.1
+            + CASE 
+                WHEN q1.c_code IN ('ICT1242','TCS1212','ICT1212','ENG1222') THEN m.theory * 0.15
+                WHEN q1.c_code = 'TMS1233' THEN m.theory * 0.25
+                WHEN q1.c_code = 'ICT1222' THEN m.practical * 0.25
+                WHEN q1.c_code IN ('ICT1233','ICT1253') THEN (m.theory + m.practical) * 0.25 / 2
+                ELSE 0
+              END
+            + a.Assesment_marks * 0.05
+            + CASE 
+                WHEN q1.c_code IN ('ICT1242','TCS1212','ICT1212','ENG1222') THEN e.theory * 0.7
+                WHEN q1.c_code = 'TMS1233' THEN e.theory * 0.6
+                WHEN q1.c_code = 'ICT1222' THEN e.practical * 0.6
+                WHEN q1.c_code IN ('ICT1233','ICT1253') THEN e.theory * 0.4 + e.practical * 0.2
+                ELSE 0
+              END
+        , 2) AS final_marks
+
+    FROM q1_marks q1
+    LEFT JOIN (
+        SELECT reg_no, c_code, MAX(q2) AS q2 FROM q2_marks GROUP BY reg_no, c_code
+    ) q2 ON q1.reg_no = q2.reg_no AND q1.c_code = q2.c_code
+    LEFT JOIN (
+        SELECT reg_no, c_code, MAX(q3) AS q3 FROM q3_marks GROUP BY reg_no, c_code
+    ) q3 ON q1.reg_no = q3.reg_no AND q1.c_code = q3.c_code
+    LEFT JOIN (
+        SELECT reg_no, c_code, MAX(theory) AS theory, MAX(practical) AS practical
+        FROM mid_masks GROUP BY reg_no, c_code
+    ) m ON q1.reg_no = m.reg_no AND q1.c_code = m.c_code
+    LEFT JOIN (
+        SELECT reg_no, c_code, MAX(Assesment_marks) AS Assesment_marks
+        FROM assesment_marks GROUP BY reg_no, c_code
+    ) a ON q1.reg_no = a.reg_no AND q1.c_code = a.c_code
+    LEFT JOIN (
+        SELECT reg_no, c_code, MAX(theory) AS theory, MAX(practical) AS practical
+        FROM end_marks GROUP BY reg_no, c_code
+    ) e ON q1.reg_no = e.reg_no AND q1.c_code = e.c_code
+    LEFT JOIN (
+        SELECT Reg_no, MAX(st_status) AS st_status
+        FROM marks GROUP BY Reg_no
+    ) mk ON q1.reg_no = mk.Reg_no
+) AS sub
+
+WHERE LOWER(sub.status) IN ('proper','both repeat','suspended');
+
+CREATE OR REPLACE VIEW final_grades_Only AS
+SELECT 
+    reg_no,
+    c_code,
+    grade
+FROM final_grades;
+
+CREATE OR REPLACE VIEW final_marks_Only AS
+SELECT 
+    reg_no,
+    c_code,
+    final_marks
+FROM final_grades;
