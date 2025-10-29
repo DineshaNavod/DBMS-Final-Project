@@ -10,3 +10,9 @@ create table student(
     foreign key(m_id) references marks(m_id)
 
 );
+
+alter table student
+add foreign key(b_id) references batch(b_id);
+
+alter table student
+add column b_id varchar(8);
