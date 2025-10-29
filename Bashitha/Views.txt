@@ -137,3 +137,10 @@ SELECT
     c_code,
     grade
 FROM final_grades;
+
+CREATE OR REPLACE VIEW final_marks_Only AS
+SELECT 
+    reg_no,
+    c_code,
+    final_marks
+FROM final_grades;
