@@ -174,4 +174,38 @@ create table keep(
 
 );
 
+//All Table Changes Here
+
+alter table user
+add column dept_id varchar(8);
+
+alter table user 
+add foreign key(dept_id) references department(dept_id);
+
+alter table course_unit 
+add column m_id char(8);
+
+alter table course_unit 
+add foreign key(m_id) references marks(m_id);
+
+alter table marks 
+add column Reg_no char(8);
+
+alter table marks 
+add foreign key(Reg_no) references student(Reg_no);
+
+alter table timetable 
+add column Reg_no char(8);
+
+alter table lecture 
+add foreign key(user_id) references user(user_id);
+
+alter table timetable 
+add foreign key(c_code) references course_unit(c_code);
+
+alter table user
+add column dept_id char(8);
+
+alter table user
+add foreign key(dept_id) references department(dept_id);
 
