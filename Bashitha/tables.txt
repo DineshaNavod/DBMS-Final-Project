@@ -63,3 +63,16 @@ add column Reg_no char(8);
 
 alter table timetable 
 add foreign key(c_code) references course_unit(c_code);
+
+INSERT INTO timetable (session_id, session_no, session_date, type, duration, lec_hall) VALUES
+('S01', 'ICT1233(02)-W01', 'Monday', 'PRACTICAL', '09:00:00-11:00:00', 'ICT Lab 12'),
+('S02', 'ICT1233(01)-W01', 'Monday', 'THEORY', '14:00:00-16:00:00', 'ICT Lab 12'),
+('S03', 'ICT1253(01)-W01', 'Tuesday', 'THEORY', '09:00:00-11:00:00', 'ICT Lab 12'),
+('S04', 'ICT1253(02)-W01', 'Tuesday', 'PRACTICAL', '11:00:00-13:00:00', 'ICT Lab 12'),
+('S05', 'ICT1242(01)-W01', 'Tuesday', 'THEORY', '14:00:00-16:00:00', 'ILT'),
+('S06', 'TMS1233(01)-W01', 'Wednesday', 'THEORY', '09:00:00-12:00:00', 'ILT'),
+('S07', 'ICT1212(01)-W01', 'Thursday', 'THEORY', '09:00:00-11:00:00', 'ICT Lab 11'),
+('S08', 'ICT1222(02)-W01', 'Thursday', 'PRACTICAL', '11:00:00-13:00:00', 'ICT Lab 11'),
+('S09', 'ICT1222(02)-W01', 'Thursday', 'PRACTICAL', '14:00:00-16:00:00', 'ICT Lab 11'),
+('S10', 'TCS1212(01)-W01', 'Friday', 'THEORY', '08:00:00-10:00:00', 'ILT'),
+('S11', 'ENG1212(01)-W01', 'Friday', 'THEORY', '13:00:00-15:00:00', 'ICT Hardware Lab');
