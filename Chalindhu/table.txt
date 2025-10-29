@@ -595,6 +595,13 @@ create table admin(
 );
 
 
+INSERT INTO admin (user_id, F_name, L_name, Address, phone_number, dob, email, gender, dept_id) VALUES
+('ADM/1001', 'Aravinda', 'Nissankaarachchi', '1 University St', 777111111, '1980-01-01', 'admin.user@example.com', 'M', NULL);
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 
 create table batch(
