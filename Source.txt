@@ -4593,3 +4593,58 @@ INSERT INTO attendence (att_id, type, atten_date, status, Reg_no, session_id, se
 ('B650', 'THEORY',    '2026-01-02', 'Present', 'TCH/1004', 'S10', 'TCS1212(01)-W15'),
 ('B651', 'THEORY',    '2026-01-02', 'Absent',  'TCH/1004', 'S11', 'ENG1212(01)-W15');
 
+
+
+
+
+
+CREATE USER 'Admin'@'localhost' IDENTIFIED BY '1234';
+GRANT ALL PRIVILEGES ON FOT.* TO 'Admin'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+
+CREATE USER 'Dean'@'localhost' IDENTIFIED BY '1234';
+GRANT ALL PRIVILEGES ON FOT.* TO 'Dean'@'localhost';
+FLUSH PRIVILEGES;
+
+
+CREATE USER 'Lecturer'@'localhost' IDENTIFIED BY '1234';
+GRANT ALL PRIVILEGES ON FOT.* TO 'Lecturer'@'localhost';
+FLUSH PRIVILEGES;
+
+
+CREATE USER 'TechnicalOfficer'@'localhost' IDENTIFIED BY '1234';
+GRANT SELECT, INSERT, UPDATE ON FOT.attendence TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON FOT.medical TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON FOT.medical_for_exam TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON FOT.marks TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON FOT.q1_marks TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON FOT.q2_marks TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON FOT.q3_marks TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON FOT.assesment_marks TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON FOT.mid_masks TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON FOT.end_marks TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON FOT.all_attendence_with_medical TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON FOT.all_attendence_with_precentage TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON FOT.all_subject_with_eligibility TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON FOT.attendance_above_80 TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON FOT.attendance_below_80 TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON FOT.medical_percentage_above_80 TO 'TechnicalOfficer'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON FOT.medical_percentage_below_80 TO 'TechnicalOfficer'@'localhost';
+
+FLUSH PRIVILEGES;
+
+CREATE USER 'Student'@'localhost' IDENTIFIED BY '1234';
+
+GRANT SELECT ON FOT.marks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.q1_marks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.q2_marks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.q3_marks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.assesment_marks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.mid_masks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.end_marks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.attendence TO 'Student'@'localhost';
+GRANT SELECT ON FOT.all_attendence_with_medical TO 'Student'@'localhost';
+GRANT SELECT ON FOT.final_grades TO 'Student'@'localhost';
+
+FLUSH PRIVILEGES;
