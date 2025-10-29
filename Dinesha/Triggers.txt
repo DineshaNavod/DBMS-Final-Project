@@ -1,1 +1,26 @@
 //Triggers Here
+
+//trigers for 2 limit
+
+DELIMITER //
+CREATE TRIGGER trg_medical_limit_insert
+BEFORE INSERT ON medical
+FOR EACH ROW
+BEGIN
+    DECLARE med_count INT;
+    IF NEW.status!='not approved' THEN
+        SELECT COUNT(*)
+        INTO med_count
+        FROM medical
+        WHERE reg_no = NEW.reg_no
+        AND session_id = NEW.session_id
+        AND c_code=NEW.c_code
+        AND status IN ('approved', 'pending');
+        IF med_count >= 2 THEN
+            SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: Student already has 2 approved or pending medicals for this session';
+        END IF;
+    END IF;
+END//
+
+DELIMITER ;
