@@ -57,3 +57,9 @@ create  table timetable(
     lec_hall varchar(10) not null,
     c_code varchar(8)
 );
+
+alter table timetable 
+add column Reg_no char(8);
+
+alter table timetable 
+add foreign key(c_code) references course_unit(c_code);
