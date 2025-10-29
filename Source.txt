@@ -1939,4 +1939,9 @@ INSERT INTO q3_marks (m_id, Q3, status, c_code, reg_no) VALUES
 ('Q431', 75.89, 'suspended', 'TCS1212', 'TCH/1020'),
 ('Q432', 18.42, 'suspended', 'TMS1233', 'TCH/1020');
 
+alter table end_marks
+modify column theory varchar(10);
+
+alter table marks
+modify column st_status enum('proper','CA repeat','End Repeat','Both repeat','suspended') not null;
 
