@@ -2342,3 +2342,15 @@ create table medical_for_exam(
 alter table medical_for_exam
 add column is_practical_or_theory enum('practical','theory','no') not null Default 'no' after marks_type;
 
+insert into medical_for_exam
+VALUES
+("med01","ICT1212","TCH/1002","2025-11-28","Fever","q2_marks","no","approved");
+
+insert into medical_for_exam
+VALUES
+("med02","ICT1212","TCH/1002","2025-11-28","Fever","q3_marks","no","pending");
+
+insert into medical_for_exam
+VALUES
+("med06","ICT1212","TCH/1008","2025-11-03","My grand moms funeral","end_marks","theory","pending");
+
