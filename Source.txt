@@ -2420,3 +2420,12 @@ INSERT INTO medical
 VALUES
 ('med16', 'ICT1242', 'TCH/1007', '2025-12-03', 'Severe fever and fatigue; doctor suggested a short leave from classes. Patient monitored for dehydration.', '2025-11-18', 'S05', 'approved', 'A599');
 
+update attendence
+set change_status="present",status='present'
+where att_id='A807';
+
+
+update attendence
+set session_no="ENG1222(01)-W01"
+where session_no like("ENG1222");
+
