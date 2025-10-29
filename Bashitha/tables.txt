@@ -103,3 +103,8 @@ ADD COLUMN c_code VARCHAR(8);
 
 ALTER TABLE assesment_marks
 ADD COLUMN reg_no VARCHAR(8);
+
+INSERT INTO assesment_marks (m_id, Assesment_marks, status) VALUES
+('TCH/1014', 72.50, 'repeat'),
+('TCH/1012', 58.30, 'repeat'),
+('TCH/1011', 41.75, 'repeat');
