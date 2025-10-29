@@ -2365,3 +2365,12 @@ where medical_id='med02';
 update end_marks
 set theory=0
 where m_id='M130';
+
+update attendence
+set Is_medical_affect="no"
+where att_id='B522';
+
+update medical
+set status="pending"
+where medical_id='med08';
+
