@@ -1396,3 +1396,9 @@ VALUES
   ('M385', '2025-09-29', 'TCH/1010', 'YES', 'proper'),
   ('M393', '2025-09-29', 'TCH/1006', 'YES', 'proper'),
   ('M401', '2025-09-29', 'TCH/1009', 'YES', 'proper');
+
+alter table end_marks
+add foreign key(m_id) references marks(m_id);
+
+update course_unit
+set semester="L1S2";
