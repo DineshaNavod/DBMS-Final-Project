@@ -1813,6 +1813,48 @@ INSERT INTO keep (Reg_no, m_id) VALUES
 ('TCH/1014', 'Q288'), ('TCH/1014', 'Q301'), ('TCH/1015', 'M185'), ('TCH/1015', 'M186'), ('TCH/1015', 'M187'),
 ('TCH/1015', 'M188'), ('TCH/1015', 'M189'), ('TCH/1015', 'M190'), ('TCH/1015', 'M191'), ('TCH/1015', 'M192');
 
+INSERT INTO q1_marks (m_id, Q1, status, c_code, reg_no) VALUES
+('Q313', 72.80, 'suspended', 'ENG1222', 'TCH/1016'),
+('Q314', 84.48, 'suspended', 'ICT1212', 'TCH/1016'),
+('Q315', 33.23, 'suspended', 'ICT1222', 'TCH/1016'),
+('Q316', 58.81, 'suspended', 'ICT1233', 'TCH/1016'),
+('Q317', 16.26, 'suspended', 'ICT1242', 'TCH/1016'),
+('Q318', 81.94, 'suspended', 'ICT1253', 'TCH/1016'),
+('Q319', 84.34, 'suspended', 'TCS1212', 'TCH/1016'),
+('Q320', 29.93, 'suspended', 'TMS1233', 'TCH/1016'),
+('Q321', 74.55, 'suspended', 'ENG1222', 'TCH/1017'),
+('Q322', 0.81, 'suspended', 'ICT1212', 'TCH/1017'),
+('Q323', 48.01, 'suspended', 'ICT1222', 'TCH/1017'),
+('Q324', 53.18, 'suspended', 'ICT1233', 'TCH/1017'),
+('Q325', 95.14, 'suspended', 'ICT1242', 'TCH/1017'),
+('Q326', 35.27, 'suspended', 'ICT1253', 'TCH/1017'),
+('Q327', 63.14, 'suspended', 'TCS1212', 'TCH/1017'),
+('Q328', 80.31, 'suspended', 'TMS1233', 'TCH/1017'),
+('Q329', 44.93, 'suspended', 'ENG1222', 'TCH/1018'),
+('Q330', 76.23, 'suspended', 'ICT1212', 'TCH/1018'),
+('Q331', 33.16, 'suspended', 'ICT1222', 'TCH/1018'),
+('Q332', 18.42, 'suspended', 'ICT1233', 'TCH/1018'),
+('Q333', 77.78, 'suspended', 'ICT1242', 'TCH/1018'),
+('Q334', 66.73, 'suspended', 'ICT1253', 'TCH/1018'),
+('Q335', 13.51, 'suspended', 'TCS1212', 'TCH/1018'),
+('Q336', 75.42, 'suspended', 'TMS1233', 'TCH/1018'),
+('Q337', 96.65, 'suspended', 'ENG1222', 'TCH/1019'),
+('Q338', 58.11, 'suspended', 'ICT1212', 'TCH/1019'),
+('Q339', 95.76, 'suspended', 'ICT1222', 'TCH/1019'),
+('Q340', 47.63, 'suspended', 'ICT1233', 'TCH/1019'),
+('Q341', 46.42, 'suspended', 'ICT1242', 'TCH/1019'),
+('Q342', 80.86, 'suspended', 'ICT1253', 'TCH/1019'),
+('Q343', 8.34, 'suspended', 'TCS1212', 'TCH/1019'),
+('Q344', 43.98, 'suspended', 'TMS1233', 'TCH/1019'),
+('Q345', 19.90, 'suspended', 'ENG1222', 'TCH/1020'),
+('Q346', 47.46, 'suspended', 'ICT1212', 'TCH/1020'),
+('Q347', 3.15, 'suspended', 'ICT1222', 'TCH/1020'),
+('Q348', 58.20, 'suspended', 'ICT1233', 'TCH/1020'),
+('Q349', 44.05, 'suspended', 'ICT1242', 'TCH/1020'),
+('Q350', 18.63, 'suspended', 'ICT1253', 'TCH/1020'),
+('Q351', 67.38, 'suspended', 'TCS1212', 'TCH/1020'),
+('Q352', 90.56, 'suspended', 'TMS1233', 'TCH/1020');
+
 
 
 
