@@ -204,3 +204,18 @@ INSERT INTO entroll (Reg_no, c_code, entroll_date) VALUES
 ('TCH/1020', 'TCS1212', '2025-09-01'),
 ('TCH/1020', 'TMS1233', '2025-09-01');
 
+//create table attendence
+
+create table attendence(
+    att_id varchar(8) not null primary key,
+    type ENUM("theory","practical")  NOT NULL DEFAULT 'theory',
+    atten_date date not null,
+    status ENUM("absent","Present")  NOT NULL DEFAULT 'Present',
+    Reg_no varchar(8) ,
+    session_id varchar(8),
+    foreign key(Reg_no) references student(Reg_no),
+    foreign key(session_id) references timetable(session_id)
+);
+
+
+
