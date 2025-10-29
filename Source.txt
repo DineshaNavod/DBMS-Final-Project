@@ -209,3 +209,27 @@ add column dept_id char(8);
 alter table user
 add foreign key(dept_id) references department(dept_id);
 
+//User table Data here
+
+INSERT INTO user (user_id, F_name, L_name, Address, phone_number, dob, email, gender, dept_id) VALUES
+('TCH/1001','Kavindu','Perera','Colombo 05',771000001,'2000-01-15','kavindu.perera@example.com','M','D001'),
+('TCH/1002','Nimesha','Silva','Galle',771000002,'1999-05-20','nimesha.silva@example.com','F','D001'),
+('TCH/1003','Isuru','Wijesinghe','Kandy',771000003,'2001-03-12','isuru.wije@example.com','M','D001'),
+('TCH/1004','Sanduni','Fernando','Matara',771000004,'1998-07-25','sanduni.fernando@example.com','F','D001'),
+('TCH/1005','Ravindu','Jayasinghe','Kurunegala',771000005,'2000-11-18','ravindu.jaya@example.com','M','D001'),
+('TCH/1006','Tharushi','Karunaratne','Negombo',771000006,'1999-09-05','tharushi.karu@example.com','F','D001'),
+('TCH/1007','Sahan','Dissanayake','Kegalle',771000007,'2001-06-22','sahan.dissa@example.com','M','D001'),
+('TCH/1008','Imasha','Ekanayake','Anuradhapura',771000008,'2000-02-14','imasha.eka@example.com','F','D001'),
+('TCH/1009','Chathura','Bandara','Badulla',771000009,'1999-12-30','chathura.bandara@example.com','M','D001'),
+('TCH/1010','Dilushi','Ratnayake','Gampaha',771000010,'2000-08-08','dilushi.ratna@example.com','F','D001'),
+('TCH/1011','Kaveeshan','Kumara','Hambantota',771000011,'2001-01-05','kaveeshan.kumara@example.com','M','D001'),
+('TCH/1012','Shenali','Gunasekara','Kalutara',771000012,'1999-04-11','shenali.guna@example.com','F','D001'),
+('TCH/1013','Pasindu','Abeywickrama','Trincomalee',771000013,'2000-06-30','pasindu.abey@example.com','M','D001'),
+('TCH/1014','Nethmi','Weerasinghe','Monaragala',771000014,'1998-10-17','nethmi.weera@example.com','F','D001'),
+('TCH/1015','Sewwandi','Peris','Ratnapura',771000015,'2001-02-28','sewwandi.peris@example.com','F','D001'),
+('TCH/1016','Kasun','De Silva','Colombo 07',771000016,'1999-07-13','kasun.desilva@example.com','M','D001'),
+('TCH/1017','Shenal','Jayawardena','Galle',771000017,'2000-05-21','shenal.jaya@example.com','M','D001'),
+('TCH/1018','Hansika','Pathirana','Kandy',771000018,'1998-11-09','hansika.pathi@example.com','F','D001'),
+('TCH/1019','Dinuka','Rajapaksha','Jaffna',771000019,'2001-03-03','dinuka.rajapaksha@example.com','M','D001'),
+('TCH/1020','Thisara','Madushanka','Kurunegala',771000020,'1999-12-22','thisara.madu@example.com','M','D001');
+
