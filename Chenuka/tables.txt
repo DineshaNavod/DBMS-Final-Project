@@ -62,3 +62,14 @@ INSERT INTO user (user_id, F_name, L_name, Address, phone_number, dob, email, ge
 ('TOS/1007', 'Harshani', 'Gunasekara', 'Negombo', 777890127, '1998-11-30', 'harshani@example.com', 'F', 'D001'),
 ('TOS/1008', 'Supun', 'Wijesinghe', 'Anu
 
+
+-- Insert course units
+INSERT INTO course_unit (c_code, c_name, credit, is_theory, is_practicel, semester) VALUES
+('ICT1212', 'Database Management Systems', 2, 'YES', 'NO', 'L1S2'),
+('ICT1222', 'Database Management Systems Practicum', 2, 'NO', 'YES', 'L1S2'),
+('ICT1233', 'Server Side Web Development', 3, 'YES', 'YES', 'L1S2'),
+('ICT1242', 'Computer Architecture', 2, 'YES', 'NO', 'L1S2'),
+('ICT1253', 'Computer Networks', 3, 'YES', 'YES', 'L1S2'),
+('TCS1212', 'Fundamentals of Management', 2, 'YES', 'NO', 'L1S2'),
+('TMS1233', 'Discrete Mathematics', 3, 'YES', 'NO', 'L1S2'),
+('ENG1222', 'English', 2, 'YES', 'NO', 'L1S2');
