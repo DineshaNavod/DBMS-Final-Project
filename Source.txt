@@ -360,3 +360,9 @@ INSERT INTO course_unit (c_code, c_name, credit, is_theory, is_practicel, semest
 ('TCS1212', 'Fundamentals of Management', 2, 'YES', 'NO', 'L1S2'),
 ('TMS1233', 'Discrete Mathematics', 3, 'YES', 'NO', 'L1S2'),
 ('ENG1222', 'English', 2, 'YES', 'NO', 'L1S2');
+
+-- Insert overall assessment marks for repeat students
+INSERT INTO assesment_marks (m_id, Assesment_marks, status) VALUES
+('TCH/1014', 72.50, 'repeat'),
+('TCH/1012', 58.30, 'repeat'),
+('TCH/1011', 41.75, 'repeat');
