@@ -85,3 +85,15 @@ INSERT INTO course_unit (c_code, c_name, credit, is_theory, is_practicel, semest
 ('TCS1212', 'Fundamentals of Management', 2, 'YES', 'NO', 'L1S2'),
 ('TMS1233', 'Discrete Mathematics', 3, 'YES', 'NO', 'L1S2'),
 ('ENG1222', 'English', 2, 'YES', 'NO', 'L1S2');
+
+// Department Data add Here
+
+INSERT INTO department (dept_id, d_name) VALUES
+('D001', 'Information Communication Technology'),
+('D002', 'Engineering Technology'),
+('D003', 'Biosystem Technology'),
+('D004', 'Multidispinary');
+('D001', 'Information Communication Technology'),
+('D002', 'Engineering Technology'),
+('D003', 'Biosystem Technology'),
+('D004', 'Multidispinary');
