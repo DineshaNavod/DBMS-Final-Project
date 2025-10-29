@@ -2374,3 +2374,10 @@ update medical
 set status="pending"
 where medical_id='med08';
 
+update attendence
+set change_status="absent"
+where Is_medical_affect='yes';
+
+update attendence
+set Is_medical_affect='no';
+
