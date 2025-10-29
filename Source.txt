@@ -1465,5 +1465,14 @@ INSERT INTO student (Reg_no, status, b_id) VALUES
 ('TCH/1019', 'SUSPENDED', 'B08'),
 ('TCH/1020', 'SUSPENDED', 'B08');
 
+INSERT INTO course_unit (c_code, c_name, credit, is_theory, is_practicel, semester, lecture_in_charge) VALUES
+('ENG1222', 'English', 2, 'YES', 'NO', 'L1S2', 'LEC/1001'),
+('ICT1212', 'Database Management Systems', 2, 'YES', 'NO', 'L1S2', 'LEC/1002'),
+('ICT1222', 'Database Management Systems Practicum', 2, 'NO', 'YES', 'L1S2', 'LEC/1003'),
+('ICT1233', 'Server Side Web Development', 3, 'YES', 'YES', 'L1S2', 'LEC/1004'),
+('ICT1242', 'Computer Architecture', 2, 'YES', 'NO', 'L1S2', 'LEC/1005'),
+('ICT1253', 'Computer Networks', 3, 'YES', 'YES', 'L1S2', 'LEC/1006'),
+('TCS1212', 'Fundamentals of Management', 2, 'YES', 'NO', 'L1S2', 'LEC/1007'),
+('TMS1233', 'Discrete Mathematics', 3, 'YES', 'NO', 'L1S2', 'LEC/1008');
 
 
