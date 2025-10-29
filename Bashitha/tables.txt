@@ -399,3 +399,13 @@ INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
 ('M103', 64.56, NULL, 'PROPER', 'TCH/1009', 'TCS1212'),
 ('M104', 67.89, NULL, 'PROPER', 'TCH/1009', 'TMS1233');
 
+create table end_marks(
+     m_id varchar(8) not null primary key,
+     theory decimal(5,2) not null,
+    practical decimal(5,2) not null,
+    foreign key(m_id) references marks(m_id),
+    CHECK (practical >= 0 AND practical <= 100),
+    CHECK (theory >= 0 AND theory <= 100)
+);
+
+ALTER TABLE mid_masks ADD COLUMN c_code VARCHAR(8);
