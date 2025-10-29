@@ -256,3 +256,15 @@ INSERT INTO assesment_marks (m_id, Assesment_marks, status, c_code, reg_no) VALU
 ('M302', 69.78, 'proper', 'ICT1253', 'TCH/1009'),
 ('M303', 82.34, 'proper', 'TCS1212', 'TCH/1009'),
 ('M304', 60.56, 'proper', 'TMS1233', 'TCH/1009');
+
+create table mid_masks(
+    m_id varchar(8) not null primary key,
+    is_CA ENUM('YES', 'NO') NOT NULL DEFAULT 'YES',
+    theory decimal(5,2) not null,
+    practical decimal(5,2) not null,
+    foreign key(m_id) references marks(m_id),
+    CHECK (practical >= 0 AND practical <= 100),
+    CHECK (theory >= 0 AND theory <= 100)
+);
+
+ALTER TABLE mid_masks ADD COLUMN c_code VARCHAR(8);
