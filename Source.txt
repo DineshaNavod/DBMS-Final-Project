@@ -233,3 +233,10 @@ INSERT INTO user (user_id, F_name, L_name, Address, phone_number, dob, email, ge
 ('TCH/1019','Dinuka','Rajapaksha','Jaffna',771000019,'2001-03-03','dinuka.rajapaksha@example.com','M','D001'),
 ('TCH/1020','Thisara','Madushanka','Kurunegala',771000020,'1999-12-22','thisara.madu@example.com','M','D001');
 
+// Department Data add Here
+
+INSERT INTO department (dept_id, d_name) VALUES
+('D001', 'Information Communication Technology'),
+('D002', 'Engineering Technology'),
+('D003', 'Biosystem Technology'),
+('D004', 'Multidispinary');
