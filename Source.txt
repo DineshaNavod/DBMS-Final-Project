@@ -4908,6 +4908,780 @@ WHERE mid.status = "repeat";
 
 SELECT * FROM ca_results_for_repeat_student ;
 
+//Dinesha's procedure views and trigers
+
+//Views Here
+
+create view all_attendence_with_precentage AS
+select a.reg_no,u.F_name,u.L_name,t.c_code,c.c_name,a.type,round(avg(a.status='Present')*100) AS att_pecentage
+from attendence a
+INNER JOIN timetable t on a.session_id=t.session_id
+INNER JOIN course_unit c on t.c_code=c.c_code
+INNER JOIN user u ON a.reg_no=u.user_id
+group by t.c_code,a.reg_no,a.type;
+
+create view attendance_above_80 AS
+select a.reg_no,u.F_name,u.L_name,t.c_code,c.c_name,a.type,round(avg(a.status='Present')*100) AS att_pecentage
+from attendence a
+INNER JOIN timetable t on a.session_id=t.session_id
+INNER JOIN course_unit c on t.c_code=c.c_code
+INNER JOIN user u ON a.reg_no=u.user_id
+group by t.c_code,a.reg_no,a.type
+having att_pecentage>=80;
+
+create view attendance_below_80 AS
+select a.reg_no,u.F_name,u.L_name,t.c_code,c.c_name,a.type,round(avg(a.status='Present')*100) AS att_pecentage
+from attendence a
+INNER JOIN timetable t on a.session_id=t.session_id
+INNER JOIN course_unit c on t.c_code=c.c_code
+INNER JOIN user u ON a.reg_no=u.user_id
+group by t.c_code,a.reg_no,a.type
+having att_pecentage<80;
+
+
+//3 Views
+
+create view medical_percentage_below_80 AS
+select a.reg_no,u.F_name,u.L_name,t.c_code,c.c_name,a.type,round(avg(a.change_status='Present')*100) AS attendence_percentage
+from attendence a
+INNER JOIN timetable t on a.session_id=t.session_id
+INNER JOIN course_unit c on t.c_code=c.c_code
+INNER JOIN user u ON a.reg_no=u.user_id
+group by t.c_code,a.reg_no,a.type
+having attendence_percentage<80;
+
+create view medical_percentage_above_80 AS
+select a.reg_no,u.F_name,u.L_name,t.c_code,c.c_name,a.type,round(avg(a.change_status='Present')*100) AS attendence_percentage
+from attendence a
+INNER JOIN timetable t on a.session_id=t.session_id
+INNER JOIN course_unit c on t.c_code=c.c_code
+INNER JOIN user u ON a.reg_no=u.user_id
+group by t.c_code,a.reg_no,a.type
+having attendence_percentage>=80;
+
+create view all_attendence_with_medical AS
+select a.reg_no,u.F_name,u.L_name,t.c_code,c.c_name,a.type,round(avg(a.status='Present')*100) AS attendence_percentage,round(avg(a.change_status='Present')*100) AS attendence_percentage_with_medical
+from attendence a
+INNER JOIN timetable t on a.session_id=t.session_id
+INNER JOIN course_unit c on t.c_code=c.c_code
+INNER JOIN user u ON a.reg_no=u.user_id
+group by t.c_code,a.reg_no,a.type
+ORDER BY a.reg_no asc;
+
+
+
+//trigers for 2 limit
+
+DELIMITER //
+CREATE TRIGGER trg_medical_limit_insert
+BEFORE INSERT ON medical
+FOR EACH ROW
+BEGIN
+    DECLARE med_count INT;
+    IF NEW.status!='not approved' THEN
+        SELECT COUNT(*)
+        INTO med_count
+        FROM medical
+        WHERE reg_no = NEW.reg_no
+        AND session_id = NEW.session_id
+        AND c_code=NEW.c_code
+        AND status IN ('approved', 'pending');
+        IF med_count >= 2 THEN
+            SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: Student already has 2 approved or pending medicals for this session';
+        END IF;
+    END IF;
+END//
+
+DELIMITER ;
+
+//triger for change status
+
+DELIMITER //
+
+CREATE TRIGGER AFFECT_MEDICAL_for_attendence
+AFTER INSERT ON medical
+FOR EACH ROW
+BEGIN
+    IF NEW.status = 'approved' THEN
+        UPDATE attendence
+        SET change_status = 'Present',
+            Is_medical_affect = 'yes'
+        WHERE reg_no = NEW.reg_no
+          AND session_id = NEW.session_id
+          AND atten_date = NEW.affectted_date;
+    END IF;
+END//
+DELIMITER ;
+
+
+
+//update trigers
+
+DELIMITER //
+
+CREATE TRIGGER AFFECT_MEDICAL_for_attendence_update_table
+AFTER update ON medical
+FOR EACH ROW
+BEGIN
+    IF NEW.status = 'approved' AND OLD.status <> 'approved' THEN
+        UPDATE attendence
+        SET change_status = 'Present',
+            Is_medical_affect = 'yes'
+        WHERE reg_no = NEW.reg_no
+          AND session_id = NEW.session_id
+          AND atten_date = NEW.affectted_date;
+    END IF;
+END//
+DELIMITER ;
+
+
+
+
+
+//medical_for_exam
+
+DELIMITER //
+CREATE TRIGGER update_marks_base_on_medical
+AFTER INSERT ON medical_for_exam
+FOR EACH ROW
+BEGIN
+
+    IF NEW.status='approved' THEN
+            IF NEW.marks_type = 'q1_marks' THEN
+                UPDATE q1_marks
+                SET q1 = 'MC'
+                WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+
+            ELSEIF NEW.marks_type = 'q2_marks' THEN
+                UPDATE q2_marks
+                SET q2 = 'MC'
+                WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+
+            ELSEIF NEW.marks_type = 'q3_marks' THEN
+                UPDATE q3_marks
+                SET q3 = 'MC'
+                WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+
+            ELSEIF NEW.marks_type = 'assesment_marks' THEN
+                UPDATE assesment_marks
+                SET Assesment_marks = 'MC'
+                WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+
+            ELSEIF NEW.marks_type = 'mid_masks' THEN
+                IF NEW.is_practical_or_theory = 'practical' THEN
+                    UPDATE mid_masks
+                    SET practical = 'MC'
+                    WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+                ELSEIF NEW.is_practical_or_theory = 'theory' THEN
+                    UPDATE mid_masks
+                    SET theory = 'MC'
+                    WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+                END IF;
+
+            ELSEIF NEW.marks_type = 'end_marks' THEN
+                IF NEW.is_practical_or_theory = 'practical' THEN
+                    UPDATE end_marks
+                    SET practical = 'MC'
+                    WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+                ELSEIF NEW.is_practical_or_theory = 'theory' THEN
+                    UPDATE end_marks
+                    SET theory = 'MC'
+                    WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+                END IF;
+            END IF;
+    END IF;
+END //
+DELIMITER ;
+
+
+//tiger throw
+DELIMITER //
+CREATE TRIGGER update_marks_base_on_medical_update
+AFTER UPDATE ON medical_for_exam
+FOR EACH ROW
+BEGIN
+    -- Run only when status becomes "approved"
+    IF NEW.status = 'approved' AND OLD.status != 'approved' THEN
+        
+        IF NEW.marks_type = 'q1_marks' THEN
+            UPDATE q1_marks
+            SET q1 = 'MC'
+            WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+
+        ELSEIF NEW.marks_type = 'q2_marks' THEN
+            UPDATE q2_marks
+            SET q2 = 'MC'
+            WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+
+        ELSEIF NEW.marks_type = 'q3_marks' THEN
+            UPDATE q3_marks
+            SET q3 = 'MC'
+            WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+
+        ELSEIF NEW.marks_type = 'assesment_marks' THEN
+            UPDATE assesment_marks
+            SET Assesment_marks = 'MC'
+            WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+
+        ELSEIF NEW.marks_type = 'mid_masks' THEN
+            IF NEW.is_practical_or_theory = 'practical' THEN
+                UPDATE mid_masks
+                SET practical = 'MC'
+                WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+            ELSEIF NEW.is_practical_or_theory = 'theory' THEN
+                UPDATE mid_masks
+                SET theory = 'MC'
+                WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+            END IF;
+
+        ELSEIF NEW.marks_type = 'end_marks' THEN
+            IF NEW.is_practical_or_theory = 'practical' THEN
+                UPDATE end_marks
+                SET practical = 'MC'
+                WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+            ELSEIF NEW.is_practical_or_theory = 'theory' THEN
+                UPDATE end_marks
+                SET theory = 'MC'
+                WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+            END IF;
+        END IF;
+    END IF;
+END //
+DELIMITER ;
+
+
+//procedure for attendence eligibility
+
+DELIMITER //
+
+CREATE PROCEDURE GetStudentAttendance(IN p_reg_no VARCHAR(8))
+BEGIN
+    SELECT 
+        a.reg_no,
+        u.F_name,
+        u.L_name,
+        t.c_code,
+        c.c_name,
+        a.session_id,
+        a.type,
+        ROUND(AVG(a.change_status='Present')*100) AS attendence_percentage,
+        ROUND(AVG(a.change_status='Present')*100) AS attendence_percentage_with_medical,
+        CASE 
+            WHEN ROUND(AVG(a.change_status='Present')*100) >= 80 THEN 'eligible'
+            ELSE 'not eligible'
+        END AS is_eligible
+    FROM attendence a
+    INNER JOIN timetable t ON a.session_id = t.session_id
+    INNER JOIN course_unit c ON t.c_code = c.c_code
+    INNER JOIN user u ON a.reg_no = u.user_id
+    WHERE a.reg_no = p_reg_no
+    GROUP BY a.reg_no, t.c_code, a.type;
+END //
+
+DELIMITER ;
+
+call GetStudentAttendance("TCH/1010");
+
+DELIMITER //
+
+CREATE PROCEDURE GetStudentAttendance(IN p_c_code VARCHAR(8))
+BEGIN
+    SELECT 
+        t.c_code,
+        a.reg_no,
+        count(a.change_status = 'Present') AS dates,
+        ROUND(AVG(a.change_status = 'Present') * 100) AS attendance_percentage,
+        CASE 
+            WHEN ROUND(AVG(a.change_status = 'Present') * 100) >= 80 THEN 'eligible'
+            ELSE 'not eligible'
+        END AS is_eligible
+    FROM attendence a
+    INNER JOIN timetable t ON a.session_id = t.session_id
+    WHERE t.c_code = p_c_code
+    GROUP BY a.reg_no,t.c_code;
+END //
+
+DELIMITER ;
+
+drop procedure GetStudentAttendance;
+
+CALL GetStudentAttendance('TMS1233');
+
+select * from attendence
+where session_no like("ict1253%");
+
+
+DELIMITER //
+
+CREATE OR REPLACE PROCEDURE GetStudentAttendance(IN p_c_code VARCHAR(8))
+BEGIN
+    SELECT 
+        t.c_code,
+        a.reg_no,
+
+        -- Present days (rounded to whole number)
+        CASE 
+            WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+            THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+            ELSE SUM(a.change_status = 'Present')
+        END AS present_days,
+
+        -- Total sessions (fixed properly)
+        CASE 
+            WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+            THEN 15
+            ELSE 15
+        END AS total_sessions,
+
+
+        ROUND(
+            (
+                CASE 
+                    WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+                    THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+                    ELSE SUM(a.change_status = 'Present')
+                END 
+                /
+                CASE 
+                    WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+                    THEN 15
+                    ELSE 15
+                END
+            ) * 100, 
+        0) AS attendance_percentage, 
+
+        -- Eligibility
+        CASE 
+            WHEN 
+                ROUND(
+                    (
+                        CASE 
+                            WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+                            THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+                            ELSE SUM(a.change_status = 'Present')
+                        END 
+                        /
+                        CASE 
+                            WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+                            THEN 15
+                            ELSE 15
+                        END
+                    ) * 100, 
+                0) >= 80
+            THEN 'eligible'
+            ELSE 'not eligible'
+        END AS is_eligible
+
+    FROM attendence a
+    INNER JOIN timetable t ON a.session_id = t.session_id
+    WHERE t.c_code = p_c_code
+    GROUP BY a.reg_no, t.c_code;
+END //
+
+DELIMITER ;
+
+
+create view All_subject_with_Eligibility AS
+SELECT 
+    t.c_code,
+    c.c_name,
+    a.type,
+    a.reg_no,
+    u.F_name,
+    u.L_name,
+    ROUND(AVG(a.status = 'Present') * 100) AS attendence_percentage,
+    ROUND(AVG(a.change_status = 'Present') * 100) AS attendence_percentage_with_medical,
+
+    CASE 
+        WHEN ROUND(AVG(a.change_status = 'Present') * 100) >= 80 
+        THEN 'eligible'
+        ELSE 'not eligible'
+    END AS eligibility
+
+FROM attendence a
+INNER JOIN timetable t ON a.session_id = t.session_id
+INNER JOIN course_unit c ON t.c_code = c.c_code
+INNER JOIN user u ON a.reg_no = u.user_id
+GROUP BY t.c_code, a.reg_no, a.type
+ORDER BY t.c_code ASC;
+
+
+DELIMITER //
+
+CREATE OR REPLACE PROCEDURE GetStudentAttendanceIndividuals(IN p_reg_no VARCHAR(8))
+BEGIN
+    SELECT 
+        t.c_code,
+        a.reg_no,
+
+        -- Present days (rounded to whole number)
+        CASE 
+            WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+            THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+            ELSE SUM(a.change_status = 'Present')
+        END AS present_days,
+
+        -- Total sessions (fixed properly)
+        CASE 
+            WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+            THEN 15
+            ELSE 15
+        END AS total_sessions,
+
+        ROUND(
+            (
+                CASE 
+                    WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+                    THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+                    ELSE SUM(a.change_status = 'Present')
+                END 
+                /
+                CASE 
+                    WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+                    THEN 15
+                    ELSE 15
+                END
+            ) * 100, 
+        0) AS attendance_percentage,
+
+        -- Eligibility
+        CASE 
+            WHEN 
+                ROUND(
+                    (
+                        CASE 
+                            WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+                            THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+                            ELSE SUM(a.change_status = 'Present')
+                        END 
+                        /
+                        CASE 
+                            WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+                            THEN 15
+                            ELSE 15
+                        END
+                    ) * 100, 
+                0) >= 80
+            THEN 'eligible'
+            ELSE 'not eligible'
+        END AS is_eligible
+
+    FROM attendence a
+    INNER JOIN timetable t ON a.session_id = t.session_id
+    WHERE a.reg_no = p_reg_no
+    GROUP BY a.reg_no, t.c_code;
+END //
+
+DELIMITER ;
+
+
+
+DELIMITER //
+
+CREATE OR REPLACE PROCEDURE GetAttendanceWith_Reg_no_and_c_code(IN p_reg_no VARCHAR(8),IN p_c_code varchar(8))
+BEGIN
+    SELECT 
+        t.c_code,
+        a.reg_no,
+
+        -- Present days (rounded to whole number)
+        CASE 
+            WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+            THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+            ELSE SUM(a.change_status = 'Present')
+        END AS present_days,
+
+        -- Total sessions (fixed properly)
+        CASE 
+            WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+            THEN 15
+            ELSE 15
+        END AS total_sessions,
+
+
+        ROUND(
+            (
+                CASE 
+                    WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+                    THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+                    ELSE SUM(a.change_status = 'Present')
+                END 
+                /
+                CASE 
+                    WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+                    THEN 15
+                    ELSE 15
+                END
+            ) * 100, 
+        0) AS attendance_percentage, 
+        -- Eligibility
+        CASE 
+            WHEN 
+                ROUND(
+                    (
+                        CASE 
+                            WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+                            THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+                            ELSE SUM(a.change_status = 'Present')
+                        END 
+                        /
+                        CASE 
+                            WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+                            THEN 15
+                            ELSE 15
+                        END
+                    ) * 100, 
+                0) >= 80
+            THEN 'eligible'
+            ELSE 'not eligible'
+        END AS is_eligible
+
+    FROM attendence a
+    INNER JOIN timetable t ON a.session_id = t.session_id
+    WHERE a.reg_no = p_reg_no and where t.c_code=p_c_code
+    GROUP BY a.reg_no, t.c_code;
+END //
+
+DELIMITER ;
+
+
+DELIMITER //
+
+CREATE OR REPLACE PROCEDURE GetStudentAttendance(IN p_reg_no VARCHAR(8),IN p_c_code VARCHAR(8),IN is_what VARCHAR(20))
+BEGIN
+    SELECT 
+        t.c_code,
+        a.reg_no,
+
+        -- Present days (rounded to whole number)
+        CASE 
+            WHEN t.c_code IN ('ICT1233', 'ICT1253') 
+            THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+            ELSE SUM(a.change_status = 'Present')
+        END AS present_days,
+
+        -- Total sessions (fixed properly)
+        CASE 
+            WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+            THEN 15
+            ELSE 15
+        END AS total_sessions,
+
+
+        ROUND(
+            (
+                CASE 
+                    WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+                    THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+                    ELSE SUM(a.change_status = 'Present')
+                END 
+                /
+                CASE 
+                    WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+                    THEN 15
+                    ELSE 15
+                END
+            ) * 100, 
+        0) AS attendance_percentage, 
+
+        -- Eligibility
+        CASE 
+            WHEN 
+                ROUND(
+                    (
+                        CASE 
+                            WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+                            THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+                            ELSE SUM(a.change_status = 'Present')
+                        END 
+                        /
+                        CASE 
+                            WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+                            THEN 15
+                            ELSE 15
+                        END
+                    ) * 100, 
+                0) >= 80
+            THEN 'eligible'
+            ELSE 'not eligible'
+        END AS is_eligible
+
+    FROM attendence a
+    INNER JOIN timetable t ON a.session_id = t.session_id
+    WHERE t.c_code = p_c_code
+    GROUP BY a.reg_no, t.c_code;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE OR REPLACE PROCEDURE theory_and_practical_subject_attendence(
+    IN p_reg_no VARCHAR(8),
+    IN p_c_code VARCHAR(8),
+    IN is_what VARCHAR(20)
+)
+BEGIN
+    SELECT 
+        t.c_code,
+        a.reg_no,
+
+        -- Present days
+        CASE 
+            WHEN t.c_code IN ('ICT1233', 'ICT1253') AND is_what = 'all'
+            THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+            ELSE SUM(a.change_status = 'Present')
+        END AS present_days,
+
+        -- Total sessions
+        CASE 
+            WHEN t.c_code IN ('ICT1233', 'ICT1253') AND is_what = 'all'
+            THEN 15
+            ELSE 15
+        END AS total_sessions,
+
+        -- Attendance percentage (rounded)
+        ROUND(
+            (
+                CASE 
+                    WHEN t.c_code IN ('ICT1233', 'ICT1253') AND is_what = 'all'
+                    THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+                    ELSE SUM(a.change_status = 'Present')
+                END
+                /
+                CASE 
+                    WHEN t.c_code IN ('ICT1233', 'ICT1253') AND is_what = 'all'
+                    THEN 15
+                    ELSE 15
+                END
+            ) * 100,
+        0) AS attendance_percentage,
+
+        -- Eligibility
+        CASE 
+            WHEN 
+                ROUND(
+                    (
+                        CASE 
+                            WHEN t.c_code IN ('ICT1233', 'ICT1253') AND is_what = 'all'
+                            THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+                            ELSE SUM(a.change_status = 'Present')
+                        END
+                        /
+                        CASE 
+                            WHEN t.c_code IN ('ICT1233', 'ICT1253') AND is_what = 'all'
+                            THEN 15
+                            ELSE 15
+                        END
+                    ) * 100,
+                0) >= 80
+            THEN 'eligible'
+            ELSE 'not eligible'
+        END AS is_eligible
+
+    FROM attendence a
+    INNER JOIN timetable t ON a.session_id = t.session_id
+    WHERE a.reg_no = p_reg_no
+      AND t.c_code = p_c_code
+      AND (is_what = 'all' OR a.type = is_what)  -- Filter by theory/practical/all
+    GROUP BY a.reg_no, t.c_code;
+END //
+
+DELIMITER ;
+
+
+
+DELIMITER //
+
+CREATE OR REPLACE PROCEDURE theory_and_practical_by_course_code(
+    IN p_c_code VARCHAR(8),
+    IN is_what VARCHAR(20)
+)
+BEGIN
+    SELECT 
+        t.c_code,
+        a.reg_no,
+
+        -- Present days
+        CASE 
+            WHEN t.c_code IN ('ICT1233', 'ICT1253') AND is_what = 'all'
+            THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+            ELSE SUM(a.change_status = 'Present')
+        END AS present_days,
+
+        -- Total sessions
+        CASE 
+            WHEN t.c_code IN ('ICT1233', 'ICT1253') AND is_what = 'all'
+            THEN 15
+            ELSE 15
+        END AS total_sessions,
+
+        -- Attendance percentage (rounded)
+        ROUND(
+            (
+                CASE 
+                    WHEN t.c_code IN ('ICT1233', 'ICT1253') AND is_what = 'all'
+                    THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+                    ELSE SUM(a.change_status = 'Present')
+                END
+                /
+                CASE 
+                    WHEN t.c_code IN ('ICT1233', 'ICT1253') AND is_what = 'all'
+                    THEN 15
+                    ELSE 15
+                END
+            ) * 100,
+        0) AS attendance_percentage,
+
+        -- Eligibility
+        CASE 
+            WHEN 
+                ROUND(
+                    (
+                        CASE 
+                            WHEN t.c_code IN ('ICT1233', 'ICT1253') AND is_what = 'all'
+                            THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+                            ELSE SUM(a.change_status = 'Present')
+                        END
+                        /
+                        CASE 
+                            WHEN t.c_code IN ('ICT1233', 'ICT1253') AND is_what = 'all'
+                            THEN 15
+                            ELSE 15
+                        END
+                    ) * 100,
+                0) >= 80
+            THEN 'eligible'
+            ELSE 'not eligible'
+        END AS is_eligible
+
+    FROM attendence a
+    INNER JOIN timetable t ON a.session_id = t.session_id
+    WHERE t.c_code = p_c_code
+      AND (is_what = 'all' OR a.type = is_what)  -- Filter by theory/practical/all
+    GROUP BY a.reg_no, t.c_code;
+END //
+
+DELIMITER ;
+
+
+all_attendence_with_precentage
+attendance_above_80
+attendance_below_80
+medical_percentage_below_80
+medical_percentage_above_80
+all_attendence_with_medical
+All_subject_with_Eligibility
+
+GetStudentAttendance
+GetStudentAttendanceIndividuals
+GetAttendanceWith_Reg_no_and_c_code
+theory_and_practical_subject_attendence
+theory_and_practical_by_course_code
+
+
+
 
 
 
