@@ -273,4 +273,10 @@ INSERT INTO user (user_id, F_name, L_name, Address, phone_number, dob, email, ge
 ('LEC/1007', 'Chathura', 'Ranasinghe', 'Jaffna', 777890123, '1983-05-25', 'chathura.r@uni.lk', 'M', 'D001'),
 ('LEC/1008', 'Harshani', 'Bandara', 'Anuradhapura', 778901234, '1991-12-03', 'harshani.b@uni.lk', 'F', 'D001');
 
-//
+//02_insert_user_admin.sql
+
+-- Commit: Insert admin user (duplicate rows kept for demo)
+INSERT INTO user (user_id, F_name, L_name, Address, phone_number, dob, email, gender, dept_id) VALUES
+('ADM/1001', 'Aravinda', 'Nissankaarachchi', '1 University St', 777111111, '1980-01-01', 'admin.user@example.com', 'M', NULL);
+INSERT INTO user (user_id, F_name, L_name, Address, phone_number, dob, email, gender, dept_id) VALUES
+('ADM/1001', 'Aravinda', 'Nissankaarachchi', '1 University St', 777111111, '1980-01-01', 'admin.user@example.com', 'M', NULL);
