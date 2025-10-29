@@ -1,1 +1,9 @@
-
+-- Creating table q1_marks
+CREATE TABLE q1_marks (
+    m_id VARCHAR(8) NOT NULL,
+    Q1 DECIMAL(5,2) NOT NULL,
+    status ENUM('proper', 'repeat') NOT NULL DEFAULT 'proper',
+    c_code VARCHAR(8),
+    reg_no VARCHAR(8),
+    PRIMARY KEY (m_id)
+);
