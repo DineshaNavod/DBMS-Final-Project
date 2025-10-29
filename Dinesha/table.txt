@@ -2088,3 +2088,17 @@ INSERT INTO attendence (att_id, type, atten_date, status, Reg_no, session_id, se
 ('B649', 'PRACTICAL', '2026-01-01', 'Present', 'TCH/1004', 'S09', 'ICT1222(02)-W15'),
 ('B650', 'THEORY',    '2026-01-02', 'Present', 'TCH/1004', 'S10', 'TCS1212(01)-W15'),
 ('B651', 'THEORY',    '2026-01-02', 'Absent',  'TCH/1004', 'S11', 'ENG1212(01)-W15');
+
+create table medical(
+    medical_id varchar(8) not null primary key,
+    submission_date date not null,
+    description text not null,
+    affectted_start_date date not null,
+    affectted_end_date date not null,
+    status ENUM('approved', 'not approved') NOT NULL DEFAULT 'not approved',
+    Reg_no varchar(8),
+    session_id varchar(8),
+    foreign key(Reg_no) references student(Reg_no),
+    foreign key(session_id) references timetable(session_id)
+
+);
