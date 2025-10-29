@@ -1,1 +1,177 @@
 //Full Source code Here
+
+
+//All table Structures Here
+
+create table user(
+    user_id char(8) not null primary key,
+    F_name varchar(100) not null,
+    L_name varchar(100) not null,
+    Address varchar(100) not null,
+    phone_number int not null,
+    dob date not null,
+    email varchar(100) not null,
+    gender ENUM('M', 'F') NOT NULL
+);
+
+create table admin(
+    user_id char(8) not null primary key,
+    appointment_of_date date not null,
+    Access_level varchar(50) not null,
+    status ENUM('ACTIVE', 'INACTIVE', 'RETIRED', 'TRANSFERRED', 'TERMINATED') NOT NULL DEFAULT 'ACTIVE',
+    foreign key(user_id) references user(user_id)
+
+);
+
+create table dean(
+    user_id char(8) not null primary key,
+    appointment_of_date date not null,
+    status ENUM('ACTIVE', 'INACTIVE', 'RETIRED', 'TRANSFERRED', 'TERMINATED') NOT NULL DEFAULT 'ACTIVE',
+    foreign key(user_id) references user(user_id)
+);
+
+create table tos(
+    user_id char(8) not null primary key,
+    appointment_of_date date not null,
+    status ENUM('ACTIVE', 'INACTIVE', 'RETIRED', 'TRANSFERRED', 'TERMINATED') NOT NULL DEFAULT 'ACTIVE',
+    Duty_of_Area varchar(100) not null,
+    position varchar(100) not null,
+    shift_time time not null,
+    foreign key(user_id) references user(user_id)
+);
+
+
+create table lecture(
+    user_id char(8) not null primary key,
+    appointment_of_date date not null,
+    status ENUM('ACTIVE', 'INACTIVE', 'RETIRED', 'TRANSFERRED', 'TERMINATED') NOT NULL DEFAULT 'ACTIVE',
+    position varchar(100) not null,
+    foreign key(user_id) references user(user_id)
+);
+
+create table student(
+    Reg_no char(8) not null primary key,
+    status ENUM('PROPER', 'REPEAT', 'SUSPENDED') NOT NULL DEFAULT 'PROPER',
+    session_id varchar(8),
+    b_id varchar(8),
+    m_id varchar(8),
+    foreign key(Reg_no) references user(user_id),
+    foreign key(session_id) references timetable(session_id),
+    foreign key(b_id) references batch(b_id),
+    foreign key(m_id) references marks(m_id)
+
+);
+
+create table batch(
+    b_id char(8) not null primary key,
+    b_name varchar(100) not null,
+    acedemic_year year not null,
+    start_date date not null,
+    end_date date not null
+);
+
+create table department(
+    dept_id char(8) not null primary key,
+    d_name varchar(100) not null
+);
+
+create table course_unit(
+    c_code char(8) not null primary key,
+    c_name varchar(50) not null,
+    credit int not null,
+    is_theory ENUM('YES', 'NO') NOT NULL DEFAULT 'YES',
+    is_practicel ENUM('YES', 'NO') NOT NULL DEFAULT 'YES',
+    semester char(3) not null
+);
+
+create table marks(
+    m_id varchar(8) not null primary key,
+    Entered_date date not null
+);
+
+create table Assesment_marks(
+    m_id varchar(8) not null primary key,
+    is_CA ENUM('YES', 'NO') NOT NULL DEFAULT 'YES',
+    Assesment_marks decimal(5,2) not null,
+    foreign key(m_id) references marks(m_id),
+    CHECK (Assesment_marks >= 0 AND Assesment_marks <= 100)
+);
+
+create table mid_masks(
+    m_id varchar(8) not null primary key,
+    is_CA ENUM('YES', 'NO') NOT NULL DEFAULT 'YES',
+    theory decimal(5,2) not null,
+    practical decimal(5,2) not null,
+    foreign key(m_id) references marks(m_id),
+    CHECK (practical >= 0 AND practical <= 100),
+    CHECK (theory >= 0 AND theory <= 100)
+);
+
+create table end_marks(
+     m_id varchar(8) not null primary key,
+     theory decimal(5,2) not null,
+    practical decimal(5,2) not null,
+    foreign key(m_id) references marks(m_id),
+    CHECK (practical >= 0 AND practical <= 100),
+    CHECK (theory >= 0 AND theory <= 100)
+);
+
+create  table timetable(
+    session_id varchar(8) not null primary key,
+    session_no int not null,
+    session_date date not null,
+    type ENUM('PRACTICAL', 'THEORY') NOT NULL DEFAULT 'THEORY',
+    duration time not null,
+    lec_hall varchar(10) not null,
+    c_code varchar(8)
+);
+
+create table medical(
+    medical_id varchar(8) not null primary key,
+    submission_date date not null,
+    description text not null,
+    affectted_start_date date not null,
+    affectted_end_date date not null,
+    status ENUM('approved', 'not approved') NOT NULL DEFAULT 'not approved',
+    Reg_no varchar(8),
+    session_id varchar(8),
+    foreign key(Reg_no) references student(Reg_no),
+    foreign key(session_id) references timetable(session_id)
+
+);
+
+create table attendence(
+    att_id varchar(8) not null primary key,
+    type ENUM("theory","practical")  NOT NULL DEFAULT 'theory',
+    atten_date date not null,
+    status ENUM("absent","Present")  NOT NULL DEFAULT 'Present',
+    Reg_no varchar(8) ,
+    session_id varchar(8),
+    foreign key(Reg_no) references student(Reg_no),
+    foreign key(session_id) references timetable(session_id)
+);
+
+create table entroll(
+    Reg_no varchar(8) not null,
+    c_code varchar(8) not null,
+    entroll_date date not null,
+    foreign key(Reg_no) references student(Reg_no),
+    foreign key(c_code) references course_unit(c_code)
+);
+
+create table lecturing(
+    user_id varchar(8) not null,
+    c_code varchar(8) not null,
+    foreign key(user_id) references lecture(user_id),
+    foreign key(c_code) references course_unit(c_code)
+);
+
+create table keep(
+    Reg_no varchar(8) not null,
+    m_id varchar(8) not null,
+    foreign key(Reg_no) references student(Reg_no),
+    foreign key(m_id) references marks(m_id)
+
+);
+
+
