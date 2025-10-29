@@ -63,4 +63,58 @@ BEGIN
 END//
 DELIMITER ;
 
+//medical_for_exam
+
+DELIMITER //
+CREATE TRIGGER update_marks_base_on_medical
+AFTER INSERT ON medical_for_exam
+FOR EACH ROW
+BEGIN
+
+    IF NEW.status='approved' THEN
+            IF NEW.marks_type = 'q1_marks' THEN
+                UPDATE q1_marks
+                SET q1 = 'MC'
+                WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+
+            ELSEIF NEW.marks_type = 'q2_marks' THEN
+                UPDATE q2_marks
+                SET q2 = 'MC'
+                WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+
+            ELSEIF NEW.marks_type = 'q3_marks' THEN
+                UPDATE q3_marks
+                SET q3 = 'MC'
+                WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+
+            ELSEIF NEW.marks_type = 'assesment_marks' THEN
+                UPDATE assesment_marks
+                SET Assesment_marks = 'MC'
+                WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+
+            ELSEIF NEW.marks_type = 'mid_masks' THEN
+                IF NEW.is_practical_or_theory = 'practical' THEN
+                    UPDATE mid_masks
+                    SET practical = 'MC'
+                    WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+                ELSEIF NEW.is_practical_or_theory = 'theory' THEN
+                    UPDATE mid_masks
+                    SET theory = 'MC'
+                    WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+                END IF;
+
+            ELSEIF NEW.marks_type = 'end_marks' THEN
+                IF NEW.is_practical_or_theory = 'practical' THEN
+                    UPDATE end_marks
+                    SET practical = 'MC'
+                    WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+                ELSEIF NEW.is_practical_or_theory = 'theory' THEN
+                    UPDATE end_marks
+                    SET theory = 'MC'
+                    WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+                END IF;
+            END IF;
+    END IF;
+END //
+DELIMITER ;
 
