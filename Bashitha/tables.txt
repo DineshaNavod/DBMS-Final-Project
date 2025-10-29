@@ -956,3 +956,18 @@ VALUES
   ('M282', '2025-09-05', 'TCH/1010', 'YES', 'proper'),
   ('M290', '2025-09-05', 'TCH/1006', 'YES', 'proper'),
   ('M298', '2025-09-05', 'TCH/1009', 'YES', 'proper');
+
+CREATE USER 'Student'@'localhost' IDENTIFIED BY '1234';
+
+GRANT SELECT ON FOT.marks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.q1_marks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.q2_marks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.q3_marks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.assesment_marks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.mid_masks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.end_marks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.attendence TO 'Student'@'localhost';
+GRANT SELECT ON FOT.all_attendence_with_medical TO 'Student'@'localhost';
+GRANT SELECT ON FOT.final_grades TO 'Student'@'localhost';
+
+FLUSH PRIVILEGES;
