@@ -2433,3 +2433,11 @@ update attendence
 set status='present',change_status='present'
 where att_id='A781';
 
+
+
+alter table end_marks
+drop foreign key end_marks_ibfk_1;
+
+alter table end_marks
+add foreign key(m_id) references marks(m_id) ON DELETE CASCADE;
+
