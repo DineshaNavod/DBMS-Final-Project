@@ -29,3 +29,24 @@ BEGIN
 END //
 
 DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE GetStudentAttendance(IN p_c_code VARCHAR(8))
+BEGIN
+    SELECT 
+        t.c_code,
+        a.reg_no,
+        count(a.change_status = 'Present') AS dates,
+        ROUND(AVG(a.change_status = 'Present') * 100) AS attendance_percentage,
+        CASE 
+            WHEN ROUND(AVG(a.change_status = 'Present') * 100) >= 80 THEN 'eligible'
+            ELSE 'not eligible'
+        END AS is_eligible
+    FROM attendence a
+    INNER JOIN timetable t ON a.session_id = t.session_id
+    WHERE t.c_code = p_c_code
+    GROUP BY a.reg_no,t.c_code;
+END //
+
+DELIMITER ;
