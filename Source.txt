@@ -405,3 +405,13 @@ INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
 ('M23', 58.25, NULL, 'repeat', 'TCH/1011', 'TCS1212'),
 ('M24', 57.50, NULL, 'repeat', 'TCH/1011', 'TMS1233');
 
+-- Insert mid-term marks for proper student TCH/1001 (M25 → M32)
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M25', 78.50, NULL, 'PROPER', 'TCH/1001', 'ENG1222'),
+('M26', 82.00, NULL, 'PROPER', 'TCH/1001', 'ICT1212'),
+('M27', NULL, 75.50, 'PROPER', 'TCH/1001', 'ICT1222'),
+('M28', 80.25, 72.00, 'PROPER', 'TCH/1001', 'ICT1233'),
+('M29', 77.00, NULL, 'PROPER', 'TCH/1001', 'ICT1242'),
+('M30', 79.50, 70.00, 'PROPER', 'TCH/1001', 'ICT1253'),
+('M31', 81.00, NULL, 'PROPER', 'TCH/1001', 'TCS1212'),
+('M32', 75.25, NULL, 'PROPER', 'TCH/1001', 'TMS1233');
