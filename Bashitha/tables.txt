@@ -559,3 +559,17 @@ INSERT INTO end_marks (m_id, theory, practical, status, reg_no, c_code) VALUES
 ('M414', 81.23, 70.12, 'repeat', 'TCH/1011', 'ICT1253'),
 ('M415', 84.56, 0.00, 'repeat', 'TCH/1011', 'TCS1212'),
 ('M416', 53.78, 0.00, 'repeat', 'TCH/1011', 'TMS1233');
+
+create table marks(
+    m_id varchar(8) not null primary key,
+    Entered_date date not null
+);
+
+alter table marks 
+add column Reg_no char(8);
+
+alter table marks 
+add foreign key(Reg_no) references student(Reg_no);
+
+alter table marks
+modify column st_status enum('proper','CA repeat','End Repeat','Both repeat','suspended') not null;
