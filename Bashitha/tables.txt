@@ -573,3 +573,386 @@ add foreign key(Reg_no) references student(Reg_no);
 
 alter table marks
 modify column st_status enum('proper','CA repeat','End Repeat','Both repeat','suspended') not null;
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status) VALUES
+('M111', '2025-12-05', 'TCH/1003', 'NO', 'proper'),
+('M119', '2025-12-05', 'TCH/1001', 'NO', 'proper'),
+('M127', '2025-12-05', 'TCH/1005', 'NO', 'proper'),
+('M135', '2025-12-05', 'TCH/1008', 'NO', 'proper'),
+('M143', '2025-12-05', 'TCH/1013', 'NO', 'End Repeat'),
+('M151', '2025-12-05', 'TCH/1007', 'NO', 'proper'),
+('M159', '2025-12-05', 'TCH/1002', 'NO', 'proper'),
+('M167', '2025-12-05', 'TCH/1004', 'NO', 'proper'),
+('M175', '2025-12-05', 'TCH/1010', 'NO', 'proper'),
+('M183', '2025-12-05', 'TCH/1006', 'NO', 'proper'),
+('M191', '2025-12-05', 'TCH/1015', 'NO', 'End Repeat'),
+('M199', '2025-12-05', 'TCH/1009', 'NO', 'proper'),
+('M415', '2025-12-05', 'TCH/1011', 'NO', 'Both repeat');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status) VALUES
+('M111', '2025-12-05', 'TCH/1003', 'NO', 'proper'),
+('M119', '2025-12-05', 'TCH/1001', 'NO', 'proper'),
+('M127', '2025-12-05', 'TCH/1005', 'NO', 'proper'),
+('M135', '2025-12-05', 'TCH/1008', 'NO', 'proper'),
+('M143', '2025-12-05', 'TCH/1013', 'NO', 'End Repeat'),
+('M151', '2025-12-05', 'TCH/1007', 'NO', 'proper'),
+('M159', '2025-12-05', 'TCH/1002', 'NO', 'proper'),
+('M167', '2025-12-05', 'TCH/1004', 'NO', 'proper'),
+('M175', '2025-12-05', 'TCH/1010', 'NO', 'proper'),
+('M183', '2025-12-05', 'TCH/1006', 'NO', 'proper'),
+('M191', '2025-12-05', 'TCH/1015', 'NO', 'End Repeat'),
+('M199', '2025-12-05', 'TCH/1009', 'NO', 'proper'),
+('M415', '2025-12-05', 'TCH/1011', 'NO', 'Both repeat');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M110', '2025-12-02', 'TCH/1003', 'NO', 'proper'),
+  ('M118', '2025-12-02', 'TCH/1001', 'NO', 'proper'),
+  ('M126', '2025-12-02', 'TCH/1005', 'NO', 'proper'),
+  ('M134', '2025-12-02', 'TCH/1008', 'NO', 'proper'),
+  ('M142', '2025-12-02', 'TCH/1013', 'NO', 'End Repeat'),
+  ('M150', '2025-12-02', 'TCH/1007', 'NO', 'proper'),
+  ('M158', '2025-12-02', 'TCH/1002', 'NO', 'proper'),
+  ('M166', '2025-12-02', 'TCH/1004', 'NO', 'proper'),
+  ('M174', '2025-12-02', 'TCH/1010', 'NO', 'proper'),
+  ('M182', '2025-12-02', 'TCH/1006', 'NO', 'proper'),
+  ('M190', '2025-12-02', 'TCH/1015', 'NO', 'End Repeat'),
+  ('M198', '2025-12-02', 'TCH/1009', 'NO', 'proper'),
+  ('M414', '2025-12-02', 'TCH/1011', 'NO', 'Both repeat');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M109', '2025-11-27', 'TCH/1003', 'NO', 'proper'),
+  ('M117', '2025-11-27', 'TCH/1001', 'NO', 'proper'),
+  ('M125', '2025-11-27', 'TCH/1005', 'NO', 'proper'),
+  ('M133', '2025-11-27', 'TCH/1008', 'NO', 'proper'),
+  ('M141', '2025-11-27', 'TCH/1013', 'NO', 'End Repeat'),
+  ('M149', '2025-11-27', 'TCH/1007', 'NO', 'proper'),
+  ('M157', '2025-11-27', 'TCH/1002', 'NO', 'proper'),
+  ('M165', '2025-11-27', 'TCH/1004', 'NO', 'proper'),
+  ('M173', '2025-11-27', 'TCH/1010', 'NO', 'proper'),
+  ('M181', '2025-11-27', 'TCH/1006', 'NO', 'proper'),
+  ('M189', '2025-11-27', 'TCH/1015', 'NO', 'End Repeat'),
+  ('M197', '2025-11-27', 'TCH/1009', 'NO', 'proper'),
+  ('M413', '2025-11-27', 'TCH/1011', 'NO', 'Both repeat');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M108', '2025-11-26', 'TCH/1003', 'NO', 'proper'),
+  ('M116', '2025-11-26', 'TCH/1001', 'NO', 'proper'),
+  ('M124', '2025-11-26', 'TCH/1005', 'NO', 'proper'),
+  ('M132', '2025-11-26', 'TCH/1008', 'NO', 'proper'),
+  ('M140', '2025-11-26', 'TCH/1013', 'NO', 'End Repeat'),
+  ('M148', '2025-11-26', 'TCH/1007', 'NO', 'proper'),
+  ('M156', '2025-11-26', 'TCH/1002', 'NO', 'proper'),
+  ('M164', '2025-11-26', 'TCH/1004', 'NO', 'proper'),
+  ('M172', '2025-11-26', 'TCH/1010', 'NO', 'proper'),
+  ('M180', '2025-11-26', 'TCH/1006', 'NO', 'proper'),
+  ('M188', '2025-11-26', 'TCH/1015', 'NO', 'End Repeat'),
+  ('M196', '2025-11-26', 'TCH/1009', 'NO', 'proper'),
+  ('M412', '2025-11-26', 'TCH/1011', 'NO', 'Both repeat');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M107', '2025-11-24', 'TCH/1003', 'NO', 'proper'),
+  ('M115', '2025-11-24', 'TCH/1001', 'NO', 'proper'),
+  ('M123', '2025-11-24', 'TCH/1005', 'NO', 'proper'),
+  ('M131', '2025-11-24', 'TCH/1008', 'NO', 'proper'),
+  ('M139', '2025-11-24', 'TCH/1013', 'NO', 'End Repeat'),
+  ('M147', '2025-11-24', 'TCH/1007', 'NO', 'proper'),
+  ('M155', '2025-11-24', 'TCH/1002', 'NO', 'proper'),
+  ('M163', '2025-11-24', 'TCH/1004', 'NO', 'proper'),
+  ('M171', '2025-11-24', 'TCH/1010', 'NO', 'proper'),
+  ('M179', '2025-11-24', 'TCH/1006', 'NO', 'proper'),
+  ('M187', '2025-11-24', 'TCH/1015', 'NO', 'End Repeat'),
+  ('M195', '2025-11-24', 'TCH/1009', 'NO', 'proper'),
+  ('M411', '2025-11-24', 'TCH/1011', 'NO', 'Both repeat');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M106', '2025-11-20', 'TCH/1003', 'NO', 'proper'),
+  ('M114', '2025-11-20', 'TCH/1001', 'NO', 'proper'),
+  ('M122', '2025-11-20', 'TCH/1005', 'NO', 'proper'),
+  ('M130', '2025-11-20', 'TCH/1008', 'NO', 'proper'),
+  ('M138', '2025-11-20', 'TCH/1013', 'NO', 'End Repeat'),
+  ('M146', '2025-11-20', 'TCH/1007', 'NO', 'proper'),
+  ('M154', '2025-11-20', 'TCH/1002', 'NO', 'proper'),
+  ('M162', '2025-11-20', 'TCH/1004', 'NO', 'proper'),
+  ('M170', '2025-11-20', 'TCH/1010', 'NO', 'proper'),
+  ('M178', '2025-11-20', 'TCH/1006', 'NO', 'proper'),
+  ('M186', '2025-11-20', 'TCH/1015', 'NO', 'End Repeat'),
+  ('M194', '2025-11-20', 'TCH/1009', 'NO', 'proper'),
+  ('M410', '2025-11-20', 'TCH/1011', 'NO', 'Both repeat');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M105', '2025-11-17', 'TCH/1003', 'NO', 'proper'),
+  ('M113', '2025-11-17', 'TCH/1001', 'NO', 'proper'),
+  ('M121', '2025-11-17', 'TCH/1005', 'NO', 'proper'),
+  ('M129', '2025-11-17', 'TCH/1008', 'NO', 'proper'),
+  ('M137', '2025-11-17', 'TCH/1013', 'NO', 'End Repeat'),
+  ('M145', '2025-11-17', 'TCH/1007', 'NO', 'proper'),
+  ('M153', '2025-11-17', 'TCH/1002', 'NO', 'proper'),
+  ('M161', '2025-11-17', 'TCH/1004', 'NO', 'proper'),
+  ('M169', '2025-11-17', 'TCH/1010', 'NO', 'proper'),
+  ('M177', '2025-11-17', 'TCH/1006', 'NO', 'proper'),
+  ('M185', '2025-11-17', 'TCH/1015', 'NO', 'End Repeat'),
+  ('M193', '2025-11-17', 'TCH/1009', 'NO', 'proper'),
+  ('M409', '2025-11-17', 'TCH/1011', 'NO', 'Both repeat');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M208', '2025-10-30', 'TCH/1003', 'YES', 'proper'),
+  ('M216', '2025-10-30', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M224', '2025-10-30', 'TCH/1001', 'YES', 'proper'),
+  ('M232', '2025-10-30', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M240', '2025-10-30', 'TCH/1005', 'YES', 'proper'),
+  ('M248', '2025-10-30', 'TCH/1008', 'YES', 'proper'),
+  ('M256', '2025-10-30', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M264', '2025-10-30', 'TCH/1007', 'YES', 'proper'),
+  ('M272', '2025-10-30', 'TCH/1002', 'YES', 'proper'),
+  ('M280', '2025-10-30', 'TCH/1004', 'YES', 'proper'),
+  ('M288', '2025-10-30', 'TCH/1010', 'YES', 'proper'),
+  ('M296', '2025-10-30', 'TCH/1006', 'YES', 'proper'),
+  ('M304', '2025-10-30', 'TCH/1009', 'YES', 'proper');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M207', '2025-10-27', 'TCH/1003', 'YES', 'proper'),
+  ('M215', '2025-10-27', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M223', '2025-10-27', 'TCH/1001', 'YES', 'proper'),
+  ('M231', '2025-10-27', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M239', '2025-10-27', 'TCH/1005', 'YES', 'proper'),
+  ('M247', '2025-10-27', 'TCH/1008', 'YES', 'proper'),
+  ('M255', '2025-10-27', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M263', '2025-10-27', 'TCH/1007', 'YES', 'proper'),
+  ('M271', '2025-10-27', 'TCH/1002', 'YES', 'proper'),
+  ('M279', '2025-10-27', 'TCH/1004', 'YES', 'proper'),
+  ('M287', '2025-10-27', 'TCH/1010', 'YES', 'proper'),
+  ('M295', '2025-10-27', 'TCH/1006', 'YES', 'proper'),
+  ('M303', '2025-10-27', 'TCH/1009', 'YES', 'proper');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M206', '2025-10-16', 'TCH/1003', 'YES', 'proper'),
+  ('M214', '2025-10-16', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M222', '2025-10-16', 'TCH/1001', 'YES', 'proper'),
+  ('M230', '2025-10-16', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M238', '2025-10-16', 'TCH/1005', 'YES', 'proper'),
+  ('M246', '2025-10-16', 'TCH/1008', 'YES', 'proper'),
+  ('M254', '2025-10-16', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M262', '2025-10-16', 'TCH/1007', 'YES', 'proper'),
+  ('M270', '2025-10-16', 'TCH/1002', 'YES', 'proper'),
+  ('M278', '2025-10-16', 'TCH/1004', 'YES', 'proper'),
+  ('M286', '2025-10-16', 'TCH/1010', 'YES', 'proper'),
+  ('M294', '2025-10-16', 'TCH/1006', 'YES', 'proper'),
+  ('M302', '2025-10-16', 'TCH/1009', 'YES', 'proper');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M205', '2025-10-08', 'TCH/1003', 'YES', 'proper'),
+  ('M213', '2025-10-08', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M221', '2025-10-08', 'TCH/1001', 'YES', 'proper'),
+  ('M229', '2025-10-08', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M237', '2025-10-08', 'TCH/1005', 'YES', 'proper'),
+  ('M245', '2025-10-08', 'TCH/1008', 'YES', 'proper'),
+  ('M253', '2025-10-08', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M261', '2025-10-08', 'TCH/1007', 'YES', 'proper'),
+  ('M269', '2025-10-08', 'TCH/1002', 'YES', 'proper'),
+  ('M277', '2025-10-08', 'TCH/1004', 'YES', 'proper'),
+  ('M285', '2025-10-08', 'TCH/1010', 'YES', 'proper'),
+  ('M293', '2025-10-08', 'TCH/1006', 'YES', 'proper'),
+  ('M301', '2025-10-08', 'TCH/1009', 'YES', 'proper');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M204', '2025-10-03', 'TCH/1003', 'YES', 'proper'),
+  ('M212', '2025-10-03', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M220', '2025-10-03', 'TCH/1001', 'YES', 'proper'),
+  ('M228', '2025-10-03', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M236', '2025-10-03', 'TCH/1005', 'YES', 'proper'),
+  ('M244', '2025-10-03', 'TCH/1008', 'YES', 'proper'),
+  ('M252', '2025-10-03', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M260', '2025-10-03', 'TCH/1007', 'YES', 'proper'),
+  ('M268', '2025-10-03', 'TCH/1002', 'YES', 'proper'),
+  ('M276', '2025-10-03', 'TCH/1004', 'YES', 'proper'),
+  ('M284', '2025-10-03', 'TCH/1010', 'YES', 'proper'),
+  ('M292', '2025-10-03', 'TCH/1006', 'YES', 'proper'),
+  ('M300', '2025-10-03', 'TCH/1009', 'YES', 'proper');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M203', '2025-09-09', 'TCH/1003', 'YES', 'proper'),
+  ('M211', '2025-09-09', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M219', '2025-09-09', 'TCH/1001', 'YES', 'proper'),
+  ('M227', '2025-09-09', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M235', '2025-09-09', 'TCH/1005', 'YES', 'proper'),
+  ('M243', '2025-09-09', 'TCH/1008', 'YES', 'proper'),
+  ('M251', '2025-09-09', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M259', '2025-09-09', 'TCH/1007', 'YES', 'proper'),
+  ('M267', '2025-09-09', 'TCH/1002', 'YES', 'proper'),
+  ('M275', '2025-09-09', 'TCH/1004', 'YES', 'proper'),
+  ('M283', '2025-09-09', 'TCH/1010', 'YES', 'proper'),
+  ('M291', '2025-09-09', 'TCH/1006', 'YES', 'proper'),
+  ('M299', '2025-09-09', 'TCH/1009', 'YES', 'proper');
+
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M01', '2025-09-29', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M09', '2025-09-29', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M17', '2025-09-29', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M25', '2025-09-29', 'TCH/1001', 'YES', 'proper'),
+  ('M33', '2025-09-29', 'TCH/1003', 'YES', 'proper'),
+  ('M41', '2025-09-29', 'TCH/1005', 'YES', 'proper'),
+  ('M49', '2025-09-29', 'TCH/1008', 'YES', 'proper'),
+  ('M57', '2025-09-29', 'TCH/1007', 'YES', 'proper'),
+  ('M65', '2025-09-29', 'TCH/1002', 'YES', 'proper'),
+  ('M73', '2025-09-29', 'TCH/1004', 'YES', 'proper'),
+  ('M81', '2025-09-29', 'TCH/1010', 'YES', 'proper'),
+  ('M89', '2025-09-29', 'TCH/1006', 'YES', 'proper'),
+  ('M97', '2025-09-29', 'TCH/1009', 'YES', 'proper');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M02', '2025-10-02', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M10', '2025-10-02', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M18', '2025-10-02', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M26', '2025-10-02', 'TCH/1001', 'YES', 'proper'),
+  ('M34', '2025-10-02', 'TCH/1003', 'YES', 'proper'),
+  ('M42', '2025-10-02', 'TCH/1005', 'YES', 'proper'),
+  ('M50', '2025-10-02', 'TCH/1008', 'YES', 'proper'),
+  ('M58', '2025-10-02', 'TCH/1007', 'YES', 'proper'),
+  ('M66', '2025-10-02', 'TCH/1002', 'YES', 'proper'),
+  ('M74', '2025-10-02', 'TCH/1004', 'YES', 'proper'),
+  ('M82', '2025-10-02', 'TCH/1010', 'YES', 'proper'),
+  ('M90', '2025-10-02', 'TCH/1006', 'YES', 'proper'),
+  ('M98', '2025-10-02', 'TCH/1009', 'YES', 'proper');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M03', '2025-10-01', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M11', '2025-10-01', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M19', '2025-10-01', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M27', '2025-10-01', 'TCH/1001', 'YES', 'proper'),
+  ('M35', '2025-10-01', 'TCH/1003', 'YES', 'proper'),
+  ('M43', '2025-10-01', 'TCH/1005', 'YES', 'proper'),
+  ('M51', '2025-10-01', 'TCH/1008', 'YES', 'proper'),
+  ('M59', '2025-10-01', 'TCH/1007', 'YES', 'proper'),
+  ('M67', '2025-10-01', 'TCH/1002', 'YES', 'proper'),
+  ('M75', '2025-10-01', 'TCH/1004', 'YES', 'proper'),
+  ('M83', '2025-10-01', 'TCH/1010', 'YES', 'proper'),
+  ('M91', '2025-10-01', 'TCH/1006', 'YES', 'proper'),
+  ('M99', '2025-10-01', 'TCH/1009', 'YES', 'proper');
+
+  INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M04', '2025-10-03', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M100', '2025-10-03', 'TCH/1009', 'YES', 'proper'),
+  ('M12', '2025-10-03', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M20', '2025-10-03', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M28', '2025-10-03', 'TCH/1001', 'YES', 'proper'),
+  ('M36', '2025-10-03', 'TCH/1003', 'YES', 'proper'),
+  ('M44', '2025-10-03', 'TCH/1005', 'YES', 'proper'),
+  ('M52', '2025-10-03', 'TCH/1008', 'YES', 'proper'),
+  ('M60', '2025-10-03', 'TCH/1007', 'YES', 'proper'),
+  ('M68', '2025-10-03', 'TCH/1002', 'YES', 'proper'),
+  ('M76', '2025-10-03', 'TCH/1004', 'YES', 'proper'),
+  ('M84', '2025-10-03', 'TCH/1010', 'YES', 'proper'),
+  ('M92', '2025-10-03', 'TCH/1006', 'YES', 'proper');
+
+ INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M05', '2025-10-02', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M101', '2025-10-02', 'TCH/1009', 'YES', 'proper'),
+  ('M13', '2025-10-02', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M21', '2025-10-02', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M29', '2025-10-02', 'TCH/1001', 'YES', 'proper'),
+  ('M37', '2025-10-02', 'TCH/1003', 'YES', 'proper'),
+  ('M45', '2025-10-02', 'TCH/1005', 'YES', 'proper'),
+  ('M53', '2025-10-02', 'TCH/1008', 'YES', 'proper'),
+  ('M61', '2025-10-02', 'TCH/1007', 'YES', 'proper'),
+  ('M69', '2025-10-02', 'TCH/1002', 'YES', 'proper'),
+  ('M77', '2025-10-02', 'TCH/1004', 'YES', 'proper'),
+  ('M85', '2025-10-02', 'TCH/1010', 'YES', 'proper'),
+  ('M93', '2025-10-02', 'TCH/1006', 'YES', 'proper');
+
+ INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M06', '2025-10-01', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M102', '2025-10-01', 'TCH/1009', 'YES', 'proper'),
+  ('M14', '2025-10-01', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M22', '2025-10-01', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M30', '2025-10-01', 'TCH/1001', 'YES', 'proper'),
+  ('M38', '2025-10-01', 'TCH/1003', 'YES', 'proper'),
+  ('M46', '2025-10-01', 'TCH/1005', 'YES', 'proper'),
+  ('M54', '2025-10-01', 'TCH/1008', 'YES', 'proper'),
+  ('M62', '2025-10-01', 'TCH/1007', 'YES', 'proper'),
+  ('M70', '2025-10-01', 'TCH/1002', 'YES', 'proper'),
+  ('M78', '2025-10-01', 'TCH/1004', 'YES', 'proper'),
+  ('M86', '2025-10-01', 'TCH/1010', 'YES', 'proper'),
+  ('M94', '2025-10-01', 'TCH/1006', 'YES', 'proper');
+
+  INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M07', '2025-09-29', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M103', '2025-09-29', 'TCH/1009', 'YES', 'proper'),
+  ('M15', '2025-09-29', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M23', '2025-09-29', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M31', '2025-09-29', 'TCH/1001', 'YES', 'proper'),
+  ('M39', '2025-09-29', 'TCH/1003', 'YES', 'proper'),
+  ('M47', '2025-09-29', 'TCH/1005', 'YES', 'proper'),
+  ('M55', '2025-09-29', 'TCH/1008', 'YES', 'proper'),
+  ('M63', '2025-09-29', 'TCH/1007', 'YES', 'proper'),
+  ('M71', '2025-09-29', 'TCH/1002', 'YES', 'proper'),
+  ('M79', '2025-09-29', 'TCH/1004', 'YES', 'proper'),
+  ('M87', '2025-09-29', 'TCH/1010', 'YES', 'proper'),
+  ('M95', '2025-09-29', 'TCH/1006', 'YES', 'proper');
+
+  INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M08', '2025-10-03', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M104', '2025-10-03', 'TCH/1009', 'YES', 'proper'),
+  ('M16', '2025-10-03', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M24', '2025-10-03', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M32', '2025-10-03', 'TCH/1001', 'YES', 'proper'),
+  ('M40', '2025-10-03', 'TCH/1003', 'YES', 'proper'),
+  ('M48', '2025-10-03', 'TCH/1005', 'YES', 'proper'),
+  ('M56', '2025-10-03', 'TCH/1008', 'YES', 'proper'),
+  ('M64', '2025-10-03', 'TCH/1007', 'YES', 'proper'),
+  ('M72', '2025-10-03', 'TCH/1002', 'YES', 'proper'),
+  ('M80', '2025-10-03', 'TCH/1004', 'YES', 'proper'),
+  ('M88', '2025-10-03', 'TCH/1010', 'YES', 'proper'),
+  ('M96', '2025-10-03', 'TCH/1006', 'YES', 'proper');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M201', '2025-09-03', 'TCH/1003', 'YES', 'proper'),
+  ('M209', '2025-09-03', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M217', '2025-09-03', 'TCH/1001', 'YES', 'proper'),
+  ('M225', '2025-09-03', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M233', '2025-09-03', 'TCH/1005', 'YES', 'proper'),
+  ('M241', '2025-09-03', 'TCH/1008', 'YES', 'proper'),
+  ('M249', '2025-09-03', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M257', '2025-09-03', 'TCH/1007', 'YES', 'proper'),
+  ('M265', '2025-09-03', 'TCH/1002', 'YES', 'proper'),
+  ('M273', '2025-09-03', 'TCH/1004', 'YES', 'proper'),
+  ('M281', '2025-09-03', 'TCH/1010', 'YES', 'proper'),
+  ('M289', '2025-09-03', 'TCH/1006', 'YES', 'proper'),
+  ('M297', '2025-09-03', 'TCH/1009', 'YES', 'proper');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M202', '2025-09-05', 'TCH/1003', 'YES', 'proper'),
+  ('M210', '2025-09-05', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M218', '2025-09-05', 'TCH/1001', 'YES', 'proper'),
+  ('M226', '2025-09-05', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M234', '2025-09-05', 'TCH/1005', 'YES', 'proper'),
+  ('M242', '2025-09-05', 'TCH/1008', 'YES', 'proper'),
+  ('M250', '2025-09-05', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M258', '2025-09-05', 'TCH/1007', 'YES', 'proper'),
+  ('M266', '2025-09-05', 'TCH/1002', 'YES', 'proper'),
+  ('M274', '2025-09-05', 'TCH/1004', 'YES', 'proper'),
+  ('M282', '2025-09-05', 'TCH/1010', 'YES', 'proper'),
+  ('M290', '2025-09-05', 'TCH/1006', 'YES', 'proper'),
+  ('M298', '2025-09-05', 'TCH/1009', 'YES', 'proper');
