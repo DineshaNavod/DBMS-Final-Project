@@ -2320,3 +2320,12 @@ INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status) VALUES
 ('M535', NULL, 'TCH/1020', 'NO', 'suspended'),
 ('M536', NULL, 'TCH/1020', 'NO', 'suspended');
 
+insert into marks
+VALUES
+("M38",'2025-10-01','TCH/1003','YES','proper'),
+("M39",'2025-09-29','TCH/1003','YES','proper'),
+("M33",'2025-09-29','TCH/1003','YES','proper'),
+("M34",'2025-10-02','TCH/1003','YES','proper'),
+("M35",'2025-10-01','TCH/1003','YES','proper')
+;
+
