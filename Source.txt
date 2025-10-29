@@ -2339,3 +2339,6 @@ create table medical_for_exam(
   status enum("pending",'approved','not approved') not null Default 'pending'
 );
 
+alter table medical_for_exam
+add column is_practical_or_theory enum('practical','theory','no') not null Default 'no' after marks_type;
+
