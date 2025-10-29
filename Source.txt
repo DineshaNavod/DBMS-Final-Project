@@ -1,4 +1,10 @@
-//Full Source code Here
+# University Database – Seed Scripts
+
+SQL scripts that create the demo data for a university management system.
+
+Run the files **in order** (01 → 13) on an empty MySQL/MariaDB database.
+
+---
 
 
 //All table Structures Here
@@ -266,3 +272,5 @@ INSERT INTO user (user_id, F_name, L_name, Address, phone_number, dob, email, ge
 ('LEC/1006', 'Dinithi', 'Karunaratne', 'Negombo', 776789012, '1988-09-30', 'dinithi.karu@uni.lk', 'F', 'D001'),
 ('LEC/1007', 'Chathura', 'Ranasinghe', 'Jaffna', 777890123, '1983-05-25', 'chathura.r@uni.lk', 'M', 'D001'),
 ('LEC/1008', 'Harshani', 'Bandara', 'Anuradhapura', 778901234, '1991-12-03', 'harshani.b@uni.lk', 'F', 'D001');
+
+//
