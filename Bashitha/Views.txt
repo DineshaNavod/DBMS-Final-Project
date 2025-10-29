@@ -130,3 +130,10 @@ FROM
 ) AS sub
 
 WHERE LOWER(sub.status) IN ('proper','both repeat','suspended');
+
+CREATE OR REPLACE VIEW final_grades_Only AS
+SELECT 
+    reg_no,
+    c_code,
+    grade
+FROM final_grades;
