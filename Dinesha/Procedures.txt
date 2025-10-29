@@ -50,3 +50,73 @@ BEGIN
 END //
 
 DELIMITER ;
+
+DELIMITER //
+
+CREATE OR REPLACE PROCEDURE GetStudentAttendance(IN p_c_code VARCHAR(8))
+BEGIN
+    SELECT 
+        t.c_code,
+        a.reg_no,
+
+        -- Present days (rounded to whole number)
+        CASE 
+            WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+            THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+            ELSE SUM(a.change_status = 'Present')
+        END AS present_days,
+
+        -- Total sessions (fixed properly)
+        CASE 
+            WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+            THEN 15
+            ELSE 15
+        END AS total_sessions,
+
+
+        ROUND(
+            (
+                CASE 
+                    WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+                    THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+                    ELSE SUM(a.change_status = 'Present')
+                END 
+                /
+                CASE 
+                    WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+                    THEN 15
+                    ELSE 15
+                END
+            ) * 100, 
+        0) AS attendance_percentage, 
+
+        -- Eligibility
+        CASE 
+            WHEN 
+                ROUND(
+                    (
+                        CASE 
+                            WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+                            THEN ROUND(SUM(a.change_status = 'Present') / 2, 0)
+                            ELSE SUM(a.change_status = 'Present')
+                        END 
+                        /
+                        CASE 
+                            WHEN t.c_code IN ('ICT1233', 'ICT1253','ICT1222') 
+                            THEN 15
+                            ELSE 15
+                        END
+                    ) * 100, 
+                0) >= 80
+            THEN 'eligible'
+            ELSE 'not eligible'
+        END AS is_eligible
+
+    FROM attendence a
+    INNER JOIN timetable t ON a.session_id = t.session_id
+    WHERE t.c_code = p_c_code
+    GROUP BY a.reg_no, t.c_code;
+END //
+
+DELIMITER ;
+
