@@ -1475,4 +1475,7 @@ INSERT INTO course_unit (c_code, c_name, credit, is_theory, is_practicel, semest
 ('TCS1212', 'Fundamentals of Management', 2, 'YES', 'NO', 'L1S2', 'LEC/1007'),
 ('TMS1233', 'Discrete Mathematics', 3, 'YES', 'NO', 'L1S2', 'LEC/1008');
 
+alter table medical
+add foreign key(reg_no) references student(reg_no);
+
 
