@@ -44,4 +44,23 @@ BEGIN
 END//
 DELIMITER ;
 
+//update trigers
+
+DELIMITER //
+
+CREATE TRIGGER AFFECT_MEDICAL_for_attendence_update_table
+AFTER update ON medical
+FOR EACH ROW
+BEGIN
+    IF NEW.status = 'approved' AND OLD.status <> 'approved' THEN
+        UPDATE attendence
+        SET change_status = 'Present',
+            Is_medical_affect = 'yes'
+        WHERE reg_no = NEW.reg_no
+          AND session_id = NEW.session_id
+          AND atten_date = NEW.affectted_date;
+    END IF;
+END//
+DELIMITER ;
+
 
