@@ -929,3 +929,12 @@ VALUES
   ('M290', '2025-09-05', 'TCH/1006', 'YES', 'proper'),
   ('M298', '2025-09-05', 'TCH/1009', 'YES', 'proper');
 
+-- Creating table q1_marks
+CREATE TABLE q1_marks (
+    m_id VARCHAR(8) NOT NULL,
+    Q1 DECIMAL(5,2) NOT NULL,
+    status ENUM('proper', 'repeat') NOT NULL DEFAULT 'proper',
+    c_code VARCHAR(8),
+    reg_no VARCHAR(8),
+    PRIMARY KEY (m_id)
+);
