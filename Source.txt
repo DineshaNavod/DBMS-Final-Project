@@ -2354,3 +2354,14 @@ insert into medical_for_exam
 VALUES
 ("med06","ICT1212","TCH/1008","2025-11-03","My grand moms funeral","end_marks","theory","pending");
 
+update q3_marks
+set q3=0
+where reg_no='TCH/1002' and c_code='ict1212';
+
+update medical_for_exam
+set status='pending'
+where medical_id='med02';
+
+update end_marks
+set theory=0
+where m_id='M130';
