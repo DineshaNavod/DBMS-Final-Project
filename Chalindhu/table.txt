@@ -30,3 +30,13 @@ CREATE TABLE q3_marks (
     reg_no VARCHAR(8),
     PRIMARY KEY (m_id)
 );
+
+
+
+create table keep(
+    Reg_no varchar(8) not null,
+    m_id varchar(8) not null,
+    foreign key(Reg_no) references student(Reg_no),
+    foreign key(m_id) references marks(m_id)
+
+);
