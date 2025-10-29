@@ -231,4 +231,38 @@ add column Is_medical_affect ENUM("yes","no") not null Default "no" after change
 alter table attendence
 drop column Is_medical_affect;
 
+//manuplate data
+
+select * from attendence
+where reg_no="TCH/1001" and session_no like("ICT1253%") and change_status="present";
+
+
+
+select * from attendence
+where reg_no='TCH/1008' and session_no like("ict1253%") and change_status='present';
+
+
+update attendence
+set change_status="present",status='present'
+where att_id='A807';
+
+
+update attendence
+set session_no="ENG1222(01)-W01"
+where session_no like("ENG1222");
+
+select * from attendence
+where reg_no='TCH/1008' and session_no like("ENG1222%");
+
+
+
+select * from attendence
+where reg_no='TCH/1008' and session_no like("ICT1212%") and change_status='present';
+
+
+update attendence
+set status='present',change_status='present'
+where att_id='A781';
+
+
 
