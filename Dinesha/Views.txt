@@ -6,3 +6,12 @@ INNER JOIN timetable t on a.session_id=t.session_id
 INNER JOIN course_unit c on t.c_code=c.c_code
 INNER JOIN user u ON a.reg_no=u.user_id
 group by t.c_code,a.reg_no,a.type;
+
+create view attendance_above_80 AS
+select a.reg_no,u.F_name,u.L_name,t.c_code,c.c_name,a.type,round(avg(a.status='Present')*100) AS att_pecentage
+from attendence a
+INNER JOIN timetable t on a.session_id=t.session_id
+INNER JOIN course_unit c on t.c_code=c.c_code
+INNER JOIN user u ON a.reg_no=u.user_id
+group by t.c_code,a.reg_no,a.type
+having att_pecentage>=80;
