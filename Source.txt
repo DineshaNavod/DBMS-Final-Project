@@ -1402,3 +1402,16 @@ add foreign key(m_id) references marks(m_id);
 
 update course_unit
 set semester="L1S2";
+
+INSERT INTO timetable (session_id, session_date, type, duration, lec_hall, c_code) VALUES
+('S01', 'Monday', 'PRACTICAL', '09:00:00', 'ICT Lab 12', ICT1233),
+('S02', 'Monday', 'THEORY', '14:00:00', 'ICT Lab 12', ICT1233),
+('S03', 'Tuesday', 'THEORY', '09:00:00', 'ICT Lab 12', ICT1253),
+('S04', 'Tuesday', 'PRACTICAL', '11:00:00', 'ICT Lab 12', ICT1253),
+('S05', 'Tuesday', 'THEORY', '14:00:00', 'ILT', ICT1242),
+('S06', 'Wednesday', 'THEORY', '09:00:00', 'ILT', TMS1233),
+('S07', 'Thursday', 'THEORY', '09:00:00', 'ICT Lab 11', ICT1212),
+('S08', 'Thursday', 'PRACTICAL', '11:00:00', 'ICT Lab 11', ICT1222),
+('S09', 'Thursday', 'PRACTICAL', '14:00:00', 'ICT Lab 11', ICT1222),
+('S10', 'Friday', 'THEORY', '08:00:00', 'ILT', TCS1212),
+('S11', 'Friday', 'THEORY', '13:00:00', 'ICT Hardwa', ENG1222);
