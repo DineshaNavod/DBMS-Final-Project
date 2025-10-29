@@ -1437,3 +1437,33 @@ INSERT INTO medical (medical_id, c_code, reg_no, submission_date, description, a
 
 ("med13","ICT1242","TCH/1007","2025-12-03","Mild fever and headache; recommended rest and over-the-counter medication. Symptoms not severe.","2025-11-04","S05","not approved");
 
+alter table student
+add foreign key(b_id) references batch(b_id);
+
+alter table student
+add column b_id varchar(8);
+
+INSERT INTO student (Reg_no, status, b_id) VALUES
+('TCH/1001', 'PROPER', 'B08'),
+('TCH/1002', 'PROPER', 'B08'),
+('TCH/1003', 'PROPER', 'B08'),
+('TCH/1004', 'PROPER', 'B08'),
+('TCH/1005', 'PROPER', 'B08'),
+('TCH/1006', 'PROPER', 'B08'),
+('TCH/1007', 'PROPER', 'B08'),
+('TCH/1008', 'PROPER', 'B08'),
+('TCH/1009', 'PROPER', 'B08'),
+('TCH/1010', 'PROPER', 'B08'),
+('TCH/1011', 'REPEAT', 'B07'),
+('TCH/1012', 'REPEAT', 'B07'),
+('TCH/1013', 'REPEAT', 'B06'),
+('TCH/1014', 'REPEAT', 'B05'),
+('TCH/1015', 'REPEAT', 'B06'),
+('TCH/1016', 'SUSPENDED', 'B08'),
+('TCH/1017', 'SUSPENDED', 'B08'),
+('TCH/1018', 'SUSPENDED', 'B08'),
+('TCH/1019', 'SUSPENDED', 'B08'),
+('TCH/1020', 'SUSPENDED', 'B08');
+
+
+
