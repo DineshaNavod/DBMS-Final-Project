@@ -971,3 +971,7 @@ GRANT SELECT ON FOT.all_attendence_with_medical TO 'Student'@'localhost';
 GRANT SELECT ON FOT.final_grades TO 'Student'@'localhost';
 
 FLUSH PRIVILEGES;
+
+CREATE USER 'Admin'@'localhost' IDENTIFIED BY '1234';
+GRANT ALL PRIVILEGES ON FOT.* TO 'Admin'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
