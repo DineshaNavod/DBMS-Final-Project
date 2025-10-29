@@ -268,3 +268,134 @@ create table mid_masks(
 );
 
 ALTER TABLE mid_masks ADD COLUMN c_code VARCHAR(8);
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M01', 78.50, NULL, 'repeat', 'TCH/1014', 'ENG1222'),
+('M02', 82.00, NULL, 'repeat', 'TCH/1014', 'ICT1212'),
+('M03', NULL, 75.50, 'repeat', 'TCH/1014', 'ICT1222'),
+('M04', 80.25, 72.00, 'repeat', 'TCH/1014', 'ICT1233'),
+('M05', 77.00, NULL, 'repeat', 'TCH/1014', 'ICT1242'),
+('M06', 79.50, 70.00, 'repeat', 'TCH/1014', 'ICT1253'),
+('M07', 81.00, NULL, 'repeat', 'TCH/1014', 'TCS1212'),
+('M08', 75.25, NULL, 'repeat', 'TCH/1014', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M09', 65.50, NULL, 'repeat', 'TCH/1012', 'ENG1222'),
+('M10', 70.00, NULL, 'repeat', 'TCH/1012', 'ICT1212'),
+('M11', NULL, 68.25, 'repeat', 'TCH/1012', 'ICT1222'),
+('M12', 72.00, 75.50, 'repeat', 'TCH/1012', 'ICT1233'),
+('M13', 68.75, NULL, 'repeat', 'TCH/1012', 'ICT1242'),
+('M14', 71.50, 70.25, 'repeat', 'TCH/1012', 'ICT1253'),
+('M15', 69.00, NULL, 'repeat', 'TCH/1012', 'TCS1212'),
+('M16', 66.25, NULL, 'repeat', 'TCH/1012', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M17', 55.75, NULL, 'repeat', 'TCH/1011', 'ENG1222'),
+('M18', 60.00, NULL, 'repeat', 'TCH/1011', 'ICT1212'),
+('M19', NULL, 58.50, 'repeat', 'TCH/1011', 'ICT1222'),
+('M20', 62.25, 65.00, 'repeat', 'TCH/1011', 'ICT1233'),
+('M21', 59.50, NULL, 'repeat', 'TCH/1011', 'ICT1242'),
+('M22', 61.75, 63.25, 'repeat', 'TCH/1011', 'ICT1253'),
+('M23', 58.25, NULL, 'repeat', 'TCH/1011', 'TCS1212'),
+('M24', 57.50, NULL, 'repeat', 'TCH/1011', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M25', 78.50, NULL, 'PROPER', 'TCH/1001', 'ENG1222'),
+('M26', 82.00, NULL, 'PROPER', 'TCH/1001', 'ICT1212'),
+('M27', NULL, 75.50, 'PROPER', 'TCH/1001', 'ICT1222'),
+('M28', 80.25, 72.00, 'PROPER', 'TCH/1001', 'ICT1233'),
+('M29', 77.00, NULL, 'PROPER', 'TCH/1001', 'ICT1242'),
+('M30', 79.50, 70.00, 'PROPER', 'TCH/1001', 'ICT1253'),
+('M31', 81.00, NULL, 'PROPER', 'TCH/1001', 'TCS1212'),
+('M32', 75.25, NULL, 'PROPER', 'TCH/1001', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M33', 65.50, NULL, 'PROPER', 'TCH/1003', 'ENG1222'),
+('M34', 70.00, NULL, 'PROPER', 'TCH/1003', 'ICT1212'),
+('M35', NULL, 68.25, 'PROPER', 'TCH/1003', 'ICT1222'),
+('M36', 72.00, 75.50, 'PROPER', 'TCH/1003', 'ICT1233'),
+('M37', 68.75, NULL, 'PROPER', 'TCH/1003', 'ICT1242'),
+('M38', 71.50, 70.25, 'PROPER', 'TCH/1003', 'ICT1253'),
+('M39', 69.00, NULL, 'PROPER', 'TCH/1003', 'TCS1212'),
+('M40', 66.25, NULL, 'PROPER', 'TCH/1003', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M41', 65.47, NULL, 'PROPER', 'TCH/1005', 'ENG1222'),
+('M42', 71.23, NULL, 'PROPER', 'TCH/1005', 'ICT1212'),
+('M43', NULL, 62.88, 'PROPER', 'TCH/1005', 'ICT1222'),
+('M44', 76.12, 58.95, 'PROPER', 'TCH/1005', 'ICT1233'),
+('M45', 68.34, NULL, 'PROPER', 'TCH/1005', 'ICT1242'),
+('M46', 55.67, 74.21, 'PROPER', 'TCH/1005', 'ICT1253'),
+('M47', 69.78, NULL, 'PROPER', 'TCH/1005', 'TCS1212'),
+('M48', 80.45, NULL, 'PROPER', 'TCH/1005', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M49', 62.19, NULL, 'PROPER', 'TCH/1008', 'ENG1222'),
+('M50', 77.82, NULL, 'PROPER', 'TCH/1008', 'ICT1212'),
+('M51', NULL, 60.34, 'PROPER', 'TCH/1008', 'ICT1222'),
+('M52', 54.76, 81.23, 'PROPER', 'TCH/1008', 'ICT1233'),
+('M53', 70.91, NULL, 'PROPER', 'TCH/1008', 'ICT1242'),
+('M54', 64.28, 56.89, 'PROPER', 'TCH/1008', 'ICT1253'),
+('M55', 73.45, NULL, 'PROPER', 'TCH/1008', 'TCS1212'),
+('M56', 59.67, NULL, 'PROPER', 'TCH/1008', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M57', 75.12, NULL, 'PROPER', 'TCH/1007', 'ENG1222'),
+('M58', 61.89, NULL, 'PROPER', 'TCH/1007', 'ICT1212'),
+('M59', NULL, 67.56, 'PROPER', 'TCH/1007', 'ICT1222'),
+('M60', 82.34, 63.12, 'PROPER', 'TCH/1007', 'ICT1233'),
+('M61', 57.45, NULL, 'PROPER', 'TCH/1007', 'ICT1242'),
+('M62', 69.78, 80.67, 'PROPER', 'TCH/1007', 'ICT1253'),
+('M63', 54.23, NULL, 'PROPER', 'TCH/1007', 'TCS1212'),
+('M64', 73.91, NULL, 'PROPER', 'TCH/1007', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M65', 60.34, NULL, 'PROPER', 'TCH/1002', 'ENG1222'),
+('M66', 78.56, NULL, 'PROPER', 'TCH/1002', 'ICT1212'),
+('M67', NULL, 71.89, 'PROPER', 'TCH/1002', 'ICT1222'),
+('M68', 66.23, 59.45, 'PROPER', 'TCH/1002', 'ICT1233'),
+('M69', 84.12, NULL, 'PROPER', 'TCH/1002', 'ICT1242'),
+('M70', 55.89, 76.34, 'PROPER', 'TCH/1002', 'ICT1253'),
+('M71', 68.12, NULL, 'PROPER', 'TCH/1002', 'TCS1212'),
+('M72', 70.67, NULL, 'PROPER', 'TCH/1002', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M73', 63.45, NULL, 'PROPER', 'TCH/1004', 'ENG1222'),
+('M74', 80.23, NULL, 'PROPER', 'TCH/1004', 'ICT1212'),
+('M75', NULL, 64.78, 'PROPER', 'TCH/1004', 'ICT1222'),
+('M76', 58.91, 72.45, 'PROPER', 'TCH/1004', 'ICT1233'),
+('M77', 67.34, NULL, 'PROPER', 'TCH/1004', 'ICT1242'),
+('M78', 74.56, 60.89, 'PROPER', 'TCH/1004', 'ICT1253'),
+('M79', 81.23, NULL, 'PROPER', 'TCH/1004', 'TCS1212'),
+('M80', 56.78, NULL, 'PROPER', 'TCH/1004', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M81', 71.89, NULL, 'PROPER', 'TCH/1010', 'ENG1222'),
+('M82', 65.12, NULL, 'PROPER', 'TCH/1010', 'ICT1212'),
+('M83', NULL, 57.34, 'PROPER', 'TCH/1010', 'ICT1222'),
+('M84', 79.45, 66.78, 'PROPER', 'TCH/1010', 'ICT1233'),
+('M85', 62.67, NULL, 'PROPER', 'TCH/1010', 'ICT1242'),
+('M86', 83.12, 54.56, 'PROPER', 'TCH/1010', 'ICT1253'),
+('M87', 70.34, NULL, 'PROPER', 'TCH/1010', 'TCS1212'),
+('M88', 76.89, NULL, 'PROPER', 'TCH/1010', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M89', 58.23, NULL, 'PROPER', 'TCH/1006', 'ENG1222'),
+('M90', 74.45, NULL, 'PROPER', 'TCH/1006', 'ICT1212'),
+('M91', NULL, 80.67, 'PROPER', 'TCH/1006', 'ICT1222'),
+('M92', 61.89, 75.12, 'PROPER', 'TCH/1006', 'ICT1233'),
+('M93', 69.34, NULL, 'PROPER', 'TCH/1006', 'ICT1242'),
+('M94', 56.78, 62.45, 'PROPER', 'TCH/1006', 'ICT1253'),
+('M95', 58.89, NULL, 'PROPER', 'TCH/1006', 'TCS1212'),
+('M96', 81.23, NULL, 'PROPER', 'TCH/1006', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M97', 66.78, NULL, 'PROPER', 'TCH/1009', 'ENG1222'),
+('M98', 60.45, NULL, 'PROPER', 'TCH/1009', 'ICT1212'),
+('M99', NULL, 76.12, 'PROPER', 'TCH/1009', 'ICT1222'),
+('M100', 72.34, 68.67, 'PROPER', 'TCH/1009', 'ICT1233'),
+('M101', 55.89, NULL, 'PROPER', 'TCH/1009', 'ICT1242'),
+('M102', 79.45, 71.23, 'PROPER', 'TCH/1009', 'ICT1253'),
+('M103', 64.56, NULL, 'PROPER', 'TCH/1009', 'TCS1212'),
+('M104', 67.89, NULL, 'PROPER', 'TCH/1009', 'TMS1233');
+
