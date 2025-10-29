@@ -16,3 +16,12 @@ add foreign key(b_id) references batch(b_id);
 
 alter table student
 add column b_id varchar(8);
+
+INSERT INTO student (Reg_no, status) VALUES
+('TCH/1003', 'PROPER'),('TCH/1014', 'REPEAT'),('TCH/1018', 'SUSPENDED'),
+('TCH/1001', 'PROPER'),('TCH/1012', 'REPEAT'),('TCH/1019', 'SUSPENDED'),
+('TCH/1005', 'PROPER'),('TCH/1016', 'SUSPENDED'),('TCH/1008', 'PROPER'),
+('TCH/1011', 'REPEAT'),('TCH/1013', 'REPEAT'),('TCH/1007', 'PROPER'),
+('TCH/1020', 'SUSPENDED'),('TCH/1017', 'SUSPENDED'),('TCH/1002', 'PROPER'),
+('TCH/1004', 'PROPER'),('TCH/1010', 'PROPER'),('TCH/1006', 'PROPER'),
+('TCH/1015', 'REPEAT'),('TCH/1009', 'PROPER');
