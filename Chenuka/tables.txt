@@ -1,1 +1,99 @@
+create table tos(
+    user_id char(8) not null primary key,
+    appointment_of_date date not null,
+    status ENUM('ACTIVE', 'INACTIVE', 'RETIRED', 'TRANSFERRED', 'TERMINATED') NOT NULL DEFAULT 'ACTIVE',
+    Duty_of_Area varchar(100) not null,
+    position varchar(100) not null,
+    shift_time time not null,
+    foreign key(user_id) references user(user_id)
+);
 
+create table lecture(
+    user_id char(8) not null primary key,
+    appointment_of_date date not null,
+    status ENUM('ACTIVE', 'INACTIVE', 'RETIRED', 'TRANSFERRED', 'TERMINATED') NOT NULL DEFAULT 'ACTIVE',
+    position varchar(100) not null,
+    foreign key(user_id) references user(user_id)
+);
+
+reate table department(
+    dept_id char(8) not null primary key,
+    d_name varchar(100) not null
+);
+
+create table course_unit(
+    c_code char(8) not null primary key,
+    c_name varchar(50) not null,
+    credit int not null,
+    is_theory ENUM('YES', 'NO') NOT NULL DEFAULT 'YES',
+    is_practicel ENUM('YES', 'NO') NOT NULL DEFAULT 'YES',
+    semester char(3) not null
+);
+
+create table lecturing(
+    user_id varchar(8) not null,
+    c_code varchar(8) not null,
+    foreign key(user_id) references lecture(user_id),
+    foreign key(c_code) references course_unit(c_code)
+);
+
+/add lecture data
+
+INSERT INTO user (user_id, F_name, L_name, Address, phone_number, dob, email, gender, dept_id) VALUES
+('LEC/1001', 'Kavindu', 'Perera', 'Colombo 05', 771234567, '1985-03-12', 'kavindu.perera@uni.lk', 'M', 'D001'),
+('LEC/1002', 'Nimesha', 'Silva', 'Galle', 772345678, '1987-06-21', 'nimesha.silva@uni.lk', 'F', 'D004'),
+('LEC/1003', 'Tharindu', 'Wijesinghe', 'Kandy', 773456789, '1984-11-05', 'tharindu.wije@uni.lk', 'M', 'D004'),
+('LEC/1004', 'Sachini', 'Fernando', 'Kurunegala', 774567890, '1990-01-15', 'sachini.fernando@uni.lk', 'F', 'D001'),
+('LEC/1005', 'Isuru', 'Jayasinghe', 'Matara', 775678901, '1986-07-19', 'isuru.j@uni.lk', 'M', 'D002'),
+('LEC/1006', 'Dinithi', 'Karunaratne', 'Negombo', 776789012, '1988-09-30', 'dinithi.karu@uni.lk', 'F', 'D001'),
+('LEC/1007', 'Chathura', 'Ranasinghe', 'Jaffna', 777890123, '1983-05-25', 'chathura.r@uni.lk', 'M', 'D001'),
+('LEC/1008', 'Harshani', 'Bandara', 'Anuradhapura', 778901234, '1991-12-03', 'harshani.b@uni.lk', 'F', 'D001');
+
+/05_insert_user_tos.sql
+
+
+INSERT INTO user (user_id, F_name, L_name, Address, phone_number, dob, email, gender, dept_id) VALUES
+('TOS/1001', 'Nimal', 'Perera', 'Colombo', 771234561, '1998-05-12', 'nimal@example.com', 'M', 'D001'),
+('TOS/1002', 'Kamal', 'Silva', 'Galle', 772345672, '1997-09-20', 'kamal@example.com', 'M', 'D002'),
+('TOS/1003', 'Amaya', 'Fernando', 'Kandy', 773456783, '1999-03-14', 'amaya@example.com', 'F', 'D003'),
+('TOS/1004', 'Ruwan', 'Jayasekara', 'Matara', 774567894, '1996-10-08', 'ruwan@example.com', 'M', 'D001'),
+('TOS/1005', 'Dilani', 'Ranasinghe', 'Kurunegala', 775678905, '1998-01-22', 'dilani@example.com', 'F', 'D002'),
+('TOS/1006', 'Shehan', 'Bandara', 'Jaffna', 776789016, '1997-07-15', 'shehan@example.com', 'M', 'D003'),
+('TOS/1007', 'Harshani', 'Gunasekara', 'Negombo', 777890127, '1998-11-30', 'harshani@example.com', 'F', 'D001'),
+('TOS/1008', 'Supun', 'Wijesinghe', 'Anu
+
+
+-- Insert course units
+INSERT INTO course_unit (c_code, c_name, credit, is_theory, is_practicel, semester) VALUES
+('ICT1212', 'Database Management Systems', 2, 'YES', 'NO', 'L1S2'),
+('ICT1222', 'Database Management Systems Practicum', 2, 'NO', 'YES', 'L1S2'),
+('ICT1233', 'Server Side Web Development', 3, 'YES', 'YES', 'L1S2'),
+('ICT1242', 'Computer Architecture', 2, 'YES', 'NO', 'L1S2'),
+('ICT1253', 'Computer Networks', 3, 'YES', 'YES', 'L1S2'),
+('TCS1212', 'Fundamentals of Management', 2, 'YES', 'NO', 'L1S2'),
+('TMS1233', 'Discrete Mathematics', 3, 'YES', 'NO', 'L1S2'),
+('ENG1222', 'English', 2, 'YES', 'NO', 'L1S2');
+
+
+
+INSERT INTO course_unit (c_code, c_name, credit, is_theory, is_practicel, semester) VALUES
+('ICT1212', 'Database Management Systems', 2, 'YES', 'NO', 'L1S2'),
+('ICT1222', 'Database Management Systems Practicum', 2, 'NO', 'YES', 'L1S2'),
+('ICT1233', 'Server Side Web Development', 3, 'YES', 'YES', 'L1S2'),
+('ICT1242', 'Computer Architecture', 2, 'YES', 'NO', 'L1S2'),
+('ICT1253', 'Computer Networks', 3, 'YES', 'YES', 'L1S2'),
+('TCS1212', 'Fundamentals of Management', 2, 'YES', 'NO', 'L1S2'),
+('TMS1233', 'Discrete Mathematics', 3, 'YES', 'NO', 'L1S2'),
+('ENG1222', 'English', 2, 'YES', 'NO', 'L1S2');
+
+// Department Data add Here
+
+INSERT INTO department (dept_id, d_name) VALUES
+('D001', 'Information Communication Technology'),
+('D002', 'Engineering Technology'),
+('D003', 'Biosystem Technology'),
+('D004', 'Multidispinary');
+('D001', 'Information Communication Technology'),
+('D002', 'Engineering Technology'),
+('D003', 'Biosystem Technology'),
+('D004', 'Multidispinary');

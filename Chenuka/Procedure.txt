@@ -1,1 +1,83 @@
+DELIMITER $$
 
+CREATE OR REPLACE PROCEDURE get_end_marks(
+    IN p_reg_no VARCHAR(8),
+    IN p_c_code VARCHAR(8)
+)
+BEGIN
+    SELECT
+        reg_no,
+        c_code,
+        CASE
+            WHEN c_code = 'ENG1222' AND theory > 35 THEN 'PASS'
+            WHEN c_code = 'ICT1212' AND theory > 35 THEN 'PASS'
+            WHEN c_code = 'ICT1222' AND practical > 35 THEN 'PASS'
+            WHEN c_code = 'ICT1233' AND ((theory + practical)/2) > 35 THEN 'PASS'
+            WHEN c_code = 'ICT1242' AND theory > 35 THEN 'PASS'
+            WHEN c_code = 'ICT1253' AND ((theory + practical)/2) > 35 THEN 'PASS'
+            WHEN c_code = 'TCS1212' AND theory > 35 THEN 'PASS'
+            WHEN c_code = 'TMS1233' AND theory > 35 THEN 'PASS'
+            ELSE 'FAIL'
+        END AS end_result
+    FROM end_marks
+    WHERE reg_no = p_reg_no
+      AND c_code = p_c_code;
+END$$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE PROCEDURE get_student_sgpa_cgpa(IN p_reg_no CHAR(8))
+BEGIN
+    SELECT 
+        fg.reg_no,
+        
+        -- SGPA (all subjects included)
+        ROUND(SUM(c.credit * 
+            CASE fg.grade
+                WHEN 'A+' THEN 4.0
+                WHEN 'A'  THEN 4.0
+                WHEN 'A-' THEN 3.7
+                WHEN 'B+' THEN 3.3
+                WHEN 'B'  THEN 3.0
+                WHEN 'B-' THEN 2.7
+                WHEN 'C+' THEN 2.3
+                WHEN 'C'  THEN 2.0
+                WHEN 'C-' THEN 1.7
+                WHEN 'D'  THEN 1.3
+                WHEN 'E'  THEN 0.0
+                ELSE 0
+            END
+        ) / SUM(c.credit), 2) AS SGPA,
+        
+        -- CGPA (excluding ENG1222)
+        ROUND(SUM(
+            CASE 
+                WHEN c.c_code <> 'ENG1222' THEN c.credit * 
+                    CASE fg.grade
+                        WHEN 'A+' THEN 4.0
+                        WHEN 'A'  THEN 4.0
+                        WHEN 'A-' THEN 3.7
+                        WHEN 'B+' THEN 3.3
+                        WHEN 'B'  THEN 3.0
+                        WHEN 'B-' THEN 2.7
+                        WHEN 'C+' THEN 2.3
+                        WHEN 'C'  THEN 2.0
+                        WHEN 'C-' THEN 1.7
+                        WHEN 'D'  THEN 1.3
+                        WHEN 'E'  THEN 0.0
+                        ELSE 0
+                    END
+            END
+        ) / SUM(
+            CASE WHEN c.c_code <> 'ENG1222' THEN c.credit ELSE 0 END
+        ), 2) AS CGPA
+
+    FROM final_grades fg
+    JOIN course_unit c ON fg.c_code = c.c_code
+    WHERE fg.reg_no = p_reg_no
+      AND fg.status IN ('proper','both repeat','suspended');
+END $$
+
+DELIMITER ;
