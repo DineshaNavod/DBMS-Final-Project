@@ -516,3 +516,16 @@ INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
 ('M102', 79.45, 71.23, 'PROPER', 'TCH/1009', 'ICT1253'),
 ('M103', 64.56, NULL, 'PROPER', 'TCH/1009', 'TCS1212'),
 ('M104', 67.89, NULL, 'PROPER', 'TCH/1009', 'TMS1233');
+
+--  Modify end_marks table – drop old FK, add status, c_code, reg_no
+ALTER TABLE end_marks
+DROP FOREIGN KEY end_marks_ibfk_1;
+
+ALTER TABLE end_marks
+ADD COLUMN status ENUM('proper', 'repeat') NOT NULL DEFAULT 'proper';
+
+ALTER TABLE end_marks
+ADD COLUMN c_code VARCHAR(8);
+
+ALTER TABLE end_marks
+ADD COLUMN reg_no VARCHAR(8);
