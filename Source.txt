@@ -283,7 +283,6 @@ INSERT INTO user (user_id, F_name, L_name, Address, phone_number, dob, email, ge
 
 //03_insert_user_lecturers.sql
 
--- Commit: Insert lecturer records
 INSERT INTO user (user_id, F_name, L_name, Address, phone_number, dob, email, gender, dept_id) VALUES
 ('LEC/1001', 'Kavindu', 'Perera', 'Colombo 05', 771234567, '1985-03-12', 'kavindu.perera@uni.lk', 'M', 'D001'),
 ('LEC/1002', 'Nimesha', 'Silva', 'Galle', 772345678, '1987-06-21', 'nimesha.silva@uni.lk', 'F', 'D004'),
@@ -296,13 +295,13 @@ INSERT INTO user (user_id, F_name, L_name, Address, phone_number, dob, email, ge
 
 //04_insert_user_dean.sql
 
--- Commit: Insert dean record
+
 INSERT INTO user (user_id, F_name, L_name, Address, phone_number, dob, email, gender, dept_id)
 VALUES ('DEAN1001', 'Subash', 'Jayasinghe', 'Galle', '0771234567', '1970-05-12', 'subash.j@uni.lk', 'M', NULL);
 
 //05_insert_user_tos.sql
 
--- Commit: Insert TOS (Technical Officer/Staff) records
+
 INSERT INTO user (user_id, F_name, L_name, Address, phone_number, dob, email, gender, dept_id) VALUES
 ('TOS/1001', 'Nimal', 'Perera', 'Colombo', 771234561, '1998-05-12', 'nimal@example.com', 'M', 'D001'),
 ('TOS/1002', 'Kamal', 'Silva', 'Galle', 772345672, '1997-09-20', 'kamal@example.com', 'M', 'D002'),
@@ -315,7 +314,6 @@ INSERT INTO user (user_id, F_name, L_name, Address, phone_number, dob, email, ge
 
 
 
--- Commit: Insert timetable sessions
 INSERT INTO timetable (session_id, session_no, session_date, type, duration, lec_hall) VALUES
 ('S01', 'ICT1233(02)-W01', 'Monday', 'PRACTICAL', '09:00:00-11:00:00', 'ICT Lab 12'),
 ('S02', 'ICT1233(01)-W01', 'Monday', 'THEORY', '14:00:00-16:00:00', 'ICT Lab 12'),
@@ -328,3 +326,14 @@ INSERT INTO timetable (session_id, session_no, session_date, type, duration, lec
 ('S09', 'ICT1222(02)-W01', 'Thursday', 'PRACTICAL', '14:00:00-16:00:00', 'ICT Lab 11'),
 ('S10', 'TCS1212(01)-W01', 'Friday', 'THEORY', '08:00:00-10:00:00', 'ILT'),
 ('S11', 'ENG1212(01)-W01', 'Friday', 'THEORY', '13:00:00-15:00:00', 'ICT Hardware Lab');
+
+
+-- Insert student records + status
+INSERT INTO student (Reg_no, status) VALUES
+('TCH/1003', 'PROPER'),('TCH/1014', 'REPEAT'),('TCH/1018', 'SUSPENDED'),
+('TCH/1001', 'PROPER'),('TCH/1012', 'REPEAT'),('TCH/1019', 'SUSPENDED'),
+('TCH/1005', 'PROPER'),('TCH/1016', 'SUSPENDED'),('TCH/1008', 'PROPER'),
+('TCH/1011', 'REPEAT'),('TCH/1013', 'REPEAT'),('TCH/1007', 'PROPER'),
+('TCH/1020', 'SUSPENDED'),('TCH/1017', 'SUSPENDED'),('TCH/1002', 'PROPER'),
+('TCH/1004', 'PROPER'),('TCH/1010', 'PROPER'),('TCH/1006', 'PROPER'),
+('TCH/1015', 'REPEAT'),('TCH/1009', 'PROPER');
