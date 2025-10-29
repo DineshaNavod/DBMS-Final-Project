@@ -312,3 +312,19 @@ INSERT INTO user (user_id, F_name, L_name, Address, phone_number, dob, email, ge
 ('TOS/1006', 'Shehan', 'Bandara', 'Jaffna', 776789016, '1997-07-15', 'shehan@example.com', 'M', 'D003'),
 ('TOS/1007', 'Harshani', 'Gunasekara', 'Negombo', 777890127, '1998-11-30', 'harshani@example.com', 'F', 'D001'),
 ('TOS/1008', 'Supun', 'Wijesinghe', 'Anuradhapura', 778901238, '1999-06-18', 'supun@example.com', 'M', 'D002');
+
+
+
+-- Commit: Insert timetable sessions
+INSERT INTO timetable (session_id, session_no, session_date, type, duration, lec_hall) VALUES
+('S01', 'ICT1233(02)-W01', 'Monday', 'PRACTICAL', '09:00:00-11:00:00', 'ICT Lab 12'),
+('S02', 'ICT1233(01)-W01', 'Monday', 'THEORY', '14:00:00-16:00:00', 'ICT Lab 12'),
+('S03', 'ICT1253(01)-W01', 'Tuesday', 'THEORY', '09:00:00-11:00:00', 'ICT Lab 12'),
+('S04', 'ICT1253(02)-W01', 'Tuesday', 'PRACTICAL', '11:00:00-13:00:00', 'ICT Lab 12'),
+('S05', 'ICT1242(01)-W01', 'Tuesday', 'THEORY', '14:00:00-16:00:00', 'ILT'),
+('S06', 'TMS1233(01)-W01', 'Wednesday', 'THEORY', '09:00:00-12:00:00', 'ILT'),
+('S07', 'ICT1212(01)-W01', 'Thursday', 'THEORY', '09:00:00-11:00:00', 'ICT Lab 11'),
+('S08', 'ICT1222(02)-W01', 'Thursday', 'PRACTICAL', '11:00:00-13:00:00', 'ICT Lab 11'),
+('S09', 'ICT1222(02)-W01', 'Thursday', 'PRACTICAL', '14:00:00-16:00:00', 'ICT Lab 11'),
+('S10', 'TCS1212(01)-W01', 'Friday', 'THEORY', '08:00:00-10:00:00', 'ILT'),
+('S11', 'ENG1212(01)-W01', 'Friday', 'THEORY', '13:00:00-15:00:00', 'ICT Hardware Lab');
