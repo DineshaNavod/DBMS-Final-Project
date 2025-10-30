@@ -52,3 +52,27 @@ INNER JOIN user u ON a.reg_no=u.user_id
 group by t.c_code,a.reg_no,a.type
 ORDER BY a.reg_no asc;
 
+create view All_subject_with_Eligibility AS
+SELECT 
+    t.c_code,
+    c.c_name,
+    a.type,
+    a.reg_no,
+    u.F_name,
+    u.L_name,
+    ROUND(AVG(a.status = 'Present') * 100) AS attendence_percentage,
+    ROUND(AVG(a.change_status = 'Present') * 100) AS attendence_percentage_with_medical,
+
+    CASE 
+        WHEN ROUND(AVG(a.change_status = 'Present') * 100) >= 80 
+        THEN 'eligible'
+        ELSE 'not eligible'
+    END AS eligibility
+
+FROM attendence a
+INNER JOIN timetable t ON a.session_id = t.session_id
+INNER JOIN course_unit c ON t.c_code = c.c_code
+INNER JOIN user u ON a.reg_no = u.user_id
+GROUP BY t.c_code, a.reg_no, a.type
+ORDER BY t.c_code ASC;
+
