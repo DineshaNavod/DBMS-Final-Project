@@ -1,5 +1,6 @@
-DELIMITER $$
+// Get_end_mark procedure
 
+DELIMITER $$
 CREATE OR REPLACE PROCEDURE get_end_marks(
     IN p_reg_no VARCHAR(8),
     IN p_c_code VARCHAR(8)
@@ -26,14 +27,16 @@ END$$
 
 DELIMITER ;
 
-DELIMITER $$
 
+//Get_student_sgpa_cgpa
+
+DELIMITER $$
 CREATE PROCEDURE get_student_sgpa_cgpa(IN p_reg_no CHAR(8))
 BEGIN
     SELECT 
         fg.reg_no,
         
-        -- SGPA (all subjects included)
+-------------- SGPA (all subjects included)----------------------
         ROUND(SUM(c.credit * 
             CASE fg.grade
                 WHEN 'A+' THEN 4.0
@@ -51,7 +54,7 @@ BEGIN
             END
         ) / SUM(c.credit), 2) AS SGPA,
         
-        -- CGPA (excluding ENG1222)
+       ----------- CGPA (excluding ENG1222)-----------------------
         ROUND(SUM(
             CASE 
                 WHEN c.c_code <> 'ENG1222' THEN c.credit * 
