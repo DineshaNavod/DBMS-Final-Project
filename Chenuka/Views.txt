@@ -26,7 +26,7 @@ WHERE fg.status IN ('proper','both repeat','suspended')
 GROUP BY fg.reg_no;
 
 
-
+//proper end view
 CREATE OR REPLACE VIEW proper_end_marks_view AS
 SELECT
     reg_no,
@@ -45,7 +45,7 @@ SELECT
 FROM end_marks
 WHERE status='proper';
 
-
+//repeat end view
 
 CREATE OR REPLACE VIEW repeat_end_marks_view AS
 SELECT
