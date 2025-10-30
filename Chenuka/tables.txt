@@ -16,7 +16,7 @@ create table lecture(
     foreign key(user_id) references user(user_id)
 );
 
-reate table department(
+Create table department(
     dept_id char(8) not null primary key,
     d_name varchar(100) not null
 );
