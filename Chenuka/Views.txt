@@ -60,7 +60,7 @@ FROM end_marks
 WHERE status='repeat';
 
 
-REATE OR REPLACE VIEW student_sgpa AS
+CREATE OR REPLACE VIEW student_sgpa AS
 SELECT 
     fg.reg_no,
     ROUND(SUM(c.credit * 
