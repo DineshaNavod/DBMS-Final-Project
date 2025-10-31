@@ -30,8 +30,7 @@ create table course_unit(
     semester char(3) not null
 );
 
-create table lecturing(
-    user_id varchar(8) not null,
+create table lecturing(c    user_id varchar(8) not null,
     c_code varchar(8) not null,
     foreign key(user_id) references lecture(user_id),
     foreign key(c_code) references course_unit(c_code)
