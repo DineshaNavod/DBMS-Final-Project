@@ -1,1 +1,977 @@
-jhnjjkjk
+create table student(
+    Reg_no char(8) not null primary key,
+    status ENUM('PROPER', 'REPEAT', 'SUSPENDED') NOT NULL DEFAULT 'PROPER',
+    session_id varchar(8),
+    b_id varchar(8),
+    m_id varchar(8),
+    foreign key(Reg_no) references user(user_id),
+    foreign key(session_id) references timetable(session_id),
+    foreign key(b_id) references batch(b_id),
+    foreign key(m_id) references marks(m_id)
+
+);
+
+alter table student
+add foreign key(b_id) references batch(b_id);
+
+alter table student
+add column b_id varchar(8);
+
+INSERT INTO student (Reg_no, status) VALUES
+('TCH/1003', 'PROPER'),('TCH/1014', 'REPEAT'),('TCH/1018', 'SUSPENDED'),
+('TCH/1001', 'PROPER'),('TCH/1012', 'REPEAT'),('TCH/1019', 'SUSPENDED'),
+('TCH/1005', 'PROPER'),('TCH/1016', 'SUSPENDED'),('TCH/1008', 'PROPER'),
+('TCH/1011', 'REPEAT'),('TCH/1013', 'REPEAT'),('TCH/1007', 'PROPER'),
+('TCH/1020', 'SUSPENDED'),('TCH/1017', 'SUSPENDED'),('TCH/1002', 'PROPER'),
+('TCH/1004', 'PROPER'),('TCH/1010', 'PROPER'),('TCH/1006', 'PROPER'),
+('TCH/1015', 'REPEAT'),('TCH/1009', 'PROPER');
+
+INSERT INTO student (Reg_no, status, b_id) VALUES
+('TCH/1001', 'PROPER', 'B08'),
+('TCH/1002', 'PROPER', 'B08'),
+('TCH/1003', 'PROPER', 'B08'),
+('TCH/1004', 'PROPER', 'B08'),
+('TCH/1005', 'PROPER', 'B08'),
+('TCH/1006', 'PROPER', 'B08'),
+('TCH/1007', 'PROPER', 'B08'),
+('TCH/1008', 'PROPER', 'B08'),
+('TCH/1009', 'PROPER', 'B08'),
+('TCH/1010', 'PROPER', 'B08'),
+('TCH/1011', 'REPEAT', 'B07'),
+('TCH/1012', 'REPEAT', 'B07'),
+('TCH/1013', 'REPEAT', 'B06'),
+('TCH/1014', 'REPEAT', 'B05'),
+('TCH/1015', 'REPEAT', 'B06'),
+('TCH/1016', 'SUSPENDED', 'B08'),
+('TCH/1017', 'SUSPENDED', 'B08'),
+('TCH/1018', 'SUSPENDED', 'B08'),
+('TCH/1019', 'SUSPENDED', 'B08'),
+('TCH/1020', 'SUSPENDED', 'B08');
+
+create  table timetable(
+    session_id varchar(8) not null primary key,
+    session_no int not null,
+    session_date date not null,
+    type ENUM('PRACTICAL', 'THEORY') NOT NULL DEFAULT 'THEORY',
+    duration time not null,
+    lec_hall varchar(10) not null,
+    c_code varchar(8)
+);
+
+alter table timetable 
+add column Reg_no char(8);
+
+alter table timetable 
+add foreign key(c_code) references course_unit(c_code);
+
+INSERT INTO timetable (session_id, session_no, session_date, type, duration, lec_hall) VALUES
+('S01', 'ICT1233(02)-W01', 'Monday', 'PRACTICAL', '09:00:00-11:00:00', 'ICT Lab 12'),
+('S02', 'ICT1233(01)-W01', 'Monday', 'THEORY', '14:00:00-16:00:00', 'ICT Lab 12'),
+('S03', 'ICT1253(01)-W01', 'Tuesday', 'THEORY', '09:00:00-11:00:00', 'ICT Lab 12'),
+('S04', 'ICT1253(02)-W01', 'Tuesday', 'PRACTICAL', '11:00:00-13:00:00', 'ICT Lab 12'),
+('S05', 'ICT1242(01)-W01', 'Tuesday', 'THEORY', '14:00:00-16:00:00', 'ILT'),
+('S06', 'TMS1233(01)-W01', 'Wednesday', 'THEORY', '09:00:00-12:00:00', 'ILT'),
+('S07', 'ICT1212(01)-W01', 'Thursday', 'THEORY', '09:00:00-11:00:00', 'ICT Lab 11'),
+('S08', 'ICT1222(02)-W01', 'Thursday', 'PRACTICAL', '11:00:00-13:00:00', 'ICT Lab 11'),
+('S09', 'ICT1222(02)-W01', 'Thursday', 'PRACTICAL', '14:00:00-16:00:00', 'ICT Lab 11'),
+('S10', 'TCS1212(01)-W01', 'Friday', 'THEORY', '08:00:00-10:00:00', 'ILT'),
+('S11', 'ENG1212(01)-W01', 'Friday', 'THEORY', '13:00:00-15:00:00', 'ICT Hardware Lab');
+
+INSERT INTO timetable (session_id, session_date, type, duration, lec_hall, c_code) VALUES
+('S01', 'Monday', 'PRACTICAL', '09:00:00', 'ICT Lab 12', ICT1233),
+('S02', 'Monday', 'THEORY', '14:00:00', 'ICT Lab 12', ICT1233),
+('S03', 'Tuesday', 'THEORY', '09:00:00', 'ICT Lab 12', ICT1253),
+('S04', 'Tuesday', 'PRACTICAL', '11:00:00', 'ICT Lab 12', ICT1253),
+('S05', 'Tuesday', 'THEORY', '14:00:00', 'ILT', ICT1242),
+('S06', 'Wednesday', 'THEORY', '09:00:00', 'ILT', TMS1233),
+('S07', 'Thursday', 'THEORY', '09:00:00', 'ICT Lab 11', ICT1212),
+('S08', 'Thursday', 'PRACTICAL', '11:00:00', 'ICT Lab 11', ICT1222),
+('S09', 'Thursday', 'PRACTICAL', '14:00:00', 'ICT Lab 11', ICT1222),
+('S10', 'Friday', 'THEORY', '08:00:00', 'ILT', TCS1212),
+('S11', 'Friday', 'THEORY', '13:00:00', 'ICT Hardwa', ENG1222);
+
+create table Assesment_marks(
+    m_id varchar(8) not null primary key,
+    is_CA ENUM('YES', 'NO') NOT NULL DEFAULT 'YES',
+    Assesment_marks decimal(5,2) not null,
+    foreign key(m_id) references marks(m_id),
+    CHECK (Assesment_marks >= 0 AND Assesment_marks <= 100)
+);
+
+ALTER TABLE assesment_marks
+ADD COLUMN c_code VARCHAR(8);
+
+ALTER TABLE assesment_marks
+ADD COLUMN reg_no VARCHAR(8);
+
+INSERT INTO assesment_marks (m_id, Assesment_marks, status) VALUES
+('TCH/1014', 72.50, 'repeat'),
+('TCH/1012', 58.30, 'repeat'),
+('TCH/1011', 41.75, 'repeat');
+
+INSERT INTO assesment_marks (m_id, Assesment_marks, status, c_code, reg_no) VALUES
+('M417', 'WH', 'suspended', 'ENG1222', 'TCH/1016'),
+('M418', 'WH', 'suspended', 'ICT1212', 'TCH/1016'),
+('M419', 'WH', 'suspended', 'ICT1222', 'TCH/1016'),
+('M420', 'WH', 'suspended', 'ICT1233', 'TCH/1016'),
+('M421', 'WH', 'suspended', 'ICT1242', 'TCH/1016'),
+('M422', 'WH', 'suspended', 'ICT1253', 'TCH/1016'),
+('M423', 'WH', 'suspended', 'TCS1212', 'TCH/1016'),
+('M424', 'WH', 'suspended', 'TMS1233', 'TCH/1016'),
+('M425', 'WH', 'suspended', 'ENG1222', 'TCH/1017'),
+('M426', 'WH', 'suspended', 'ICT1212', 'TCH/1017'),
+('M427', 'WH', 'suspended', 'ICT1222', 'TCH/1017'),
+('M428', 'WH', 'suspended', 'ICT1233', 'TCH/1017'),
+('M429', 'WH', 'suspended', 'ICT1242', 'TCH/1017'),
+('M430', 'WH', 'suspended', 'ICT1253', 'TCH/1017'),
+('M431', 'WH', 'suspended', 'TCS1212', 'TCH/1017'),
+('M432', 'WH', 'suspended', 'TMS1233', 'TCH/1017'),
+('M433', 'WH', 'suspended', 'ENG1222', 'TCH/1018'),
+('M434', 'WH', 'suspended', 'ICT1212', 'TCH/1018'),
+('M435', 'WH', 'suspended', 'ICT1222', 'TCH/1018'),
+('M436', 'WH', 'suspended', 'ICT1233', 'TCH/1018'),
+('M437', 'WH', 'suspended', 'ICT1242', 'TCH/1018'),
+('M438', 'WH', 'suspended', 'ICT1253', 'TCH/1018'),
+('M439', 'WH', 'suspended', 'TCS1212', 'TCH/1018'),
+('M440', 'WH', 'suspended', 'TMS1233', 'TCH/1018'),
+('M441', 'WH', 'suspended', 'ENG1222', 'TCH/1019'),
+('M442', 'WH', 'suspended', 'ICT1212', 'TCH/1019'),
+('M443', 'WH', 'suspended', 'ICT1222', 'TCH/1019'),
+('M444', 'WH', 'suspended', 'ICT1233', 'TCH/1019'),
+('M445', 'WH', 'suspended', 'ICT1242', 'TCH/1019'),
+('M446', 'WH', 'suspended', 'ICT1253', 'TCH/1019'),
+('M447', 'WH', 'suspended', 'TCS1212', 'TCH/1019'),
+('M448', 'WH', 'suspended', 'TMS1233', 'TCH/1019'),
+('M449', 'WH', 'suspended', 'ENG1222', 'TCH/1020'),
+('M450', 'WH', 'suspended', 'ICT1212', 'TCH/1020'),
+('M451', 'WH', 'suspended', 'ICT1222', 'TCH/1020'),
+('M452', 'WH', 'suspended', 'ICT1233', 'TCH/1020'),
+('M453', 'WH', 'suspended', 'ICT1242', 'TCH/1020'),
+('M454', 'WH', 'suspended', 'ICT1253', 'TCH/1020'),
+('M455', 'WH', 'suspended', 'TCS1212', 'TCH/1020'),
+('M456', 'WH', 'suspended', 'TMS1233', 'TCH/1020');
+
+INSERT INTO assesment_marks (m_id, Assesment_marks, status, c_code, reg_no) VALUES
+('M201', 65.47, 'proper', 'ENG1222', 'TCH/1003'),
+('M202', 71.23, 'proper', 'ICT1212', 'TCH/1003'),
+('M203', 62.88, 'proper', 'ICT1222', 'TCH/1003'),
+('M204', 76.12, 'proper', 'ICT1233', 'TCH/1003'),
+('M205', 68.34, 'proper', 'ICT1242', 'TCH/1003'),
+('M206', 55.67, 'proper', 'ICT1253', 'TCH/1003'),
+('M207', 69.78, 'proper', 'TCS1212', 'TCH/1003'),
+('M208', 80.45, 'proper', 'TMS1233', 'TCH/1003'),
+('M209', 63.45, 'repeat', 'ENG1222', 'TCH/1014'),
+('M210', 80.23, 'repeat', 'ICT1212', 'TCH/1014'),
+('M211', 64.78, 'repeat', 'ICT1222', 'TCH/1014'),
+('M212', 58.91, 'repeat', 'ICT1233', 'TCH/1014'),
+('M213', 67.34, 'repeat', 'ICT1242', 'TCH/1014'),
+('M214', 74.56, 'repeat', 'ICT1253', 'TCH/1014'),
+('M215', 81.23, 'repeat', 'TCS1212', 'TCH/1014'),
+('M216', 56.78, 'repeat', 'TMS1233', 'TCH/1014'),
+('M217', 62.19, 'proper', 'ENG1222', 'TCH/1001'),
+('M218', 77.82, 'proper', 'ICT1212', 'TCH/1001'),
+('M219', 60.34, 'proper', 'ICT1222', 'TCH/1001'),
+('M220', 54.76, 'proper', 'ICT1233', 'TCH/1001'),
+('M221', 70.91, 'proper', 'ICT1242', 'TCH/1001'),
+('M222', 64.28, 'proper', 'ICT1253', 'TCH/1001'),
+('M223', 73.45, 'proper', 'TCS1212', 'TCH/1001'),
+('M224', 59.67, 'proper', 'TMS1233', 'TCH/1001'),
+('M225', 71.89, 'repeat', 'ENG1222', 'TCH/1012'),
+('M226', 65.12, 'repeat', 'ICT1212', 'TCH/1012'),
+('M227', 57.34, 'repeat', 'ICT1222', 'TCH/1012'),
+('M228', 79.45, 'repeat', 'ICT1233', 'TCH/1012'),
+('M229', 62.67, 'repeat', 'ICT1242', 'TCH/1012'),
+('M230', 83.12, 'repeat', 'ICT1253', 'TCH/1012'),
+('M231', 70.34, 'repeat', 'TCS1212', 'TCH/1012'),
+('M232', 76.89, 'repeat', 'TMS1233', 'TCH/1012'),
+('M233', 75.12, 'proper', 'ENG1222', 'TCH/1005'),
+('M234', 61.89, 'proper', 'ICT1212', 'TCH/1005'),
+('M235', 67.56, 'proper', 'ICT1222', 'TCH/1005'),
+('M236', 82.34, 'proper', 'ICT1233', 'TCH/1005'),
+('M237', 57.45, 'proper', 'ICT1242', 'TCH/1005'),
+('M238', 69.78, 'proper', 'ICT1253', 'TCH/1005'),
+('M239', 54.23, 'proper', 'TCS1212', 'TCH/1005'),
+('M240', 73.91, 'proper', 'TMS1233', 'TCH/1005'),
+('M241', 60.34, 'proper', 'ENG1222', 'TCH/1008'),
+('M242', 78.56, 'proper', 'ICT1212', 'TCH/1008'),
+('M243', 71.89, 'proper', 'ICT1222', 'TCH/1008'),
+('M244', 66.23, 'proper', 'ICT1233', 'TCH/1008'),
+('M245', 84.12, 'proper', 'ICT1242', 'TCH/1008'),
+('M246', 55.89, 'proper', 'ICT1253', 'TCH/1008'),
+('M247', 68.12, 'proper', 'TCS1212', 'TCH/1008'),
+('M248', 70.67, 'proper', 'TMS1233', 'TCH/1008'),
+('M249', 58.23, 'repeat', 'ENG1222', 'TCH/1011'),
+('M250', 74.45, 'repeat', 'ICT1212', 'TCH/1011'),
+('M251', 80.67, 'repeat', 'ICT1222', 'TCH/1011'),
+('M252', 61.89, 'repeat', 'ICT1233', 'TCH/1011'),
+('M253', 69.34, 'repeat', 'ICT1242', 'TCH/1011'),
+('M254', 56.78, 'repeat', 'ICT1253', 'TCH/1011'),
+('M255', 58.89, 'repeat', 'TCS1212', 'TCH/1011'),
+('M256', 81.23, 'repeat', 'TMS1233', 'TCH/1011'),
+('M257', 70.12, 'proper', 'ENG1222', 'TCH/1007'),
+('M258', 84.56, 'proper', 'ICT1212', 'TCH/1007'),
+('M259', 53.78, 'proper', 'ICT1222', 'TCH/1007'),
+('M260', 67.23, 'proper', 'ICT1233', 'TCH/1007'),
+('M261', 75.91, 'proper', 'ICT1242', 'TCH/1007'),
+('M262', 59.34, 'proper', 'ICT1253', 'TCH/1007'),
+('M263', 66.45, 'proper', 'TCS1212', 'TCH/1007'),
+('M264', 80.23, 'proper', 'TMS1233', 'TCH/1007'),
+('M265', 58.12, 'proper', 'ENG1222', 'TCH/1002'),
+('M266', 71.34, 'proper', 'ICT1212', 'TCH/1002'),
+('M267', 65.67, 'proper', 'ICT1222', 'TCH/1002'),
+('M268', 76.89, 'proper', 'ICT1233', 'TCH/1002'),
+('M269', 63.45, 'proper', 'ICT1242', 'TCH/1002'),
+('M270', 69.78, 'proper', 'ICT1253', 'TCH/1002'),
+('M271', 82.34, 'proper', 'TCS1212', 'TCH/1002'),
+('M272', 60.56, 'proper', 'TMS1233', 'TCH/1002'),
+('M273', 66.78, 'proper', 'ENG1222', 'TCH/1004'),
+('M274', 60.45, 'proper', 'ICT1212', 'TCH/1004'),
+('M275', 76.12, 'proper', 'ICT1222', 'TCH/1004'),
+('M276', 72.34, 'proper', 'ICT1233', 'TCH/1004'),
+('M277', 55.89, 'proper', 'ICT1242', 'TCH/1004'),
+('M278', 79.45, 'proper', 'ICT1253', 'TCH/1004'),
+('M279', 64.56, 'proper', 'TCS1212', 'TCH/1004'),
+('M280', 67.89, 'proper', 'TMS1233', 'TCH/1004'),
+('M281', 55.67, 'proper', 'ENG1222', 'TCH/1010'),
+('M282', 69.89, 'proper', 'ICT1212', 'TCH/1010'),
+('M283', 74.12, 'proper', 'ICT1222', 'TCH/1010'),
+('M284', 81.45, 'proper', 'ICT1233', 'TCH/1010'),
+('M285', 63.78, 'proper', 'ICT1242', 'TCH/1010'),
+('M286', 76.23, 'proper', 'ICT1253', 'TCH/1010'),
+('M287', 57.12, 'proper', 'TCS1212', 'TCH/1010'),
+('M288', 70.56, 'proper', 'TMS1233', 'TCH/1010'),
+('M289', 64.34, 'proper', 'ENG1222', 'TCH/1006'),
+('M290', 78.67, 'proper', 'ICT1212', 'TCH/1006'),
+('M291', 59.45, 'proper', 'ICT1222', 'TCH/1006'),
+('M292', 55.89, 'proper', 'ICT1233', 'TCH/1006'),
+('M293', 80.34, 'proper', 'ICT1242', 'TCH/1006'),
+('M294', 62.45, 'proper', 'ICT1253', 'TCH/1006'),
+('M295', 69.23, 'proper', 'TCS1212', 'TCH/1006'),
+('M296', 74.56, 'proper', 'TMS1233', 'TCH/1006'),
+('M297', 58.12, 'proper', 'ENG1222', 'TCH/1009'),
+('M298', 71.34, 'proper', 'ICT1212', 'TCH/1009'),
+('M299', 65.67, 'proper', 'ICT1222', 'TCH/1009'),
+('M300', 76.89, 'proper', 'ICT1233', 'TCH/1009'),
+('M301', 63.45, 'proper', 'ICT1242', 'TCH/1009'),
+('M302', 69.78, 'proper', 'ICT1253', 'TCH/1009'),
+('M303', 82.34, 'proper', 'TCS1212', 'TCH/1009'),
+('M304', 60.56, 'proper', 'TMS1233', 'TCH/1009');
+
+create table mid_masks(
+    m_id varchar(8) not null primary key,
+    is_CA ENUM('YES', 'NO') NOT NULL DEFAULT 'YES',
+    theory decimal(5,2) not null,
+    practical decimal(5,2) not null,
+    foreign key(m_id) references marks(m_id),
+    CHECK (practical >= 0 AND practical <= 100),
+    CHECK (theory >= 0 AND theory <= 100)
+);
+
+ALTER TABLE mid_masks ADD COLUMN c_code VARCHAR(8);
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M01', 78.50, NULL, 'repeat', 'TCH/1014', 'ENG1222'),
+('M02', 82.00, NULL, 'repeat', 'TCH/1014', 'ICT1212'),
+('M03', NULL, 75.50, 'repeat', 'TCH/1014', 'ICT1222'),
+('M04', 80.25, 72.00, 'repeat', 'TCH/1014', 'ICT1233'),
+('M05', 77.00, NULL, 'repeat', 'TCH/1014', 'ICT1242'),
+('M06', 79.50, 70.00, 'repeat', 'TCH/1014', 'ICT1253'),
+('M07', 81.00, NULL, 'repeat', 'TCH/1014', 'TCS1212'),
+('M08', 75.25, NULL, 'repeat', 'TCH/1014', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M09', 65.50, NULL, 'repeat', 'TCH/1012', 'ENG1222'),
+('M10', 70.00, NULL, 'repeat', 'TCH/1012', 'ICT1212'),
+('M11', NULL, 68.25, 'repeat', 'TCH/1012', 'ICT1222'),
+('M12', 72.00, 75.50, 'repeat', 'TCH/1012', 'ICT1233'),
+('M13', 68.75, NULL, 'repeat', 'TCH/1012', 'ICT1242'),
+('M14', 71.50, 70.25, 'repeat', 'TCH/1012', 'ICT1253'),
+('M15', 69.00, NULL, 'repeat', 'TCH/1012', 'TCS1212'),
+('M16', 66.25, NULL, 'repeat', 'TCH/1012', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M17', 55.75, NULL, 'repeat', 'TCH/1011', 'ENG1222'),
+('M18', 60.00, NULL, 'repeat', 'TCH/1011', 'ICT1212'),
+('M19', NULL, 58.50, 'repeat', 'TCH/1011', 'ICT1222'),
+('M20', 62.25, 65.00, 'repeat', 'TCH/1011', 'ICT1233'),
+('M21', 59.50, NULL, 'repeat', 'TCH/1011', 'ICT1242'),
+('M22', 61.75, 63.25, 'repeat', 'TCH/1011', 'ICT1253'),
+('M23', 58.25, NULL, 'repeat', 'TCH/1011', 'TCS1212'),
+('M24', 57.50, NULL, 'repeat', 'TCH/1011', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M25', 78.50, NULL, 'PROPER', 'TCH/1001', 'ENG1222'),
+('M26', 82.00, NULL, 'PROPER', 'TCH/1001', 'ICT1212'),
+('M27', NULL, 75.50, 'PROPER', 'TCH/1001', 'ICT1222'),
+('M28', 80.25, 72.00, 'PROPER', 'TCH/1001', 'ICT1233'),
+('M29', 77.00, NULL, 'PROPER', 'TCH/1001', 'ICT1242'),
+('M30', 79.50, 70.00, 'PROPER', 'TCH/1001', 'ICT1253'),
+('M31', 81.00, NULL, 'PROPER', 'TCH/1001', 'TCS1212'),
+('M32', 75.25, NULL, 'PROPER', 'TCH/1001', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M33', 65.50, NULL, 'PROPER', 'TCH/1003', 'ENG1222'),
+('M34', 70.00, NULL, 'PROPER', 'TCH/1003', 'ICT1212'),
+('M35', NULL, 68.25, 'PROPER', 'TCH/1003', 'ICT1222'),
+('M36', 72.00, 75.50, 'PROPER', 'TCH/1003', 'ICT1233'),
+('M37', 68.75, NULL, 'PROPER', 'TCH/1003', 'ICT1242'),
+('M38', 71.50, 70.25, 'PROPER', 'TCH/1003', 'ICT1253'),
+('M39', 69.00, NULL, 'PROPER', 'TCH/1003', 'TCS1212'),
+('M40', 66.25, NULL, 'PROPER', 'TCH/1003', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M41', 65.47, NULL, 'PROPER', 'TCH/1005', 'ENG1222'),
+('M42', 71.23, NULL, 'PROPER', 'TCH/1005', 'ICT1212'),
+('M43', NULL, 62.88, 'PROPER', 'TCH/1005', 'ICT1222'),
+('M44', 76.12, 58.95, 'PROPER', 'TCH/1005', 'ICT1233'),
+('M45', 68.34, NULL, 'PROPER', 'TCH/1005', 'ICT1242'),
+('M46', 55.67, 74.21, 'PROPER', 'TCH/1005', 'ICT1253'),
+('M47', 69.78, NULL, 'PROPER', 'TCH/1005', 'TCS1212'),
+('M48', 80.45, NULL, 'PROPER', 'TCH/1005', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M49', 62.19, NULL, 'PROPER', 'TCH/1008', 'ENG1222'),
+('M50', 77.82, NULL, 'PROPER', 'TCH/1008', 'ICT1212'),
+('M51', NULL, 60.34, 'PROPER', 'TCH/1008', 'ICT1222'),
+('M52', 54.76, 81.23, 'PROPER', 'TCH/1008', 'ICT1233'),
+('M53', 70.91, NULL, 'PROPER', 'TCH/1008', 'ICT1242'),
+('M54', 64.28, 56.89, 'PROPER', 'TCH/1008', 'ICT1253'),
+('M55', 73.45, NULL, 'PROPER', 'TCH/1008', 'TCS1212'),
+('M56', 59.67, NULL, 'PROPER', 'TCH/1008', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M57', 75.12, NULL, 'PROPER', 'TCH/1007', 'ENG1222'),
+('M58', 61.89, NULL, 'PROPER', 'TCH/1007', 'ICT1212'),
+('M59', NULL, 67.56, 'PROPER', 'TCH/1007', 'ICT1222'),
+('M60', 82.34, 63.12, 'PROPER', 'TCH/1007', 'ICT1233'),
+('M61', 57.45, NULL, 'PROPER', 'TCH/1007', 'ICT1242'),
+('M62', 69.78, 80.67, 'PROPER', 'TCH/1007', 'ICT1253'),
+('M63', 54.23, NULL, 'PROPER', 'TCH/1007', 'TCS1212'),
+('M64', 73.91, NULL, 'PROPER', 'TCH/1007', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M65', 60.34, NULL, 'PROPER', 'TCH/1002', 'ENG1222'),
+('M66', 78.56, NULL, 'PROPER', 'TCH/1002', 'ICT1212'),
+('M67', NULL, 71.89, 'PROPER', 'TCH/1002', 'ICT1222'),
+('M68', 66.23, 59.45, 'PROPER', 'TCH/1002', 'ICT1233'),
+('M69', 84.12, NULL, 'PROPER', 'TCH/1002', 'ICT1242'),
+('M70', 55.89, 76.34, 'PROPER', 'TCH/1002', 'ICT1253'),
+('M71', 68.12, NULL, 'PROPER', 'TCH/1002', 'TCS1212'),
+('M72', 70.67, NULL, 'PROPER', 'TCH/1002', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M73', 63.45, NULL, 'PROPER', 'TCH/1004', 'ENG1222'),
+('M74', 80.23, NULL, 'PROPER', 'TCH/1004', 'ICT1212'),
+('M75', NULL, 64.78, 'PROPER', 'TCH/1004', 'ICT1222'),
+('M76', 58.91, 72.45, 'PROPER', 'TCH/1004', 'ICT1233'),
+('M77', 67.34, NULL, 'PROPER', 'TCH/1004', 'ICT1242'),
+('M78', 74.56, 60.89, 'PROPER', 'TCH/1004', 'ICT1253'),
+('M79', 81.23, NULL, 'PROPER', 'TCH/1004', 'TCS1212'),
+('M80', 56.78, NULL, 'PROPER', 'TCH/1004', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M81', 71.89, NULL, 'PROPER', 'TCH/1010', 'ENG1222'),
+('M82', 65.12, NULL, 'PROPER', 'TCH/1010', 'ICT1212'),
+('M83', NULL, 57.34, 'PROPER', 'TCH/1010', 'ICT1222'),
+('M84', 79.45, 66.78, 'PROPER', 'TCH/1010', 'ICT1233'),
+('M85', 62.67, NULL, 'PROPER', 'TCH/1010', 'ICT1242'),
+('M86', 83.12, 54.56, 'PROPER', 'TCH/1010', 'ICT1253'),
+('M87', 70.34, NULL, 'PROPER', 'TCH/1010', 'TCS1212'),
+('M88', 76.89, NULL, 'PROPER', 'TCH/1010', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M89', 58.23, NULL, 'PROPER', 'TCH/1006', 'ENG1222'),
+('M90', 74.45, NULL, 'PROPER', 'TCH/1006', 'ICT1212'),
+('M91', NULL, 80.67, 'PROPER', 'TCH/1006', 'ICT1222'),
+('M92', 61.89, 75.12, 'PROPER', 'TCH/1006', 'ICT1233'),
+('M93', 69.34, NULL, 'PROPER', 'TCH/1006', 'ICT1242'),
+('M94', 56.78, 62.45, 'PROPER', 'TCH/1006', 'ICT1253'),
+('M95', 58.89, NULL, 'PROPER', 'TCH/1006', 'TCS1212'),
+('M96', 81.23, NULL, 'PROPER', 'TCH/1006', 'TMS1233');
+
+INSERT INTO mid_masks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M97', 66.78, NULL, 'PROPER', 'TCH/1009', 'ENG1222'),
+('M98', 60.45, NULL, 'PROPER', 'TCH/1009', 'ICT1212'),
+('M99', NULL, 76.12, 'PROPER', 'TCH/1009', 'ICT1222'),
+('M100', 72.34, 68.67, 'PROPER', 'TCH/1009', 'ICT1233'),
+('M101', 55.89, NULL, 'PROPER', 'TCH/1009', 'ICT1242'),
+('M102', 79.45, 71.23, 'PROPER', 'TCH/1009', 'ICT1253'),
+('M103', 64.56, NULL, 'PROPER', 'TCH/1009', 'TCS1212'),
+('M104', 67.89, NULL, 'PROPER', 'TCH/1009', 'TMS1233');
+
+create table end_marks(
+     m_id varchar(8) not null primary key,
+     theory decimal(5,2) not null,
+    practical decimal(5,2) not null,
+    foreign key(m_id) references marks(m_id),
+    CHECK (practical >= 0 AND practical <= 100),
+    CHECK (theory >= 0 AND theory <= 100)
+);
+
+ALTER TABLE mid_masks ADD COLUMN c_code VARCHAR(8);
+
+INSERT INTO end_marks (m_id, theory, practical, c_code, reg_no, status) VALUES
+('M497', 'WH', 'WH', 'ENG1222', 'TCH/1016', 'suspended'),
+('M498', 'WH', 'WH', 'ICT1212', 'TCH/1016', 'suspended'),
+('M499', 'WH', 'WH', 'ICT1222', 'TCH/1016', 'suspended'),
+('M500', 'WH', 'WH', 'ICT1233', 'TCH/1016', 'suspended'),
+('M501', 'WH', 'WH', 'ICT1242', 'TCH/1016', 'suspended'),
+('M502', 'WH', 'WH', 'ICT1253', 'TCH/1016', 'suspended'),
+('M503', 'WH', 'WH', 'TCS1212', 'TCH/1016', 'suspended'),
+('M504', 'WH', 'WH', 'TMS1233', 'TCH/1016', 'suspended'),
+('M505', 'WH', 'WH', 'ENG1222', 'TCH/1017', 'suspended'),
+('M506', 'WH', 'WH', 'ICT1212', 'TCH/1017', 'suspended'),
+('M507', 'WH', 'WH', 'ICT1222', 'TCH/1017', 'suspended'),
+('M508', 'WH', 'WH', 'ICT1233', 'TCH/1017', 'suspended'),
+('M509', 'WH', 'WH', 'ICT1242', 'TCH/1017', 'suspended'),
+('M510', 'WH', 'WH', 'ICT1253', 'TCH/1017', 'suspended'),
+('M511', 'WH', 'WH', 'TCS1212', 'TCH/1017', 'suspended'),
+('M512', 'WH', 'WH', 'TMS1233', 'TCH/1017', 'suspended'),
+('M513', 'WH', 'WH', 'ENG1222', 'TCH/1018', 'suspended'),
+('M514', 'WH', 'WH', 'ICT1212', 'TCH/1018', 'suspended'),
+('M515', 'WH', 'WH', 'ICT1222', 'TCH/1018', 'suspended'),
+('M516', 'WH', 'WH', 'ICT1233', 'TCH/1018', 'suspended'),
+('M517', 'WH', 'WH', 'ICT1242', 'TCH/1018', 'suspended'),
+('M518', 'WH', 'WH', 'ICT1253', 'TCH/1018', 'suspended'),
+('M519', 'WH', 'WH', 'TCS1212', 'TCH/1018', 'suspended'),
+('M520', 'WH', 'WH', 'TMS1233', 'TCH/1018', 'suspended'),
+('M521', 'WH', 'WH', 'ENG1222', 'TCH/1019', 'suspended'),
+('M522', 'WH', 'WH', 'ICT1212', 'TCH/1019', 'suspended'),
+('M523', 'WH', 'WH', 'ICT1222', 'TCH/1019', 'suspended'),
+('M524', 'WH', 'WH', 'ICT1233', 'TCH/1019', 'suspended'),
+('M525', 'WH', 'WH', 'ICT1242', 'TCH/1019', 'suspended'),
+('M526', 'WH', 'WH', 'ICT1253', 'TCH/1019', 'suspended'),
+('M527', 'WH', 'WH', 'TCS1212', 'TCH/1019', 'suspended'),
+('M528', 'WH', 'WH', 'TMS1233', 'TCH/1019', 'suspended'),
+('M529', 'WH', 'WH', 'ENG1222', 'TCH/1020', 'suspended'),
+('M530', 'WH', 'WH', 'ICT1212', 'TCH/1020', 'suspended'),
+('M531', 'WH', 'WH', 'ICT1222', 'TCH/1020', 'suspended'),
+('M532', 'WH', 'WH', 'ICT1233', 'TCH/1020', 'suspended'),
+('M533', 'WH', 'WH', 'ICT1242', 'TCH/1020', 'suspended'),
+('M534', 'WH', 'WH', 'ICT1253', 'TCH/1020', 'suspended'),
+('M535', 'WH', 'WH', 'TCS1212', 'TCH/1020', 'suspended'),
+('M536', 'WH', 'WH', 'TMS1233', 'TCH/1020', 'suspended');
+
+INSERT INTO end_marks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M105', 65.47, 0.00, 'proper', 'TCH/1003', 'ENG1222'),
+('M106', 71.23, 0.00, 'proper', 'TCH/1003', 'ICT1212'),
+('M107', 0.00, 62.88, 'proper', 'TCH/1003', 'ICT1222'),
+('M108', 76.12, 58.95, 'proper', 'TCH/1003', 'ICT1233'),
+('M109', 68.34, 0.00, 'proper', 'TCH/1003', 'ICT1242'),
+('M110', 55.67, 74.21, 'proper', 'TCH/1003', 'ICT1253'),
+('M111', 69.78, 0.00, 'proper', 'TCH/1003', 'TCS1212'),
+('M112', 80.45, 0.00, 'proper', 'TCH/1003', 'TMS1233'),
+('M113', 62.19, 0.00, 'proper', 'TCH/1001', 'ENG1222'),
+('M114', 77.82, 0.00, 'proper', 'TCH/1001', 'ICT1212'),
+('M115', 0.00, 60.34, 'proper', 'TCH/1001', 'ICT1222'),
+('M116', 54.76, 81.23, 'proper', 'TCH/1001', 'ICT1233'),
+('M117', 70.91, 0.00, 'proper', 'TCH/1001', 'ICT1242'),
+('M118', 64.28, 56.89, 'proper', 'TCH/1001', 'ICT1253'),
+('M119', 73.45, 0.00, 'proper', 'TCH/1001', 'TCS1212'),
+('M120', 59.67, 0.00, 'proper', 'TCH/1001', 'TMS1233'),
+('M121', 75.12, 0.00, 'proper', 'TCH/1005', 'ENG1222'),
+('M122', 61.89, 0.00, 'proper', 'TCH/1005', 'ICT1212'),
+('M123', 0.00, 67.56, 'proper', 'TCH/1005', 'ICT1222'),
+('M124', 82.34, 63.12, 'proper', 'TCH/1005', 'ICT1233'),
+('M125', 57.45, 0.00, 'proper', 'TCH/1005', 'ICT1242'),
+('M126', 69.78, 80.67, 'proper', 'TCH/1005', 'ICT1253'),
+('M127', 54.23, 0.00, 'proper', 'TCH/1005', 'TCS1212'),
+('M128', 73.91, 0.00, 'proper', 'TCH/1005', 'TMS1233'),
+('M129', 60.34, 0.00, 'proper', 'TCH/1008', 'ENG1222'),
+('M130', 78.56, 0.00, 'proper', 'TCH/1008', 'ICT1212'),
+('M131', 0.00, 71.89, 'proper', 'TCH/1008', 'ICT1222'),
+('M132', 66.23, 59.45, 'proper', 'TCH/1008', 'ICT1233'),
+('M133', 84.12, 0.00, 'proper', 'TCH/1008', 'ICT1242'),
+('M134', 55.89, 76.34, 'proper', 'TCH/1008', 'ICT1253'),
+('M135', 68.12, 0.00, 'proper', 'TCH/1008', 'TCS1212'),
+('M136', 70.67, 0.00, 'proper', 'TCH/1008', 'TMS1233'),
+('M137', 63.45, 0.00, 'repeat', 'TCH/1013', 'ENG1222'),
+('M138', 80.23, 0.00, 'repeat', 'TCH/1013', 'ICT1212'),
+('M139', 0.00, 64.78, 'repeat', 'TCH/1013', 'ICT1222'),
+('M140', 58.91, 72.45, 'repeat', 'TCH/1013', 'ICT1233'),
+('M141', 67.34, 0.00, 'repeat', 'TCH/1013', 'ICT1242'),
+('M142', 74.56, 60.89, 'repeat', 'TCH/1013', 'ICT1253'),
+('M143', 81.23, 0.00, 'repeat', 'TCH/1013', 'TCS1212'),
+('M144', 56.78, 0.00, 'repeat', 'TCH/1013', 'TMS1233'),
+('M145', 71.89, 0.00, 'proper', 'TCH/1007', 'ENG1222'),
+('M146', 65.12, 0.00, 'proper', 'TCH/1007', 'ICT1212'),
+('M147', 0.00, 57.34, 'proper', 'TCH/1007', 'ICT1222'),
+('M148', 79.45, 66.78, 'proper', 'TCH/1007', 'ICT1233'),
+('M149', 62.67, 0.00, 'proper', 'TCH/1007', 'ICT1242'),
+('M150', 83.12, 54.56, 'proper', 'TCH/1007', 'ICT1253'),
+('M151', 70.34, 0.00, 'proper', 'TCH/1007', 'TCS1212'),
+('M152', 76.89, 0.00, 'proper', 'TCH/1007', 'TMS1233'),
+('M153', 58.23, 0.00, 'proper', 'TCH/1002', 'ENG1222'),
+('M154', 74.45, 0.00, 'proper', 'TCH/1002', 'ICT1212'),
+('M155', 0.00, 80.67, 'proper', 'TCH/1002', 'ICT1222'),
+('M156', 61.89, 75.12, 'proper', 'TCH/1002', 'ICT1233'),
+('M157', 69.34, 0.00, 'proper', 'TCH/1002', 'ICT1242'),
+('M158', 56.78, 62.45, 'proper', 'TCH/1002', 'ICT1253'),
+('M159', 58.89, 0.00, 'proper', 'TCH/1002', 'TCS1212'),
+('M160', 81.23, 0.00, 'proper', 'TCH/1002', 'TMS1233'),
+('M161', 66.78, 0.00, 'proper', 'TCH/1004', 'ENG1222'),
+('M162', 60.45, 0.00, 'proper', 'TCH/1004', 'ICT1212'),
+('M163', 0.00, 76.12, 'proper', 'TCH/1004', 'ICT1222'),
+('M164', 72.34, 68.67, 'proper', 'TCH/1004', 'ICT1233'),
+('M165', 55.89, 0.00, 'proper', 'TCH/1004', 'ICT1242'),
+('M166', 79.45, 71.23, 'proper', 'TCH/1004', 'ICT1253'),
+('M167', 64.56, 0.00, 'proper', 'TCH/1004', 'TCS1212'),
+('M168', 67.89, 0.00, 'proper', 'TCH/1004', 'TMS1233'),
+('M169', 70.12, 0.00, 'proper', 'TCH/1010', 'ENG1222'),
+('M170', 84.56, 0.00, 'proper', 'TCH/1010', 'ICT1212'),
+('M171', 0.00, 53.78, 'proper', 'TCH/1010', 'ICT1222'),
+('M172', 67.23, 82.45, 'proper', 'TCH/1010', 'ICT1233'),
+('M173', 75.91, 0.00, 'proper', 'TCH/1010', 'ICT1242'),
+('M174', 59.34, 70.67, 'proper', 'TCH/1010', 'ICT1253'),
+('M175', 66.45, 0.00, 'proper', 'TCH/1010', 'TCS1212'),
+('M176', 80.23, 0.00, 'proper', 'TCH/1010', 'TMS1233'),
+('M177', 55.67, 0.00, 'proper', 'TCH/1006', 'ENG1222'),
+('M178', 69.89, 0.00, 'proper', 'TCH/1006', 'ICT1212'),
+('M179', 0.00, 74.12, 'proper', 'TCH/1006', 'ICT1222'),
+('M180', 81.45, 60.34, 'proper', 'TCH/1006', 'ICT1233'),
+('M181', 63.78, 0.00, 'proper', 'TCH/1006', 'ICT1242'),
+('M182', 76.23, 68.89, 'proper', 'TCH/1006', 'ICT1253'),
+('M183', 57.12, 0.00, 'proper', 'TCH/1006', 'TCS1212'),
+('M184', 70.56, 0.00, 'proper', 'TCH/1006', 'TMS1233'),
+('M185', 64.34, 0.00, 'repeat', 'TCH/1015', 'ENG1222'),
+('M186', 78.67, 0.00, 'repeat', 'TCH/1015', 'ICT1212'),
+('M187', 0.00, 59.45, 'repeat', 'TCH/1015', 'ICT1222'),
+('M188', 55.89, 73.12, 'repeat', 'TCH/1015', 'ICT1233'),
+('M189', 80.34, 0.00, 'repeat', 'TCH/1015', 'ICT1242'),
+('M190', 62.45, 67.78, 'repeat', 'TCH/1015', 'ICT1253'),
+('M191', 69.23, 0.00, 'repeat', 'TCH/1015', 'TCS1212'),
+('M192', 74.56, 0.00, 'repeat', 'TCH/1015', 'TMS1233'),
+('M193', 58.12, 0.00, 'proper', 'TCH/1009', 'ENG1222'),
+('M194', 71.34, 0.00, 'proper', 'TCH/1009', 'ICT1212'),
+('M195', 0.00, 65.67, 'proper', 'TCH/1009', 'ICT1222'),
+('M196', 76.89, 80.23, 'proper', 'TCH/1009', 'ICT1233'),
+('M197', 63.45, 0.00, 'proper', 'TCH/1009', 'ICT1242'),
+('M198', 69.78, 54.12, 'proper', 'TCH/1009', 'ICT1253'),
+('M199', 82.34, 0.00, 'proper', 'TCH/1009', 'TCS1212'),
+('M200', 60.56, 0.00, 'proper', 'TCH/1009', 'TMS1233');
+
+INSERT INTO end_marks (m_id, theory, practical, status, reg_no, c_code) VALUES
+('M409', 58.23, 0.00, 'repeat', 'TCH/1011', 'ENG1222'),
+('M410', 74.45, 0.00, 'repeat', 'TCH/1011', 'ICT1212'),
+('M411', 0.00, 80.67, 'repeat', 'TCH/1011', 'ICT1222'),
+('M412', 61.89, 56.78, 'repeat', 'TCH/1011', 'ICT1233'),
+('M413', 69.34, 0.00, 'repeat', 'TCH/1011', 'ICT1242'),
+('M414', 81.23, 70.12, 'repeat', 'TCH/1011', 'ICT1253'),
+('M415', 84.56, 0.00, 'repeat', 'TCH/1011', 'TCS1212'),
+('M416', 53.78, 0.00, 'repeat', 'TCH/1011', 'TMS1233');
+
+create table marks(
+    m_id varchar(8) not null primary key,
+    Entered_date date not null
+);
+
+alter table marks 
+add column Reg_no char(8);
+
+alter table marks 
+add foreign key(Reg_no) references student(Reg_no);
+
+alter table marks
+modify column st_status enum('proper','CA repeat','End Repeat','Both repeat','suspended') not null;
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status) VALUES
+('M111', '2025-12-05', 'TCH/1003', 'NO', 'proper'),
+('M119', '2025-12-05', 'TCH/1001', 'NO', 'proper'),
+('M127', '2025-12-05', 'TCH/1005', 'NO', 'proper'),
+('M135', '2025-12-05', 'TCH/1008', 'NO', 'proper'),
+('M143', '2025-12-05', 'TCH/1013', 'NO', 'End Repeat'),
+('M151', '2025-12-05', 'TCH/1007', 'NO', 'proper'),
+('M159', '2025-12-05', 'TCH/1002', 'NO', 'proper'),
+('M167', '2025-12-05', 'TCH/1004', 'NO', 'proper'),
+('M175', '2025-12-05', 'TCH/1010', 'NO', 'proper'),
+('M183', '2025-12-05', 'TCH/1006', 'NO', 'proper'),
+('M191', '2025-12-05', 'TCH/1015', 'NO', 'End Repeat'),
+('M199', '2025-12-05', 'TCH/1009', 'NO', 'proper'),
+('M415', '2025-12-05', 'TCH/1011', 'NO', 'Both repeat');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status) VALUES
+('M111', '2025-12-05', 'TCH/1003', 'NO', 'proper'),
+('M119', '2025-12-05', 'TCH/1001', 'NO', 'proper'),
+('M127', '2025-12-05', 'TCH/1005', 'NO', 'proper'),
+('M135', '2025-12-05', 'TCH/1008', 'NO', 'proper'),
+('M143', '2025-12-05', 'TCH/1013', 'NO', 'End Repeat'),
+('M151', '2025-12-05', 'TCH/1007', 'NO', 'proper'),
+('M159', '2025-12-05', 'TCH/1002', 'NO', 'proper'),
+('M167', '2025-12-05', 'TCH/1004', 'NO', 'proper'),
+('M175', '2025-12-05', 'TCH/1010', 'NO', 'proper'),
+('M183', '2025-12-05', 'TCH/1006', 'NO', 'proper'),
+('M191', '2025-12-05', 'TCH/1015', 'NO', 'End Repeat'),
+('M199', '2025-12-05', 'TCH/1009', 'NO', 'proper'),
+('M415', '2025-12-05', 'TCH/1011', 'NO', 'Both repeat');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M110', '2025-12-02', 'TCH/1003', 'NO', 'proper'),
+  ('M118', '2025-12-02', 'TCH/1001', 'NO', 'proper'),
+  ('M126', '2025-12-02', 'TCH/1005', 'NO', 'proper'),
+  ('M134', '2025-12-02', 'TCH/1008', 'NO', 'proper'),
+  ('M142', '2025-12-02', 'TCH/1013', 'NO', 'End Repeat'),
+  ('M150', '2025-12-02', 'TCH/1007', 'NO', 'proper'),
+  ('M158', '2025-12-02', 'TCH/1002', 'NO', 'proper'),
+  ('M166', '2025-12-02', 'TCH/1004', 'NO', 'proper'),
+  ('M174', '2025-12-02', 'TCH/1010', 'NO', 'proper'),
+  ('M182', '2025-12-02', 'TCH/1006', 'NO', 'proper'),
+  ('M190', '2025-12-02', 'TCH/1015', 'NO', 'End Repeat'),
+  ('M198', '2025-12-02', 'TCH/1009', 'NO', 'proper'),
+  ('M414', '2025-12-02', 'TCH/1011', 'NO', 'Both repeat');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M109', '2025-11-27', 'TCH/1003', 'NO', 'proper'),
+  ('M117', '2025-11-27', 'TCH/1001', 'NO', 'proper'),
+  ('M125', '2025-11-27', 'TCH/1005', 'NO', 'proper'),
+  ('M133', '2025-11-27', 'TCH/1008', 'NO', 'proper'),
+  ('M141', '2025-11-27', 'TCH/1013', 'NO', 'End Repeat'),
+  ('M149', '2025-11-27', 'TCH/1007', 'NO', 'proper'),
+  ('M157', '2025-11-27', 'TCH/1002', 'NO', 'proper'),
+  ('M165', '2025-11-27', 'TCH/1004', 'NO', 'proper'),
+  ('M173', '2025-11-27', 'TCH/1010', 'NO', 'proper'),
+  ('M181', '2025-11-27', 'TCH/1006', 'NO', 'proper'),
+  ('M189', '2025-11-27', 'TCH/1015', 'NO', 'End Repeat'),
+  ('M197', '2025-11-27', 'TCH/1009', 'NO', 'proper'),
+  ('M413', '2025-11-27', 'TCH/1011', 'NO', 'Both repeat');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M108', '2025-11-26', 'TCH/1003', 'NO', 'proper'),
+  ('M116', '2025-11-26', 'TCH/1001', 'NO', 'proper'),
+  ('M124', '2025-11-26', 'TCH/1005', 'NO', 'proper'),
+  ('M132', '2025-11-26', 'TCH/1008', 'NO', 'proper'),
+  ('M140', '2025-11-26', 'TCH/1013', 'NO', 'End Repeat'),
+  ('M148', '2025-11-26', 'TCH/1007', 'NO', 'proper'),
+  ('M156', '2025-11-26', 'TCH/1002', 'NO', 'proper'),
+  ('M164', '2025-11-26', 'TCH/1004', 'NO', 'proper'),
+  ('M172', '2025-11-26', 'TCH/1010', 'NO', 'proper'),
+  ('M180', '2025-11-26', 'TCH/1006', 'NO', 'proper'),
+  ('M188', '2025-11-26', 'TCH/1015', 'NO', 'End Repeat'),
+  ('M196', '2025-11-26', 'TCH/1009', 'NO', 'proper'),
+  ('M412', '2025-11-26', 'TCH/1011', 'NO', 'Both repeat');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M107', '2025-11-24', 'TCH/1003', 'NO', 'proper'),
+  ('M115', '2025-11-24', 'TCH/1001', 'NO', 'proper'),
+  ('M123', '2025-11-24', 'TCH/1005', 'NO', 'proper'),
+  ('M131', '2025-11-24', 'TCH/1008', 'NO', 'proper'),
+  ('M139', '2025-11-24', 'TCH/1013', 'NO', 'End Repeat'),
+  ('M147', '2025-11-24', 'TCH/1007', 'NO', 'proper'),
+  ('M155', '2025-11-24', 'TCH/1002', 'NO', 'proper'),
+  ('M163', '2025-11-24', 'TCH/1004', 'NO', 'proper'),
+  ('M171', '2025-11-24', 'TCH/1010', 'NO', 'proper'),
+  ('M179', '2025-11-24', 'TCH/1006', 'NO', 'proper'),
+  ('M187', '2025-11-24', 'TCH/1015', 'NO', 'End Repeat'),
+  ('M195', '2025-11-24', 'TCH/1009', 'NO', 'proper'),
+  ('M411', '2025-11-24', 'TCH/1011', 'NO', 'Both repeat');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M106', '2025-11-20', 'TCH/1003', 'NO', 'proper'),
+  ('M114', '2025-11-20', 'TCH/1001', 'NO', 'proper'),
+  ('M122', '2025-11-20', 'TCH/1005', 'NO', 'proper'),
+  ('M130', '2025-11-20', 'TCH/1008', 'NO', 'proper'),
+  ('M138', '2025-11-20', 'TCH/1013', 'NO', 'End Repeat'),
+  ('M146', '2025-11-20', 'TCH/1007', 'NO', 'proper'),
+  ('M154', '2025-11-20', 'TCH/1002', 'NO', 'proper'),
+  ('M162', '2025-11-20', 'TCH/1004', 'NO', 'proper'),
+  ('M170', '2025-11-20', 'TCH/1010', 'NO', 'proper'),
+  ('M178', '2025-11-20', 'TCH/1006', 'NO', 'proper'),
+  ('M186', '2025-11-20', 'TCH/1015', 'NO', 'End Repeat'),
+  ('M194', '2025-11-20', 'TCH/1009', 'NO', 'proper'),
+  ('M410', '2025-11-20', 'TCH/1011', 'NO', 'Both repeat');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M105', '2025-11-17', 'TCH/1003', 'NO', 'proper'),
+  ('M113', '2025-11-17', 'TCH/1001', 'NO', 'proper'),
+  ('M121', '2025-11-17', 'TCH/1005', 'NO', 'proper'),
+  ('M129', '2025-11-17', 'TCH/1008', 'NO', 'proper'),
+  ('M137', '2025-11-17', 'TCH/1013', 'NO', 'End Repeat'),
+  ('M145', '2025-11-17', 'TCH/1007', 'NO', 'proper'),
+  ('M153', '2025-11-17', 'TCH/1002', 'NO', 'proper'),
+  ('M161', '2025-11-17', 'TCH/1004', 'NO', 'proper'),
+  ('M169', '2025-11-17', 'TCH/1010', 'NO', 'proper'),
+  ('M177', '2025-11-17', 'TCH/1006', 'NO', 'proper'),
+  ('M185', '2025-11-17', 'TCH/1015', 'NO', 'End Repeat'),
+  ('M193', '2025-11-17', 'TCH/1009', 'NO', 'proper'),
+  ('M409', '2025-11-17', 'TCH/1011', 'NO', 'Both repeat');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M208', '2025-10-30', 'TCH/1003', 'YES', 'proper'),
+  ('M216', '2025-10-30', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M224', '2025-10-30', 'TCH/1001', 'YES', 'proper'),
+  ('M232', '2025-10-30', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M240', '2025-10-30', 'TCH/1005', 'YES', 'proper'),
+  ('M248', '2025-10-30', 'TCH/1008', 'YES', 'proper'),
+  ('M256', '2025-10-30', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M264', '2025-10-30', 'TCH/1007', 'YES', 'proper'),
+  ('M272', '2025-10-30', 'TCH/1002', 'YES', 'proper'),
+  ('M280', '2025-10-30', 'TCH/1004', 'YES', 'proper'),
+  ('M288', '2025-10-30', 'TCH/1010', 'YES', 'proper'),
+  ('M296', '2025-10-30', 'TCH/1006', 'YES', 'proper'),
+  ('M304', '2025-10-30', 'TCH/1009', 'YES', 'proper');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M207', '2025-10-27', 'TCH/1003', 'YES', 'proper'),
+  ('M215', '2025-10-27', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M223', '2025-10-27', 'TCH/1001', 'YES', 'proper'),
+  ('M231', '2025-10-27', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M239', '2025-10-27', 'TCH/1005', 'YES', 'proper'),
+  ('M247', '2025-10-27', 'TCH/1008', 'YES', 'proper'),
+  ('M255', '2025-10-27', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M263', '2025-10-27', 'TCH/1007', 'YES', 'proper'),
+  ('M271', '2025-10-27', 'TCH/1002', 'YES', 'proper'),
+  ('M279', '2025-10-27', 'TCH/1004', 'YES', 'proper'),
+  ('M287', '2025-10-27', 'TCH/1010', 'YES', 'proper'),
+  ('M295', '2025-10-27', 'TCH/1006', 'YES', 'proper'),
+  ('M303', '2025-10-27', 'TCH/1009', 'YES', 'proper');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M206', '2025-10-16', 'TCH/1003', 'YES', 'proper'),
+  ('M214', '2025-10-16', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M222', '2025-10-16', 'TCH/1001', 'YES', 'proper'),
+  ('M230', '2025-10-16', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M238', '2025-10-16', 'TCH/1005', 'YES', 'proper'),
+  ('M246', '2025-10-16', 'TCH/1008', 'YES', 'proper'),
+  ('M254', '2025-10-16', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M262', '2025-10-16', 'TCH/1007', 'YES', 'proper'),
+  ('M270', '2025-10-16', 'TCH/1002', 'YES', 'proper'),
+  ('M278', '2025-10-16', 'TCH/1004', 'YES', 'proper'),
+  ('M286', '2025-10-16', 'TCH/1010', 'YES', 'proper'),
+  ('M294', '2025-10-16', 'TCH/1006', 'YES', 'proper'),
+  ('M302', '2025-10-16', 'TCH/1009', 'YES', 'proper');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M205', '2025-10-08', 'TCH/1003', 'YES', 'proper'),
+  ('M213', '2025-10-08', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M221', '2025-10-08', 'TCH/1001', 'YES', 'proper'),
+  ('M229', '2025-10-08', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M237', '2025-10-08', 'TCH/1005', 'YES', 'proper'),
+  ('M245', '2025-10-08', 'TCH/1008', 'YES', 'proper'),
+  ('M253', '2025-10-08', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M261', '2025-10-08', 'TCH/1007', 'YES', 'proper'),
+  ('M269', '2025-10-08', 'TCH/1002', 'YES', 'proper'),
+  ('M277', '2025-10-08', 'TCH/1004', 'YES', 'proper'),
+  ('M285', '2025-10-08', 'TCH/1010', 'YES', 'proper'),
+  ('M293', '2025-10-08', 'TCH/1006', 'YES', 'proper'),
+  ('M301', '2025-10-08', 'TCH/1009', 'YES', 'proper');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M204', '2025-10-03', 'TCH/1003', 'YES', 'proper'),
+  ('M212', '2025-10-03', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M220', '2025-10-03', 'TCH/1001', 'YES', 'proper'),
+  ('M228', '2025-10-03', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M236', '2025-10-03', 'TCH/1005', 'YES', 'proper'),
+  ('M244', '2025-10-03', 'TCH/1008', 'YES', 'proper'),
+  ('M252', '2025-10-03', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M260', '2025-10-03', 'TCH/1007', 'YES', 'proper'),
+  ('M268', '2025-10-03', 'TCH/1002', 'YES', 'proper'),
+  ('M276', '2025-10-03', 'TCH/1004', 'YES', 'proper'),
+  ('M284', '2025-10-03', 'TCH/1010', 'YES', 'proper'),
+  ('M292', '2025-10-03', 'TCH/1006', 'YES', 'proper'),
+  ('M300', '2025-10-03', 'TCH/1009', 'YES', 'proper');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M203', '2025-09-09', 'TCH/1003', 'YES', 'proper'),
+  ('M211', '2025-09-09', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M219', '2025-09-09', 'TCH/1001', 'YES', 'proper'),
+  ('M227', '2025-09-09', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M235', '2025-09-09', 'TCH/1005', 'YES', 'proper'),
+  ('M243', '2025-09-09', 'TCH/1008', 'YES', 'proper'),
+  ('M251', '2025-09-09', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M259', '2025-09-09', 'TCH/1007', 'YES', 'proper'),
+  ('M267', '2025-09-09', 'TCH/1002', 'YES', 'proper'),
+  ('M275', '2025-09-09', 'TCH/1004', 'YES', 'proper'),
+  ('M283', '2025-09-09', 'TCH/1010', 'YES', 'proper'),
+  ('M291', '2025-09-09', 'TCH/1006', 'YES', 'proper'),
+  ('M299', '2025-09-09', 'TCH/1009', 'YES', 'proper');
+
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M01', '2025-09-29', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M09', '2025-09-29', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M17', '2025-09-29', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M25', '2025-09-29', 'TCH/1001', 'YES', 'proper'),
+  ('M33', '2025-09-29', 'TCH/1003', 'YES', 'proper'),
+  ('M41', '2025-09-29', 'TCH/1005', 'YES', 'proper'),
+  ('M49', '2025-09-29', 'TCH/1008', 'YES', 'proper'),
+  ('M57', '2025-09-29', 'TCH/1007', 'YES', 'proper'),
+  ('M65', '2025-09-29', 'TCH/1002', 'YES', 'proper'),
+  ('M73', '2025-09-29', 'TCH/1004', 'YES', 'proper'),
+  ('M81', '2025-09-29', 'TCH/1010', 'YES', 'proper'),
+  ('M89', '2025-09-29', 'TCH/1006', 'YES', 'proper'),
+  ('M97', '2025-09-29', 'TCH/1009', 'YES', 'proper');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M02', '2025-10-02', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M10', '2025-10-02', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M18', '2025-10-02', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M26', '2025-10-02', 'TCH/1001', 'YES', 'proper'),
+  ('M34', '2025-10-02', 'TCH/1003', 'YES', 'proper'),
+  ('M42', '2025-10-02', 'TCH/1005', 'YES', 'proper'),
+  ('M50', '2025-10-02', 'TCH/1008', 'YES', 'proper'),
+  ('M58', '2025-10-02', 'TCH/1007', 'YES', 'proper'),
+  ('M66', '2025-10-02', 'TCH/1002', 'YES', 'proper'),
+  ('M74', '2025-10-02', 'TCH/1004', 'YES', 'proper'),
+  ('M82', '2025-10-02', 'TCH/1010', 'YES', 'proper'),
+  ('M90', '2025-10-02', 'TCH/1006', 'YES', 'proper'),
+  ('M98', '2025-10-02', 'TCH/1009', 'YES', 'proper');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M03', '2025-10-01', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M11', '2025-10-01', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M19', '2025-10-01', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M27', '2025-10-01', 'TCH/1001', 'YES', 'proper'),
+  ('M35', '2025-10-01', 'TCH/1003', 'YES', 'proper'),
+  ('M43', '2025-10-01', 'TCH/1005', 'YES', 'proper'),
+  ('M51', '2025-10-01', 'TCH/1008', 'YES', 'proper'),
+  ('M59', '2025-10-01', 'TCH/1007', 'YES', 'proper'),
+  ('M67', '2025-10-01', 'TCH/1002', 'YES', 'proper'),
+  ('M75', '2025-10-01', 'TCH/1004', 'YES', 'proper'),
+  ('M83', '2025-10-01', 'TCH/1010', 'YES', 'proper'),
+  ('M91', '2025-10-01', 'TCH/1006', 'YES', 'proper'),
+  ('M99', '2025-10-01', 'TCH/1009', 'YES', 'proper');
+
+  INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M04', '2025-10-03', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M100', '2025-10-03', 'TCH/1009', 'YES', 'proper'),
+  ('M12', '2025-10-03', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M20', '2025-10-03', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M28', '2025-10-03', 'TCH/1001', 'YES', 'proper'),
+  ('M36', '2025-10-03', 'TCH/1003', 'YES', 'proper'),
+  ('M44', '2025-10-03', 'TCH/1005', 'YES', 'proper'),
+  ('M52', '2025-10-03', 'TCH/1008', 'YES', 'proper'),
+  ('M60', '2025-10-03', 'TCH/1007', 'YES', 'proper'),
+  ('M68', '2025-10-03', 'TCH/1002', 'YES', 'proper'),
+  ('M76', '2025-10-03', 'TCH/1004', 'YES', 'proper'),
+  ('M84', '2025-10-03', 'TCH/1010', 'YES', 'proper'),
+  ('M92', '2025-10-03', 'TCH/1006', 'YES', 'proper');
+
+ INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M05', '2025-10-02', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M101', '2025-10-02', 'TCH/1009', 'YES', 'proper'),
+  ('M13', '2025-10-02', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M21', '2025-10-02', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M29', '2025-10-02', 'TCH/1001', 'YES', 'proper'),
+  ('M37', '2025-10-02', 'TCH/1003', 'YES', 'proper'),
+  ('M45', '2025-10-02', 'TCH/1005', 'YES', 'proper'),
+  ('M53', '2025-10-02', 'TCH/1008', 'YES', 'proper'),
+  ('M61', '2025-10-02', 'TCH/1007', 'YES', 'proper'),
+  ('M69', '2025-10-02', 'TCH/1002', 'YES', 'proper'),
+  ('M77', '2025-10-02', 'TCH/1004', 'YES', 'proper'),
+  ('M85', '2025-10-02', 'TCH/1010', 'YES', 'proper'),
+  ('M93', '2025-10-02', 'TCH/1006', 'YES', 'proper');
+
+ INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M06', '2025-10-01', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M102', '2025-10-01', 'TCH/1009', 'YES', 'proper'),
+  ('M14', '2025-10-01', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M22', '2025-10-01', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M30', '2025-10-01', 'TCH/1001', 'YES', 'proper'),
+  ('M38', '2025-10-01', 'TCH/1003', 'YES', 'proper'),
+  ('M46', '2025-10-01', 'TCH/1005', 'YES', 'proper'),
+  ('M54', '2025-10-01', 'TCH/1008', 'YES', 'proper'),
+  ('M62', '2025-10-01', 'TCH/1007', 'YES', 'proper'),
+  ('M70', '2025-10-01', 'TCH/1002', 'YES', 'proper'),
+  ('M78', '2025-10-01', 'TCH/1004', 'YES', 'proper'),
+  ('M86', '2025-10-01', 'TCH/1010', 'YES', 'proper'),
+  ('M94', '2025-10-01', 'TCH/1006', 'YES', 'proper');
+
+  INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M07', '2025-09-29', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M103', '2025-09-29', 'TCH/1009', 'YES', 'proper'),
+  ('M15', '2025-09-29', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M23', '2025-09-29', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M31', '2025-09-29', 'TCH/1001', 'YES', 'proper'),
+  ('M39', '2025-09-29', 'TCH/1003', 'YES', 'proper'),
+  ('M47', '2025-09-29', 'TCH/1005', 'YES', 'proper'),
+  ('M55', '2025-09-29', 'TCH/1008', 'YES', 'proper'),
+  ('M63', '2025-09-29', 'TCH/1007', 'YES', 'proper'),
+  ('M71', '2025-09-29', 'TCH/1002', 'YES', 'proper'),
+  ('M79', '2025-09-29', 'TCH/1004', 'YES', 'proper'),
+  ('M87', '2025-09-29', 'TCH/1010', 'YES', 'proper'),
+  ('M95', '2025-09-29', 'TCH/1006', 'YES', 'proper');
+
+  INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M08', '2025-10-03', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M104', '2025-10-03', 'TCH/1009', 'YES', 'proper'),
+  ('M16', '2025-10-03', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M24', '2025-10-03', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M32', '2025-10-03', 'TCH/1001', 'YES', 'proper'),
+  ('M40', '2025-10-03', 'TCH/1003', 'YES', 'proper'),
+  ('M48', '2025-10-03', 'TCH/1005', 'YES', 'proper'),
+  ('M56', '2025-10-03', 'TCH/1008', 'YES', 'proper'),
+  ('M64', '2025-10-03', 'TCH/1007', 'YES', 'proper'),
+  ('M72', '2025-10-03', 'TCH/1002', 'YES', 'proper'),
+  ('M80', '2025-10-03', 'TCH/1004', 'YES', 'proper'),
+  ('M88', '2025-10-03', 'TCH/1010', 'YES', 'proper'),
+  ('M96', '2025-10-03', 'TCH/1006', 'YES', 'proper');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M201', '2025-09-03', 'TCH/1003', 'YES', 'proper'),
+  ('M209', '2025-09-03', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M217', '2025-09-03', 'TCH/1001', 'YES', 'proper'),
+  ('M225', '2025-09-03', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M233', '2025-09-03', 'TCH/1005', 'YES', 'proper'),
+  ('M241', '2025-09-03', 'TCH/1008', 'YES', 'proper'),
+  ('M249', '2025-09-03', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M257', '2025-09-03', 'TCH/1007', 'YES', 'proper'),
+  ('M265', '2025-09-03', 'TCH/1002', 'YES', 'proper'),
+  ('M273', '2025-09-03', 'TCH/1004', 'YES', 'proper'),
+  ('M281', '2025-09-03', 'TCH/1010', 'YES', 'proper'),
+  ('M289', '2025-09-03', 'TCH/1006', 'YES', 'proper'),
+  ('M297', '2025-09-03', 'TCH/1009', 'YES', 'proper');
+
+INSERT INTO marks (m_id, Entered_date, Reg_no, is_CA, st_status)
+VALUES
+  ('M202', '2025-09-05', 'TCH/1003', 'YES', 'proper'),
+  ('M210', '2025-09-05', 'TCH/1014', 'YES', 'CA repeat'),
+  ('M218', '2025-09-05', 'TCH/1001', 'YES', 'proper'),
+  ('M226', '2025-09-05', 'TCH/1012', 'YES', 'CA repeat'),
+  ('M234', '2025-09-05', 'TCH/1005', 'YES', 'proper'),
+  ('M242', '2025-09-05', 'TCH/1008', 'YES', 'proper'),
+  ('M250', '2025-09-05', 'TCH/1011', 'YES', 'Both repeat'),
+  ('M258', '2025-09-05', 'TCH/1007', 'YES', 'proper'),
+  ('M266', '2025-09-05', 'TCH/1002', 'YES', 'proper'),
+  ('M274', '2025-09-05', 'TCH/1004', 'YES', 'proper'),
+  ('M282', '2025-09-05', 'TCH/1010', 'YES', 'proper'),
+  ('M290', '2025-09-05', 'TCH/1006', 'YES', 'proper'),
+  ('M298', '2025-09-05', 'TCH/1009', 'YES', 'proper');
+
+CREATE USER 'Student'@'localhost' IDENTIFIED BY '1234';
+
+GRANT SELECT ON FOT.marks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.q1_marks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.q2_marks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.q3_marks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.assesment_marks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.mid_masks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.end_marks TO 'Student'@'localhost';
+GRANT SELECT ON FOT.attendence TO 'Student'@'localhost';
+GRANT SELECT ON FOT.all_attendence_with_medical TO 'Student'@'localhost';
+GRANT SELECT ON FOT.final_grades TO 'Student'@'localhost';
+
+FLUSH PRIVILEGES;
+
+CREATE USER 'Admin'@'localhost' IDENTIFIED BY '1234';
+GRANT ALL PRIVILEGES ON FOT.* TO 'Admin'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;

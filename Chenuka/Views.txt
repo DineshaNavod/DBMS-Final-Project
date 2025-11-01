@@ -66,8 +66,6 @@ FROM end_marks
 WHERE status='repeat';
 
 
-
-
 CREATE OR REPLACE VIEW student_sgpa AS
 SELECT 
     fg.reg_no,

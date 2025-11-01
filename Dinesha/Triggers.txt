@@ -1,1 +1,174 @@
 //Triggers Here
+
+//trigers for 2 limit
+
+DELIMITER //
+CREATE TRIGGER trg_medical_limit_insert
+BEFORE INSERT ON medical
+FOR EACH ROW
+BEGIN
+    DECLARE med_count INT;
+    IF NEW.status!='not approved' THEN
+        SELECT COUNT(*)
+        INTO med_count
+        FROM medical
+        WHERE reg_no = NEW.reg_no
+        AND session_id = NEW.session_id
+        AND c_code=NEW.c_code
+        AND status IN ('approved', 'pending');
+        IF med_count >= 2 THEN
+            SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Error: Student already has 2 approved or pending medicals for this session';
+        END IF;
+    END IF;
+END//
+
+DELIMITER ;
+
+//triger for change status
+
+DELIMITER //
+
+CREATE TRIGGER AFFECT_MEDICAL_for_attendence
+AFTER INSERT ON medical
+FOR EACH ROW
+BEGIN
+    IF NEW.status = 'approved' THEN
+        UPDATE attendence
+        SET change_status = 'Present',
+            Is_medical_affect = 'yes'
+        WHERE reg_no = NEW.reg_no
+          AND session_id = NEW.session_id
+          AND atten_date = NEW.affectted_date;
+    END IF;
+END//
+DELIMITER ;
+
+//update trigers
+
+DELIMITER //
+
+CREATE TRIGGER AFFECT_MEDICAL_for_attendence_update_table
+AFTER update ON medical
+FOR EACH ROW
+BEGIN
+    IF NEW.status = 'approved' AND OLD.status <> 'approved' THEN
+        UPDATE attendence
+        SET change_status = 'Present',
+            Is_medical_affect = 'yes'
+        WHERE reg_no = NEW.reg_no
+          AND session_id = NEW.session_id
+          AND atten_date = NEW.affectted_date;
+    END IF;
+END//
+DELIMITER ;
+
+//medical_for_exam
+
+DELIMITER //
+CREATE TRIGGER update_marks_base_on_medical
+AFTER INSERT ON medical_for_exam
+FOR EACH ROW
+BEGIN
+
+    IF NEW.status='approved' THEN
+            IF NEW.marks_type = 'q1_marks' THEN
+                UPDATE q1_marks
+                SET q1 = 'MC'
+                WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+
+            ELSEIF NEW.marks_type = 'q2_marks' THEN
+                UPDATE q2_marks
+                SET q2 = 'MC'
+                WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+
+            ELSEIF NEW.marks_type = 'q3_marks' THEN
+                UPDATE q3_marks
+                SET q3 = 'MC'
+                WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+
+            ELSEIF NEW.marks_type = 'assesment_marks' THEN
+                UPDATE assesment_marks
+                SET Assesment_marks = 'MC'
+                WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+
+            ELSEIF NEW.marks_type = 'mid_masks' THEN
+                IF NEW.is_practical_or_theory = 'practical' THEN
+                    UPDATE mid_masks
+                    SET practical = 'MC'
+                    WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+                ELSEIF NEW.is_practical_or_theory = 'theory' THEN
+                    UPDATE mid_masks
+                    SET theory = 'MC'
+                    WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+                END IF;
+
+            ELSEIF NEW.marks_type = 'end_marks' THEN
+                IF NEW.is_practical_or_theory = 'practical' THEN
+                    UPDATE end_marks
+                    SET practical = 'MC'
+                    WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+                ELSEIF NEW.is_practical_or_theory = 'theory' THEN
+                    UPDATE end_marks
+                    SET theory = 'MC'
+                    WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+                END IF;
+            END IF;
+    END IF;
+END //
+DELIMITER ;
+
+//tiger throw
+DELIMITER //
+CREATE TRIGGER update_marks_base_on_medical_update
+AFTER UPDATE ON medical_for_exam
+FOR EACH ROW
+BEGIN
+    -- Run only when status becomes "approved"
+    IF NEW.status = 'approved' AND OLD.status != 'approved' THEN
+        
+        IF NEW.marks_type = 'q1_marks' THEN
+            UPDATE q1_marks
+            SET q1 = 'MC'
+            WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+
+        ELSEIF NEW.marks_type = 'q2_marks' THEN
+            UPDATE q2_marks
+            SET q2 = 'MC'
+            WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+
+        ELSEIF NEW.marks_type = 'q3_marks' THEN
+            UPDATE q3_marks
+            SET q3 = 'MC'
+            WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+
+        ELSEIF NEW.marks_type = 'assesment_marks' THEN
+            UPDATE assesment_marks
+            SET Assesment_marks = 'MC'
+            WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+
+        ELSEIF NEW.marks_type = 'mid_masks' THEN
+            IF NEW.is_practical_or_theory = 'practical' THEN
+                UPDATE mid_masks
+                SET practical = 'MC'
+                WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+            ELSEIF NEW.is_practical_or_theory = 'theory' THEN
+                UPDATE mid_masks
+                SET theory = 'MC'
+                WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+            END IF;
+
+        ELSEIF NEW.marks_type = 'end_marks' THEN
+            IF NEW.is_practical_or_theory = 'practical' THEN
+                UPDATE end_marks
+                SET practical = 'MC'
+                WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+            ELSEIF NEW.is_practical_or_theory = 'theory' THEN
+                UPDATE end_marks
+                SET theory = 'MC'
+                WHERE reg_no = NEW.reg_no AND c_code = NEW.c_code;
+            END IF;
+        END IF;
+    END IF;
+END //
+DELIMITER ;
