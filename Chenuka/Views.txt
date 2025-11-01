@@ -24,6 +24,9 @@ JOIN course_unit c ON fg.c_code = c.c_code
 WHERE fg.status IN ('proper','both repeat','suspended')
   AND c.c_code <> 'ENG1222' -- exclude ENG1222
 GROUP BY fg.reg_no;
+
+
+//proper end view
 CREATE OR REPLACE VIEW proper_end_marks_view AS
 SELECT
     reg_no,
@@ -41,6 +44,9 @@ SELECT
     END AS end_result
 FROM end_marks
 WHERE status='proper';
+
+//repeat end view
+
 CREATE OR REPLACE VIEW repeat_end_marks_view AS
 SELECT
     reg_no,
